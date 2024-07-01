@@ -1,0 +1,126 @@
+.logo {
+  margin-right: auto;
+  background-color: rgba(05, 05, 05, 0.1);
+  padding: 0.5rem;
+  color: #e67e22;
+  cursor: pointer;
+}
+
+.logo .h3 {
+  line-height: 1;
+  letter-spacing: 0.7;
+  color: #e67e22;
+  font-size: 1.4rem;
+  text-align: center;
+  font-weight: bold;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+}
+
+.h3 span {
+  color: #ccc;
+  background-color: green;
+  border-top-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+  padding: 0.2rem;
+  font-weight: bold;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+}
+
+.logo .p {
+  font-size: 0.7rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  padding: 0.5rem;
+  padding-left: 4px;
+  background: rgba(05, 05, 05, 0.5);
+  border-top-right-radius: 1rem;
+  border-bottom-left-radius: 1rem;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+}
+
+.logo .p .span {
+  background: rgba(05, 05, 05, 0.4);
+  font-weight: bold;
+  border-radius: 0.4rem;
+  letter-spacing: 0.2;
+  padding: 0.2rem;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+}
+
+.footer {
+  background: rgba(295, 295, 295, 0.7);
+}
+
+.inner_footer {
+  display: flex;
+  padding: 5rem 3%;
+  flex-direction: row;
+  gap: 15rem;
+  margin-bottom: 2rem;
+  color: #fff;
+}
+
+.footer .h5 {
+  font-size: 1.7rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+}
+
+.footer .li {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  white-space: nowrap;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  cursor: pointer;
+  &:hover {
+    color: #e67e22;
+  }
+}
+
+.footer .p {
+  text-align: end;
+  margin-right: 8rem;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  color: green;
+}
+
+@media (max-width: 768px) {
+  .footer .logo {
+    margin: 0 auto;
+  }
+  .inner_footer {
+    flex-direction: column;
+    gap: 6rem;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .footer .p {
+    text-align: center;
+    margin: 0 auto;
+  }
+
+  .footer .h5 {
+    text-align: center;
+  }
+
+  .footer .li {
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .inner_footer {
+    flex-direction: column;
+    text-align: center;
+  }
+}
