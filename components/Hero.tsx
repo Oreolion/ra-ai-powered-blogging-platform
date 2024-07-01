@@ -26,10 +26,11 @@ const Hero = () => {
         <div className={styles.right__herosection}>
           <div className={styles.imgbox}>
             <Image
-              src="/public/images/andrew-neel-cckf4TsHAuw-unsplash.jpg"
+            className={styles.img}
+              src="/images/andrew-neel-cckf4TsHAuw-unsplash.jpg"
               alt="backgroundimage"
-              width={30}
-              height={30}
+              width={600}
+              height={600}
             />
           </div>
         </div>

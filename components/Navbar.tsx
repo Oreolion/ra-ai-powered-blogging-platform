@@ -1,12 +1,10 @@
 "use client";
-
 import Link from "next/link";
-
 import React, { useState } from "react";
 import styles from "../styles/navbar.module.css";
 
 const Navbar = () => {
-  const [toggleNavbar, setToggleNavbar] = useState(false);
+  const [toggleNavbar, setToggleNavbar] = useState<boolean>(false);
 
   const toggleMenu = () => {
     return setToggleNavbar(!toggleNavbar);

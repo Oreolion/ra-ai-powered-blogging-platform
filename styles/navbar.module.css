@@ -71,6 +71,10 @@
   justify-content: center;
 }
 
+.navlist .li {
+    font-size: 1.2rem;
+}
+
 .header button {
   &:hover {
     color: #e67e22;
