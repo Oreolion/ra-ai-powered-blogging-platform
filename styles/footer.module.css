@@ -57,7 +57,7 @@
 
 .footer {
   background: rgba(295, 295, 295, 0.7);
-  height: 23rem;
+  height: 18rem;
   margin: 0 auto;
   margin-bottom: -8rem;
 }
@@ -78,7 +78,7 @@
 
 
 .footer .h5 {
-  font-size: 1.7rem;
+  font-size: 1.4rem;
   font-weight: bold;
   margin-bottom: 1.5rem;
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
@@ -86,7 +86,7 @@
 }
 
 .footer .li {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: bold;
   margin-bottom: .5rem;
   white-space: nowrap;

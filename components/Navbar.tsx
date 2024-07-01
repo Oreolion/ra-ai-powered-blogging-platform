@@ -75,17 +75,17 @@ const Navbar = () => {
             </Link>
           </li>
           <li>
-            <Link className={styles.li} href="/login">
+            <Link className={styles.li} href="/sign-in">
               Write
             </Link>
           </li>
           <li>
-            <Link className={styles.li} href="/login">
+            <Link className={styles.li} href="/sign-in">
               Sign in
             </Link>
           </li>
           <li>
-            <Link className={styles.li} href="/signup">
+            <Link className={styles.li} href="/sign-up">
               <button type="button">Get Started</button>
             </Link>
           </li>
@@ -101,18 +101,18 @@ const Navbar = () => {
               </Link>
             </li>
             <li>
-              <Link className={styles.li} href="/login">
+              <Link className={styles.li} href="/sign-in">
                 Write
               </Link>
             </li>
             <li>
-              <Link className={styles.li} href="/login">
+              <Link className={styles.li} href="/sign-in">
                 Sign in
               </Link>
             </li>
             <li>
-              <Link className={styles.li} href="/signup">
-                <button>Get Started</button>
+              <Link className={styles.li} href="/sign-up">
+                <button type="button">Get Started</button>
               </Link>
             </li>
           </ul>

@@ -41,7 +41,7 @@
 .rightbox {
   background-color: rgba(5, 5, 5, 0.2);
   flex: 1 1 50%;
-  width: 35rem;
+  width: 33rem;
   padding: 3rem;
   color: #ccc;
   box-shadow: 6px 4px 4px rgba(250, 250, 220, 0.2);

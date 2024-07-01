@@ -18,7 +18,7 @@ const Hero = () => {
             any topic.
           </h3>
           <button type="button" className={styles.hero_btn}>
-            <Link className={styles.li} href="/signup">
+            <Link className={styles.li} href="/sign-up">
               Get Started
             </Link>
           </button>
