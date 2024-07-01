@@ -16,6 +16,9 @@ const Footer = () => {
             </p>
           </Link>
         </div>
+        <div className="styles.boxes">
+            
+        </div>
         <div className={styles.box1}>
           <h5 className={styles.h5}>Explore</h5>
           <ul>
