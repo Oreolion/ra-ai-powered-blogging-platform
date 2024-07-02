@@ -8,8 +8,10 @@ import { Webhook } from "svix";
 
 import { internal } from "./_generated/api";
 import { httpAction } from "./_generated/server";
+import { useRouter } from "next/navigation";
 
 const handleClerkWebhook = httpAction(async (ctx, request) => {
+  const router = useRouter();
   const event = await validateRequest(request);
   if (!event) {
     return new Response("Invalid request", { status: 400 });
@@ -22,6 +24,7 @@ const handleClerkWebhook = httpAction(async (ctx, request) => {
         imageUrl: event.data.image_url,
         name: event.data.first_name as string,
       });
+      router.push("/dashboard");
       break;
     case "user.updated":
       await ctx.runMutation(internal.users.updateUser, {

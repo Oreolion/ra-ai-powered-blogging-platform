@@ -9,13 +9,13 @@ const ForthSection = () => {
       <div className={styles.inner_container}>
         <div className={styles.leftbox}>
           <div className={styles.imgbox}>
-            <Image className={styles.img} src="/images/pexels-justin-shaifer-1222271.jpg" alt="img" width={100} height={120}/>
+            <Image className={styles.img} src="/images/pexels-justin-shaifer-1222271.jpg" alt="img" width={100} height={100}/>
           </div>
           <div className={styles.imgbox}>
-            <Image className={styles.img} src="/images/pexels-andrea-piacquadio-762020.jpg" alt="img" width={120} height={120}/>
+            <Image className={styles.img} src="/images/pexels-andrea-piacquadio-762020.jpg" alt="img" width={100} height={100}/>
           </div>
           <div className={styles.imgbox}>
-            <Image className={styles.img} src="/images/pexels-daniel-xavier-1239291.jpg" alt="img" width={120} height={120}/>
+            <Image className={styles.img} src="/images/pexels-daniel-xavier-1239291.jpg" alt="img" width={100} height={100}/>
           </div>
         </div>
         <div className={styles.rightbox}>

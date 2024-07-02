@@ -6,7 +6,7 @@ export default defineSchema({
   Posts: defineTable({
     audioStorageId: v.optional(v.id("_storage")),
     user: v.id("users"),
-    podcastTitle: v.string(),
+    postTitle: v.string(),
     postDescription: v.string(),
     audioUrl: v.optional(v.string()),
     audioStrorageId: v.optional(v.id("_storage")),
