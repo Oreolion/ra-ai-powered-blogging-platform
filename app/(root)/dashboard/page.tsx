@@ -13,6 +13,8 @@ const Page = () => {
     <>
     <h1>This is the dashboard</h1>
 
+    
+
       <SignedIn>
         <div className="flex-center w-full pb-14 max-lg:px-4 lg:pr-8">
           <button

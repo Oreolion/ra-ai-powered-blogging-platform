@@ -1,0 +1,137 @@
+.logo {
+  color: #e67e22;
+  font-weight: bold;
+  margin-right: auto;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+}
+
+.h3 {
+  line-height: 1;
+  letter-spacing: 0.7;
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.h3 .span {
+  color: #ccc;
+  background-color: #e67e22;
+  border-top-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+  padding: 0.2rem;
+  font-weight: bold;
+}
+
+.logo .p {
+  font-size: .8rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  padding: 0.5rem;
+  padding-left: 4px;
+  background: rgba(255, 255, 255, 0.2);
+  border-top-right-radius: 1rem;
+  border-bottom-left-radius: 1rem;
+}
+
+.logo .p .span {
+  background: rgba(355, 355, 355, 0.3);
+  background-color: green;
+  font-weight: bold;
+  border-radius: 0.4rem;
+  padding: 0.2rem;
+  font-size: 1rem;
+}
+.dashboard__nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 2rem;
+  width: 18rem;
+  height: 100vh;
+  background: rgba(0, 0, 05, 0.8);
+  color: #ccc;
+  font-size: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 1111;
+}
+
+/* nav .dashboard__navlists .li a.router-link-exact-active {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 0.3rem;
+} */
+
+.logo {
+  margin: 1rem 0;
+  margin-bottom: 2rem;
+}
+
+.mobile {
+  display: none;
+}
+
+.dashboard__navlists .link {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 1rem;
+  margin-left: 2rem;
+  white-space: nowrap;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1rem;
+  color: #ddd;
+  &:hover {
+    letter-spacing: 1px;
+  }
+}
+
+.dashboard__navlists .link svg {
+  background-color: #fff;
+  fill: #e67e22;
+  height: 2.1rem;
+  border-radius: 50%;
+  padding: 0.2rem;
+  width: 2.1rem;
+}
+
+.dashboard__navlists .logout {
+  color: red;
+  font-weight: bold;
+}
+
+.dashboard__navlists .h5 {
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  font-weight: bold;
+  border-bottom: 4px solid #e67e22;
+}
+
+.dashboard__navlists .link .li {
+  display: flex;
+  align-items: center;
+  &:hover {
+    color: var(--primary);
+  }
+}
+
+@media (max-width: 767px) {
+  .mobile {
+    display: flex;
+  }
+
+  .dashboard__nav {
+    display: none;
+  }
+
+  .mobile {
+    display: flex;
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard__nav {
+    width: 17rem;
+  }
+}
