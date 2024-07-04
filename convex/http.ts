@@ -8,40 +8,45 @@ import { Webhook } from "svix";
 
 import { internal } from "./_generated/api";
 import { httpAction } from "./_generated/server";
-import { useRouter } from "next/navigation";
 
 const handleClerkWebhook = httpAction(async (ctx, request) => {
-  const router = useRouter();
+  console.log("Webhook handler called");
   const event = await validateRequest(request);
   if (!event) {
+    console.error("Invalid request");
+
     return new Response("Invalid request", { status: 400 });
   }
-  switch (event.type) {
-    case "user.created":
-      await ctx.runMutation(internal.users.createUser, {
-        clerkId: event.data.id,
-        email: event.data.email_addresses[0].email_address,
-        imageUrl: event.data.image_url,
-        name: event.data.first_name as string,
-      });
-      router.push("/dashboard");
-      break;
-    case "user.updated":
-      await ctx.runMutation(internal.users.updateUser, {
-        clerkId: event.data.id,
-        imageUrl: event.data.image_url,
-        email: event.data.email_addresses[0].email_address,
-      });
-      break;
-    case "user.deleted":
-      await ctx.runMutation(internal.users.deleteUser, {
-        clerkId: event.data.id as string,
-      });
-      break;
+  try {
+    switch (event.type) {
+      case "user.created":
+        await ctx.runMutation(internal.users.createUser, {
+          clerkId: event.data.id,
+          email: event.data.email_addresses[0].email_address,
+          imageUrl: event.data.image_url,
+          name: event.data.first_name as string,
+        });
+        break;
+      case "user.updated":
+        await ctx.runMutation(internal.users.updateUser, {
+          clerkId: event.data.id,
+          imageUrl: event.data.image_url,
+          email: event.data.email_addresses[0].email_address,
+        });
+        break;
+      case "user.deleted":
+        await ctx.runMutation(internal.users.deleteUser, {
+          clerkId: event.data.id as string,
+        });
+        break;
+      default:
+        console.warn("Unhandled event type:", event.type);
+    }
+  } catch (error) {
+    console.error("Error handling webhook event:", error);
+    return new Response("Internal Server Error", { status: 500 });
   }
-  return new Response(null, {
-    status: 200,
-  });
+  return new Response(null, { status: 200 });
 });
 
 const http = httpRouter();
@@ -68,8 +73,13 @@ const validateRequest = async (
     "svix-signature": headerPayload.get("svix-signature")!,
   };
   const wh = new Webhook(webhookSecret);
-  const event = wh.verify(payloadString, svixHeaders);
-  return event as unknown as WebhookEvent;
+  try {
+    const event = wh.verify(payloadString, svixHeaders);
+    return event as unknown as WebhookEvent;
+  } catch (error) {
+    console.error("Error validating webhook request:", error);
+    return undefined;
+  }
 };
 
 export default http;
