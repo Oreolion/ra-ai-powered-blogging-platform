@@ -3,6 +3,7 @@
 import React from 'react'
 import { SignedIn, useClerk } from "@clerk/nextjs";
 import { useRouter } from 'next/navigation';
+import HomeFeeds from '@/components/HomeFeeds';
 
 
 const Page = () => {
@@ -11,10 +12,8 @@ const Page = () => {
 
   return (
     <>
-
-
-
-      <SignedIn>
+    <HomeFeeds></HomeFeeds>
+      {/* <SignedIn>
         <div className="mt-40 flex-center w-full pb-14 max-lg:px-4 lg:pr-8">
           <button
           type='button'
@@ -24,8 +23,8 @@ const Page = () => {
             Log Out
           </button>
         </div>
-      </SignedIn>
-    </>
+      </SignedIn> */}
+      </>
   )
 }
 
