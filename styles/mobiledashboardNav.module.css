@@ -212,8 +212,8 @@
 
 .nav__icons .notification_icon {
   display: flex;
-  height: 3rem;
-  width: 3rem;
+  height: 2rem;
+  width: 2rem;
 }
 .icons .menu_icon,
 .icons .close_icon {
@@ -235,11 +235,13 @@
 .caret {
   display: inline-block;
   cursor: pointer;
+  height: 3rem;
+  width: 3rem;
 }
 
 .svg {
-  height: 3rem;
-  width: 3rem;
+  height: 2rem;
+  width: 2rem;
   display: none;
   align-items: center;
   justify-content: center;
@@ -248,9 +250,9 @@
 
 .search_form {
   position: absolute;
-  width: 46rem;
+  width: 34rem;
   top: 25%;
-  right: 30%;
+  right: 32%;
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -290,13 +292,16 @@
 }
 
 .header .img__box {
-  height: 7rem;
-  width: 7rem;
+  height: 5rem;
+  width: 5rem;
   border-radius: 50%;
   background-color: #000;
-  top: 15%;
-  right: 10%;
+  top: 19%;
+  right: 12%;
   position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .img__box .span {
@@ -307,7 +312,7 @@
 
 .header .img__box .svg {
   display: block;
-  margin-top: 2rem;
+  margin-top: .5rem;
 }
 
 .header .img__box img {
@@ -337,9 +342,6 @@
     white-space: nowrap;
   }
 
-  .header .img__box .svg {
-    margin-top: 1rem;
-  }
 
   .innerdashboard__container .header .logo {
     margin-bottom: 1rem;
@@ -387,8 +389,8 @@
   }
 
   .header .img__box {
-    height: 5rem;
-    width: 5rem;
+    height: 4.5rem;
+    width: 4.5rem;
     top: 22%;
     right: 10%;
     position: absolute;
@@ -402,7 +404,7 @@
 
 @media (max-width: 480px) {
   .logo .h3 {
-    font-size: 1.7rem;
+    font-size: 1.3rem;
   }
 
   .logo .p {
@@ -422,7 +424,7 @@
 
   .header .nav__icons {
     display: flex;
-    gap: 3rem;
+    gap: 2rem;
     position: absolute;
     top: 40%;
     right: 23%;
@@ -435,9 +437,9 @@
     display: none;
   }
 
-  .caret {
+  /* .caret {
     margin-left: 1rem;
-  }
+  } */
 
   .header .nav__icons {
     right: 27%;

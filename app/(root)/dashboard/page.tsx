@@ -11,16 +11,15 @@ const Page = () => {
 
   return (
     <>
-    <h1>This is the dashboard</h1>
 
-    
+
 
       <SignedIn>
-        <div className="flex-center w-full pb-14 max-lg:px-4 lg:pr-8">
+        <div className="mt-40 flex-center w-full pb-14 max-lg:px-4 lg:pr-8">
           <button
           type='button'
             onClick={() => signOut(() => router.push("/sign-in"))}
-            className="text-16 w-full bg-orange-1 font-extrabold"
+            className="text-16 w-40 bg-orange-1 font-extrabold"
           >
             Log Out
           </button>

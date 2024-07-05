@@ -8,12 +8,10 @@ export default function RootLayout({
 }>) {
   return (
     <main className="relative h-screen w-full">
-        <DashboardNav></DashboardNav>
-        <MobileDashBoardNav></MobileDashBoardNav>
+      <DashboardNav></DashboardNav>
+      <MobileDashBoardNav></MobileDashBoardNav>
 
       {children}
-
-
     </main>
   );
 }
