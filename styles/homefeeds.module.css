@@ -25,12 +25,12 @@
 .leftbox {
   background: rgba(006, 006, 006, 0.2);
   padding: 1rem;
-  padding-right: 4rem;
+  padding-right: 2rem;
   border-radius: 1rem;
 }
 
 .leftbox .h1 {
-  font-size: 2rem;
+  font-size: 1.7rem;
   letter-spacing: 2px;
 }
 
@@ -211,13 +211,15 @@
 
 @media (max-width: 767px) {
   .dashboard__feeds {
-    margin-left: 2rem;
+    margin-left: 1rem;
     padding: 1rem;
+    width: 40rem;
   }
 
   .post {
     height: 65rem;
     min-width: 29rem;
+    width: 37rem;
   }
 
   .post .h2 {

@@ -1,9 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "@/styles/homefeeds.module.css";
+import AddBlogPost from "./AddBlogPost";
 
 const HomeFeeds = () => {
+
+    const [addNewPost, setAddNewPost] = useState<boolean>(false)
+
+    const handleTogglePostInput = () => {
+        setAddNewPost(!addNewPost)
+    }
+
   return (
     <>
+    {addNewPost && <AddBlogPost></AddBlogPost>}
+    
       <section className={styles.dashboard__feeds}>
         <div className={styles.dashboardfeeds__header} v-if="!togglePostInput">
           <div className={styles.leftbox}>
@@ -13,7 +23,7 @@ const HomeFeeds = () => {
           <button
             className={styles.button}
             type="button"
-            //    onClick={handleTogglePostInput}
+               onClick={handleTogglePostInput}
           >
             Post a content
           </button>
