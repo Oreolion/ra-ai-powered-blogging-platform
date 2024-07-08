@@ -56,14 +56,58 @@ button {
   }
 }
 
-.glassmorphism-auth {
+.glassmorphism {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+  }
+  .glassmorphism-auth {
     background: rgba(6, 3, 3, 0.711);
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
   }
-
-@media (prefers-color-scheme: dark) {
-}
+  .glassmorphism-black {
+    background: rgba(18, 18, 18, 0.64);
+    backdrop-filter: blur(37px);
+    -webkit-backdrop-filter: blur(37px);
+  }
+  
+  /* ======= clerk overrides ======== */
+  .cl-socialButtonsIconButton {
+    border: 2px solid #222429;
+  }
+  .cl-button {
+    color: white;
+  }
+  .cl-socialButtonsProviderIcon__github {
+    filter: invert(1);
+  }
+  .cl-internal-b3fm6y {
+    background: #f97535;
+  }
+  .cl-formButtonPrimary {
+    background: #f97535;
+  }
+  .cl-footerActionLink {
+    color: #f97535;
+  }
+  .cl-headerSubtitle {
+    color: #c5d0e6;
+  }
+  .cl-logoImage {
+    width: 10rem;
+    height: 3rem;
+  }
+  .cl-internal-4a7e9l {
+    color: white;
+  }
+  
+  .cl-userButtonPopoverActionButtonIcon {
+    color: white;
+  }
+  .cl-internal-wkkub3 {
+    color: #f97535;
+  }
 
 @layer utilities {
   .text-balance {
@@ -73,4 +117,6 @@ button {
   .flex-center {
     @apply flex items-center justify-center;
   }
+
+ 
 }
