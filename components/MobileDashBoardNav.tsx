@@ -3,11 +3,14 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import styles from "@/styles/mobiledashboardNav.module.css";
+import { SignedIn, useClerk } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
 
 const MobileDashBoardNav = () => {
   const [toggle, setToggle] = useState<boolean>(false);
   const [dropDown, setDropDown] = useState<boolean>(false);
-
+  const { signOut } = useClerk();
+  const router = useRouter();
   function toggleMenu() {
     setToggle(!toggle);
   }
@@ -145,7 +148,15 @@ const MobileDashBoardNav = () => {
                   >
                     <path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z" />
                   </svg>
-                  <p className={styles.p}>Logout</p>
+                  <SignedIn>
+                    <p
+                      className={styles.p}
+                      onClick={() => signOut(() => router.push("/sign-in"))}
+                    //   className="text-16 w-40 bg-orange-1 font-extrabold"
+                    >
+                      Log Out
+                    </p>
+                  </SignedIn>
                 </div>
               </li>
             </ul>
@@ -168,15 +179,14 @@ const MobileDashBoardNav = () => {
             <div className={styles.nav__icons}>
               {!toggle ? (
                 <>
-                 
-                    <svg
-                      onClick={toggleMenu}
-                      className={`${styles.menu_bar} ${styles.svg}`}
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 448 512"
-                    >
-                      <path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z" />
-                    </svg>
+                  <svg
+                    onClick={toggleMenu}
+                    className={`${styles.menu_bar} ${styles.svg}`}
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 448 512"
+                  >
+                    <path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z" />
+                  </svg>
                 </>
               ) : (
                 <svg
@@ -251,7 +261,15 @@ const MobileDashBoardNav = () => {
                 >
                   <path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z" />
                 </svg>
-                <p className={styles.p}>Logout</p>
+                <SignedIn>
+                    <p
+                      className={styles.p}
+                      onClick={() => signOut(() => router.push("/sign-in"))}
+                    //   className="text-16 w-40 bg-orange-1 font-extrabold"
+                    >
+                      Log Out
+                    </p>
+                  </SignedIn>
               </div>
             </div>
           )}

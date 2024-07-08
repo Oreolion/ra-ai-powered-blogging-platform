@@ -1,6 +1,5 @@
 .logo {
   color: #e67e22;
-  font-size: 2rem;
   margin-right: auto;
 }
 
@@ -429,6 +428,11 @@
     font-size: 1.4rem;
   }
 
+  .search_form .input {
+    height: 3.5rem;
+    padding: .5rem;
+  }
+
   .header .img__box {
     height: 4.5rem;
     width: 4.5rem;
@@ -465,7 +469,7 @@
 
   .header .nav__icons {
     display: flex;
-    gap: 2rem;
+    gap: 3rem;
     position: absolute;
     top: 40%;
     right: 23%;
@@ -488,6 +492,22 @@
   .logo {
     margin-left: 0rem;
     margin-top: 3rem;
+  }
+
+  
+  .h3 {
+    font-size: 1rem;
+  }
+
+  .logo .p {
+    font-size: 0.6rem;
+    font-weight: bold;
+    letter-spacing: 0;
+  }
+
+  .logo .p .span {
+    padding: 0.2rem;
+    font-size: 0.7rem;
   }
 
   .dashboard__navlists .h5 {

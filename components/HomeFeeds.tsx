@@ -1,18 +1,19 @@
-import React, { useState } from "react";
+"use client"
+import React from "react";
 import styles from "@/styles/homefeeds.module.css";
-import AddBlogPost from "./AddBlogPost";
+import { useRouter } from 'next/navigation';
 
 const HomeFeeds = () => {
+    const router  = useRouter()
 
-    const [addNewPost, setAddNewPost] = useState<boolean>(false)
 
     const handleTogglePostInput = () => {
-        setAddNewPost(!addNewPost)
-    }
+        router.push("/create-post")
+
+    } 
 
   return (
     <>
-    {addNewPost && <AddBlogPost></AddBlogPost>}
     
       <section className={styles.dashboard__feeds}>
         <div className={styles.dashboardfeeds__header} v-if="!togglePostInput">
