@@ -220,8 +220,8 @@
 }
 
 .nav__icons .menu_bar .svg {
-  height: 3rem;
-  width: 3rem;
+  height: 2rem;
+  width: 2rem;
   display: none;
   align-items: center;
   justify-content: center;
@@ -247,7 +247,7 @@
   position: absolute;
   width: 34rem;
   top: 18%;
-  right:27%;
+  right: 32%;
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -258,9 +258,9 @@
 }
 
 .search {
-  height: 4.5rem;
+  height: 4rem;
   padding: 1rem;
-  width: 4.5rem;
+  width: 4rem;
   text-align: center;
   color: var(--black);
   background-color: #eee;
@@ -307,7 +307,7 @@
 
 .header .img__box .svg {
   display: block;
-  margin-top: .5rem;
+  margin-top: 0.5rem;
 }
 
 .header .img__box img {
@@ -336,12 +336,11 @@
 
   .logo .p {
     white-space: nowrap;
-    font-size: .7rem;
+    font-size: 0.7rem;
   }
 
   .span {
-    font-size: .8rem;
-
+    font-size: 0.8rem;
   }
 
   .navigationlist .li .link {
@@ -359,7 +358,7 @@
 
   .dashboard__navlists .h5 {
     font-size: 1.1rem;
-    margin-bottom: .5rem;
+    margin-bottom: 0.5rem;
     font-weight: bold;
     border-bottom: 3px solid #e67e22;
   }
@@ -372,7 +371,6 @@
     padding: 0.2rem;
     width: 2.1rem;
   }
-
 
   .innerdashboard__container .header .logo {
     margin-bottom: 1rem;
@@ -419,8 +417,16 @@
   }
 
   .search_form {
-    width: 30rem;
+    width: 24rem;
     margin-right: 4rem;
+  }
+
+  .search {
+    height: 2.5rem;
+    padding: 0.5rem;
+    width: 2.5rem;
+    margin-left: 0rem;
+    font-size: 1.4rem;
   }
 
   .header .img__box {
@@ -471,10 +477,6 @@
   .search_form {
     display: none;
   }
-
-  /* .caret {
-    margin-left: 1rem;
-  } */
 
   .header .nav__icons {
     right: 27%;
