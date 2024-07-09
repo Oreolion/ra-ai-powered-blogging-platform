@@ -1,21 +1,20 @@
 import { defineSchema, defineTable } from "convex/server";
 import { v } from "convex/values";
-// import { podcastData } from '../constants/index';
+
 
 export default defineSchema({
   Posts: defineTable({
-    audioStorageId: v.optional(v.id("_storage")),
     user: v.id("users"),
     postTitle: v.string(),
+    postContent: v.string(),
+    postCategory: v.string(),
     postDescription: v.string(),
     audioUrl: v.optional(v.string()),
     audioStrorageId: v.optional(v.id("_storage")),
     author: v.string(),
     authorId: v.string(),
     authorImageUrl: v.string(),
-    voicePrompt: v.string(),
     imagePrompt: v.string(),
-    voiceType: v.string(),
     audioDuration: v.number(),
     views: v.number(),
 

@@ -44,19 +44,19 @@ export default function AddBlogPost() {
     null
   );
   const [audioUrl, setAudioUrl] = useState("");
-  const [audioDuration, setAudioDuration] = useState(0);
+//   const [audioDuration, setAudioDuration] = useState(0);
   const [imageUrl, setImageUrl] = useState("");
   const [imagePrompt, setImagePrompt] = useState("");
   const [imageStorageId, setImageStorageId] = useState<Id<"_storage"> | null>(
     null
   );
-  const [voiceType, setVoiceType] = useState<string | null>(null);
-  const [voicePrompt, setVoicePrompt] = useState("");
+  const [postCategory, setPostCategory] = useState<string | null>(null);
+  const [postContent, setPostContent] = useState("");
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const { toast } = useToast();
   const router = useRouter();
   // @ts-ignore
-  const createPost = useMutation(api.posts.createpost);
+  const createPost = useMutation(api.posts.createPost);
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
@@ -71,31 +71,32 @@ export default function AddBlogPost() {
   async function onSubmit(data: z.infer<typeof formSchema>) {
     try {
       setIsSubmitting(true);
-      if (!audioUrl || !imageUrl || !voiceType) {
+      if (!postContent || !imageUrl || !postCategory) {
         toast({
-          title: "Please generate Post",
+          title: "Please Create Post",
         });
         setIsSubmitting(false);
-        throw new Error("Please generate Audio and Thumbnail");
+        throw new Error("Please Create Post and Thumbnail");
       }
+
       const post = await createPost({
         postTitle: data.postTitle,
         postDescription: data.postDescription,
-        audioUrl,
+        postCategory,
+        postContent,
+        // audioUrl,
         imageUrl,
-        voiceType,
         imagePrompt,
-        voicePrompt,
         views: 0,
-        audioDuration,
+        // audioDuration,
         audioStorageId: audioStorageId!,
         imageStorageId: imageStorageId!,
       });
       toast({
-        title: "Post Created",
+        title: "Post Created Successfully",
       });
       setIsSubmitting(false);
-      router.push("/");
+      router.push("/dashboard");
     } catch (error) {
       console.log(error);
       toast({
@@ -106,7 +107,7 @@ export default function AddBlogPost() {
     }
   }
 
-  const voiceCategories = ["alloy", "shimmer", "nova", "echo", "fable", "onyx"];
+  const postCategories = ["Technology", "Metaphysics & Esoterics", "Science", "World News", "Africa", "Programming", "Machine Learning", "Artificial Intelligence" ];
   return (
     <section className={styles.bloginput__box}>
       <h1 className="text-20 font-bold text-white-1"> Create post</h1>
@@ -140,7 +141,7 @@ export default function AddBlogPost() {
               <Label className="text-16 font-bold text-white-1">
                 Select Post Category
               </Label>
-              <Select onValueChange={(value) => setVoiceType(value)}>
+              <Select onValueChange={(value) => setPostCategory(value)}>
                 <SelectTrigger
                   className={cn(
                     "text-16 w-full border-none bg-black-1 text-gray-1 focus-visible:ring-offset-orange-1"
@@ -152,7 +153,7 @@ export default function AddBlogPost() {
                   />
                 </SelectTrigger>
                 <SelectContent className="text-16 border-none bg-black-1 font-bold text-white-1 focus:ring-orange-1">
-                  {voiceCategories.map((category) => {
+                  {postCategories.map((category) => {
                     return (
                       <SelectItem
                         className="capitalize focus:bg-orange-1"
@@ -198,11 +199,11 @@ export default function AddBlogPost() {
             <GeneratePost
               setAudioStorageId={setAudioStorageId}
               setAudio={setAudioUrl}
-              voiceType={voiceType!}
+              postCategory={postCategory!}
               audio={audioUrl}
-              voicePrompt={voicePrompt}
-              setVoicePrompt={setVoicePrompt}
-              setAudioDuration={setAudioDuration}
+              postContent={postContent}
+              setPostContent={setPostContent}
+            //   setAudioDuration={setAudioDuration}
             ></GeneratePost>
             <GenerateThumbnail
               setImage={setImageUrl}

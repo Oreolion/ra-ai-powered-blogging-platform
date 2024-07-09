@@ -4,14 +4,14 @@ import { cn } from "@/lib/utils";
 import { Loader } from "lucide-react";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-// import { GenerateThumbnailProps } from "@/types";
+import { GenerateThumbnailProps } from "@/types";
 import { Input } from "./ui/input";
 import Image from "next/image";
 import { useToast } from "./ui/use-toast";
 import { useAction, useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
-// import { useUploadFiles } from "@xixixao/uploadstuff/react";
-// import { v4 as uuidv4 } from "uuid";
+import { useUploadFiles } from "@xixixao/uploadstuff/react";
+import { v4 as uuidv4 } from "uuid";
 
 const GenerateThumbnail = ({
   setImage,
@@ -19,15 +19,15 @@ const GenerateThumbnail = ({
   image,
   imagePrompt,
   setImagePrompt,
-}: any) => {
+}: GenerateThumbnailProps) => {
   const [isAiThumbnail, setIsAIThumbnail] = useState(false);
   const [isImageLoading, setIsImageLoading] = useState(false);
   const { toast } = useToast();
 
   const imageRef = useRef<HTMLInputElement>(null);
-  //   const generateUploadUrl = useMutation(api.files.generateUploadUrl);
-  //   const { startUpload } = useUploadFiles(generateUploadUrl);
-  //   const getImageUrl = useMutation(api.podcasts.getUrl);
+    const generateUploadUrl = useMutation(api.file.generateUploadUrl);
+    const { startUpload } = useUploadFiles(generateUploadUrl);
+    const getImageUrl = useMutation(api.posts.getUrl);
 
   //   const handleGenerateThumbnail = useAction(api.openai.generateThumbnailAction);
 
@@ -37,11 +37,11 @@ const GenerateThumbnail = ({
     try {
       const file = new File([blob], fileName, { type: "image/png" });
 
-      //   const uploaded = await startUpload([file]);
+        const uploaded = await startUpload([file]);
       const storageId = (uploaded[0].response as any).storageId;
       setImageStorageId(storageId);
 
-      //   const imageUrl = await getImageUrl({ storageId });
+        const imageUrl = await getImageUrl({ storageId });
       setImage(imageUrl!);
       setIsImageLoading(false);
       toast({ title: "Thumbnail generated successfully" });
@@ -61,7 +61,7 @@ const GenerateThumbnail = ({
 
       const blob = new Blob([response], { type: "image/png" });
 
-      //   handleImage(blob, `thumbnail-${uuidv4()}`);
+        handleImage(blob, `thumbnail-${uuidv4()}`);
     } catch (error) {
       console.log(error);
       toast({
@@ -172,7 +172,7 @@ const GenerateThumbnail = ({
           <div className="flex flex-col items-center gap-1">
             <h2 className="text-12 font-bold text-orange-1">Click to Upload</h2>{" "}
             <p className="text-12 font-normal text-gray-1">
-              svg, png, jpeg or even gif (nax, 1080x1080px)
+              svg, png, jpeg or even gif (max: 1080x1080px)
             </p>
           </div>
         </div>

@@ -118,5 +118,18 @@ button {
     @apply flex items-center justify-center;
   }
 
+  .input-class {
+    font-size: 16px;
+    background-color: #0f0f0f;
+    border-radius: 6px;
+    color: #d1d1d1;
+    border: none;
+  }
+  
+  .input-class::placeholder {
+    font-size: 16px;
+    color: #a1a1a1;
+  }
+
  
 }
