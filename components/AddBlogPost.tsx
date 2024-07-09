@@ -110,7 +110,7 @@ export default function AddBlogPost() {
   const postCategories = ["Technology", "Metaphysics & Esoterics", "Science", "World News", "Africa", "Programming", "Machine Learning", "Artificial Intelligence" ];
   return (
     <section className={styles.bloginput__box}>
-      <h1 className="text-20 font-bold text-white-1"> Create post</h1>
+      <h1 className="text-3xl font-bold text-white-1"> Create post</h1>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}

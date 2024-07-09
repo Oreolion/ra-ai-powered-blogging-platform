@@ -13,10 +13,10 @@ const DashboardNav = () => {
       <nav className={styles.dashboard__nav}>
         <div className={`${styles.logo} ${styles.link}`}>
           <h3 className={styles.h3}>
-            THE <span className={styles.span}>RA</span> BLOG
+            THE <span className={styles.span}>RA</span> APP
           </h3>
           <p className={styles.p}>
-            The <span className={styles.span}>Read Along</span> Blog
+            The <span className={styles.span}>Read Along</span> APP
           </p>
         </div>
         <div className={styles.user}>
@@ -25,6 +25,19 @@ const DashboardNav = () => {
 
         <ul className={styles.dashboard__navlists}>
           <h5 className={styles.h5}>Overview</h5>
+          <li className={styles.li}>
+            <Link className={styles.link} href="/create-post">
+            <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 448 512"
+        >
+          <path
+            d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"
+          />
+        </svg>
+              Create Post
+            </Link>
+          </li>
           <li className={styles.li}>
             <Link className={styles.link} href="/dashboard">
               <svg

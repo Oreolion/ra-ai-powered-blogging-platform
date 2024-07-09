@@ -91,6 +91,7 @@ const GeneratePost = (props: GeneratePostProps) => {
         ></Textarea>
       </div>
       <div className="mt-5 w-full max-w-[200px]">
+
         <Button
           type="submit"
           className="text-16  bg-orange-1 py-4 font-bold text-white-1 hover:bg-black-1"
@@ -106,6 +107,8 @@ const GeneratePost = (props: GeneratePostProps) => {
           )}
         </Button>
       </div>
+      <p className="text-red-800 text-[.72rem] font-bold">click button only to generate Post with AI after you have input your research prompt in the text area above</p>
+
       {/* {props.audio && (
         <audio
           src={props.audio}

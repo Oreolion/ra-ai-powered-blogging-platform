@@ -93,7 +93,7 @@ const GenerateThumbnail = ({
           onClick={() => setIsAIThumbnail(true)}
           type="button"
           //   variant="plain"
-          className={cn("w-[18rem] h-4 text-[.6rem]", {
+          className={cn("w-[16rem] p-2 h-7 text-[.6rem]", {
             "bg-black-6 hover:bg-black-9": isAiThumbnail,
           })}
         >
@@ -103,7 +103,7 @@ const GenerateThumbnail = ({
           onClick={() => setIsAIThumbnail(false)}
           type="button"
           //   variant="plain"
-          className={cn("w-[18rem] h-4 text-[.6rem]", {
+          className={cn("w-[18rem] p-2 h-7 text-[.6rem]", {
             "bg-black-6 hover:bg-black-9": !isAiThumbnail,
           })}
         >

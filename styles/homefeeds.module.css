@@ -25,12 +25,12 @@
 .leftbox {
   background: rgba(006, 006, 006, 0.2);
   padding: 1rem;
-  padding-right: 2rem;
+  padding-right: 1rem;
   border-radius: 1rem;
 }
 
 .leftbox .h1 {
-  font-size: 1.7rem;
+  font-size: 1.6rem;
   letter-spacing: 2px;
 }
 
@@ -124,7 +124,7 @@
 
 .post .image {
   width: 94%;
-  height: 24rem;
+  height: 22rem;
   margin-bottom: 1rem;
 }
 
@@ -141,6 +141,7 @@
   color: var(--green);
   margin-bottom: 1rem;
   max-width: 90%;
+  text-transform: uppercase;
 }
 
 .post .p {
@@ -149,6 +150,7 @@
   letter-spacing: 0.5px;
   color: aliceblue;
   max-width: 90%;
+  text-transform: capitalize;
 }
 
 .post a,
@@ -180,6 +182,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 2.5rem;
+
 }
 
 .post .reactionbox div:hover {
@@ -188,21 +192,21 @@
 }
 .post .reactionbox .svg {
   color: green;
-  height: 2rem;
-  width: 2rem;
+  height: 1.8rem;
+  width: 1.8rem;
   margin-right: 1rem;
 }
 
 .svg {
-  height: 2rem;
-  width: 2rem;
+  height: 1.8rem;
+  width: 1.8rem;
 }
 
 .post .reactionbox .right {
   display: flex;
 }
 
-.post .reactionbox .right .button:nth-child(2):active svg {
+.post .reactionbox .right .button:nth-child(2):active .svg {
   fill: red;
 }
 .post .reactionbox .right .icon {
@@ -278,8 +282,8 @@
     gap: 2rem;
   }
 
-  .button {
-    width: 23rem;
+  .dashboardfeeds__header .button {
+    width: 17rem;
   }
 
   .reactionbox .button {
@@ -333,13 +337,14 @@
     margin-left: 1rem;
   }
   .leftbox .h1 {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     letter-spacing: 2px;
   }
 
   .leftbox .p {
     display: none;
   }
+
 
   .user__profile {
     flex-direction: row;
@@ -355,7 +360,7 @@
   }
 
   .post .image {
-    width: 28rem;
+    width: 27rem;
   }
 
   .post .p {

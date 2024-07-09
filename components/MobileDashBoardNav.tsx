@@ -26,15 +26,23 @@ const MobileDashBoardNav = () => {
           <nav className={`${styles.dashboard__nav} ${styles.mobile}`}>
             <div className={`${styles.logo} ${styles.link}`}>
               <h3 className={styles.h3}>
-                THE <span className={styles.span}>RA</span> BLOG
+                THE <span className={styles.span}>RA</span> APP
               </h3>
               <p className={styles.p}>
-                The <span className={styles.span}>Read Along</span> Blog
+                The <span className={styles.span}>Read Along</span> APP
               </p>
             </div>
 
             <ul className={styles.dashboard__navlists}>
               <h5 className={styles.h5}>Overview</h5>
+              <li className={styles.li}>
+                <Link className={styles.link} href="/create-post">
+                  <svg className={styles.svg} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                    <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
+                  </svg>
+                  Create Post
+                </Link>
+              </li>
               <li className={styles.li}>
                 <Link className={styles.link} href="/dashboard">
                   <svg
@@ -152,7 +160,7 @@ const MobileDashBoardNav = () => {
                     <p
                       className={styles.p}
                       onClick={() => signOut(() => router.push("/sign-in"))}
-                    //   className="text-16 w-40 bg-orange-1 font-extrabold"
+                      //   className="text-16 w-40 bg-orange-1 font-extrabold"
                     >
                       Log Out
                     </p>
@@ -169,10 +177,10 @@ const MobileDashBoardNav = () => {
         <header className={styles.header}>
           <div className={`${styles.logo} ${styles.link}`}>
             <h3 className={styles.h3}>
-              THE <span className={styles.span}>RA</span> BLOG
+              THE <span className={styles.span}>RA</span> APP
             </h3>
             <p className={styles.p}>
-              The <span className={styles.span}>Read Along</span> Blog
+              The <span className={styles.span}>Read Along</span> APP
             </p>
           </div>
           <nav className={styles.right__nav}>
@@ -262,14 +270,14 @@ const MobileDashBoardNav = () => {
                   <path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z" />
                 </svg>
                 <SignedIn>
-                    <p
-                      className={styles.p}
-                      onClick={() => signOut(() => router.push("/sign-in"))}
+                  <p
+                    className={styles.p}
+                    onClick={() => signOut(() => router.push("/sign-in"))}
                     //   className="text-16 w-40 bg-orange-1 font-extrabold"
-                    >
-                      Log Out
-                    </p>
-                  </SignedIn>
+                  >
+                    Log Out
+                  </p>
+                </SignedIn>
               </div>
             </div>
           )}

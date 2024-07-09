@@ -44,13 +44,13 @@ const HomeFeeds = () => {
 
         <div
           className={styles.post__box}
-          //   v-if="users.length || (posts && !togglePostInput)"
         >
           {posts && !isLoading ? (
             <>
               {posts?.map(
                 ({
                   _id,
+                  views,
                   postCategory,
                   postTitle,
                   postDescription,
@@ -93,14 +93,10 @@ const HomeFeeds = () => {
                             )}
                           </div>
                           <div className={styles.user__info}>
-                            <h3 className={styles.username}>Name: {author}</h3>
-                            <div className="flex flex-col">
-                              <p className={styles.userrole}>
-                                {" "}
-                                {postCategory}{" "}
-                              </p>
-                              <p className={styles.p}> {postDescription} </p>
-
+                            <div className="">
+                              <h3 className={styles.username}>
+                                Name: {author}
+                              </h3>
                               <p className={styles.p1}>
                                 <svg
                                   className={styles.svg}
@@ -111,6 +107,12 @@ const HomeFeeds = () => {
                                 </svg>
                                 {_creationTime}
                               </p>
+                            </div>
+
+                            <div className="flex flex-col">
+                              <p className={styles.userrole}>{postCategory}</p>
+
+                              <p className={styles.p}> {postDescription} </p>
                             </div>
                           </div>
                         </div>
@@ -124,7 +126,7 @@ const HomeFeeds = () => {
                             src={imageUrl}
                             alt="thumbnail"
                             width={230}
-                            height={55}
+                            height={46}
                           />
                         </div>
 
@@ -138,12 +140,13 @@ const HomeFeeds = () => {
                               >
                                 <path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z" />
                               </svg>
-                              <span className={styles.span}>4 views</span>
+                              <span className={styles.span}>{views} views</span>
                             </div>
                           </div>
                           <div className={styles.right}>
-                            <button className={styles.icon}>
+                            <button type="button" className={styles.icon}>
                               <svg
+                                className={styles.svg}
                                 fill="#ccc"
                                 xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 512 512"

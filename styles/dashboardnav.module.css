@@ -46,7 +46,7 @@
   position: fixed;
   top: 0;
   left: 0;
-  padding: 2rem;
+  padding: .5rem 2rem;
   width: 18rem;
   height: 100vh;
   background: rgba(0, 0, 05, 0.8);
@@ -65,7 +65,7 @@
 
 .logo {
   margin: 1rem 0;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 }
 
 .mobile {
@@ -74,9 +74,9 @@
 
 .dashboard__navlists .link {
   display: flex;
-  gap: 2rem;
-  margin-bottom: 1rem;
-  margin-left: 2rem;
+  gap: 1rem;
+  margin-bottom: .5rem;
+  margin-left: 1rem;
   white-space: nowrap;
   cursor: pointer;
   font-weight: bold;
@@ -90,10 +90,10 @@
 .dashboard__navlists .link svg {
   background-color: #fff;
   fill: #e67e22;
-  height: 2.1rem;
+  height: 1.7rem;
   border-radius: 50%;
   padding: 0.2rem;
-  width: 2.1rem;
+  width: 1.7rem;
 }
 
 .dashboard__navlists .logout {
@@ -102,7 +102,7 @@
 }
 
 .dashboard__navlists .h5 {
-  font-size: 1.4rem;
+  font-size: 1.1rem;
   margin-bottom: 1rem;
   font-weight: bold;
   border-bottom: 4px solid #e67e22;
