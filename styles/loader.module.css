@@ -1,0 +1,75 @@
+.loader {
+    width: 780px;
+    height: 400px;
+    display: block;
+    margin: auto;
+    margin-top: 5rem;
+    position: relative;
+    background: #ccc;
+    box-sizing: border-box;
+  }
+  
+  .loader::after {
+    content: "";
+    width: calc(100% - 30px);
+    height: calc(100% - 30px);
+    top: 15px;
+    left: 15px;
+    position: absolute;
+    background-image: linear-gradient(
+        100deg,
+        transparent,
+        rgba(255, 255, 255, 0.5) 50%,
+        transparent 80%
+      ),
+      radial-gradient(circle 28px at 28px 28px, #ddd 99%, transparent 0),
+      linear-gradient(#ddd 24px, transparent 0),
+      linear-gradient(#ddd 18px, transparent 0),
+      linear-gradient(#ddd 66px, transparent 0),
+      linear-gradient(
+        100deg,
+        transparent,
+        rgba(255, 255, 255, 0.5) 50%,
+        transparent 80%
+      );
+    background-repeat: no-repeat;
+    background-size: 75px 130px, 55px 56px, 160px 30px, 260px 20px, 290px 56px, 100% 250px;
+    background-position: 0% 0, 0 0, 70px 5px, 70px 38px, 0px 66px, 0 0;
+    box-sizing: border-box;
+    animation: animloader 1s linear infinite, animtransparent 2s linear infinite;
+  }
+  
+  @keyframes animloader {
+    0% {
+      background-position: 0% 0, 0 0, 70px 5px, 70px 38px, 0px 66px, 50px 100px;
+    }
+    100% {
+      background-position: 150% 0, 0 0, 70px 5px, 70px 38px, 0px 66px, 100% 0;
+    }
+  }
+  
+  @keyframes animtransparent {
+    0% {
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .loader {
+      width: 340px;
+      height: 400px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .loader {
+      width: 250px;
+    }
+  }
+  
