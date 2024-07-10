@@ -68,6 +68,10 @@
   display: none;
 }
 
+.p {
+    font-weight: bold;
+}
+
 .dashboard__navlists .link {
   display: flex;
   gap: 1rem;
@@ -77,7 +81,7 @@
   cursor: pointer;
   color: #ddd;
   font-weight: bold;
-  font-size: 1rem;
+  font-size: .8rem;
   &:hover {
     letter-spacing: 2px;
   }

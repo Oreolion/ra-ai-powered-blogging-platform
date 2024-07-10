@@ -24,7 +24,7 @@ const useGeneratePost = ({
   const generateUploadUrl = useMutation(api.file.generateUploadUrl);
     const { startUpload } = useUploadFiles(generateUploadUrl);
 
-  const getPodcastAudio = useAction(api.openai.generateAudioAction);
+  const getPostAudio = useAction(api.openai.generateAudioAction);
 
   const getAudioUrl = useMutation(api.posts.getUrl);
 
@@ -33,19 +33,19 @@ const useGeneratePost = ({
     // setAudio("");
     if (!postContent) {
       toast({
-        title: "Please provide a voice type to generate podcast",
+        title: "Please provide a voice type to generate post audio",
       });
       return setIsGenerating(false);
     }
 
     try {
-      const response = await getPodcastAudio({
+      const response = await getPostAudio({
         category: postCategory,
         postContent: postContent,
       });
 
       const blob = new Blob([response], { type: "audio/mpeg" });
-      const fileName = `podcast-${uuidv4()}.mp3`;
+      const fileName = `post-${uuidv4()}.mp3`;
       const file = new File([blob], fileName, { type: "audio/mpeg" });
 
       const uploaded = await startUpload([file]);
@@ -56,13 +56,13 @@ const useGeneratePost = ({
       setAudio(audioUrl!);
       setIsGenerating(false);
       toast({
-        title: "Podcast Generated Successfully",
+        title: "Post Generated Successfully",
       });
     } catch (error: any) {
       console.log(error.message);
       toast({
-        title: "Error creating a Podcast, please try again",
-        // variant: "destructive"
+        title: "Error creating a Post, please try again",
+        variant: "destructive"
       });
       setIsGenerating(false);
     }
@@ -107,7 +107,7 @@ const GeneratePost = (props: GeneratePostProps) => {
           )}
         </Button>
       </div>
-      <p className="text-red-800 text-[.72rem] font-bold">click button only to generate Post with AI after you have input your research prompt in the text area above</p>
+      <p className="text-red-800 text-[.72rem] font-bold max-w-[35rem]">click button only to generate Post with AI after you have input your research prompt in the text area above</p>
 
       {/* {props.audio && (
         <audio
