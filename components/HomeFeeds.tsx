@@ -20,6 +20,7 @@ const HomeFeeds = () => {
     router.push("/create-post");
   };
 
+  
   return (
     <>
       <section className={styles.dashboard__feeds}>

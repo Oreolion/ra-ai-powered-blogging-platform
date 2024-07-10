@@ -2,15 +2,24 @@
 import Link from "next/link";
 import React from "react";
 import styles from "@/styles/dashboardnav.module.css";
-import { SignedIn, useClerk } from "@clerk/nextjs";
+import { SignedIn, UserButton, useUser, useClerk } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 
 const DashboardNav = () => {
   const { signOut } = useClerk();
+  const { user } = useUser();
   const router = useRouter();
 
-
-  const postCategories = ["Technology", "Metaphysics & Esoterics", "Science", "World News", "Africa", "Programming", "Machine Learning", "Artificial Intelligence" ];
+  const postCategories = [
+    "Technology",
+    "Metaphysics & Esoterics",
+    "Science",
+    "World News",
+    "Africa",
+    "Programming",
+    "Machine Learning",
+    "Artificial Intelligence",
+  ];
 
   return (
     <>
@@ -31,14 +40,9 @@ const DashboardNav = () => {
           <h5 className={styles.h5}>Overview</h5>
           <li className={styles.li}>
             <Link className={styles.link} href="/create-post">
-            <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 448 512"
-        >
-          <path
-            d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"
-          />
-        </svg>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
+              </svg>
               Create Post
             </Link>
           </li>
@@ -68,7 +72,7 @@ const DashboardNav = () => {
           </li>
 
           <li className={styles.li}>
-            <Link className={styles.link} href="/dashboard/nocontent">
+            <Link className={styles.link} href={`/profile/${user?.id}`}>
               <svg
                 className={styles.svg}
                 xmlns="http://www.w3.org/2000/svg"
@@ -76,7 +80,7 @@ const DashboardNav = () => {
               >
                 <path d="M469.3 19.3l23.4 23.4c25 25 25 65.5 0 90.5l-56.4 56.4L322.3 75.7l56.4-56.4c25-25 65.5-25 90.5 0zM44.9 353.2L299.7 98.3 413.7 212.3 158.8 467.1c-6.7 6.7-15.1 11.6-24.2 14.2l-104 29.7c-8.4 2.4-17.4 .1-23.6-6.1s-8.5-15.2-6.1-23.6l29.7-104c2.6-9.2 7.5-17.5 14.2-24.2zM249.4 103.4L103.4 249.4 16 161.9c-18.7-18.7-18.7-49.1 0-67.9L94.1 16c18.7-18.7 49.1-18.7 67.9 0l19.8 19.8c-.3 .3-.7 .6-1 .9l-64 64c-6.2 6.2-6.2 16.4 0 22.6s16.4 6.2 22.6 0l64-64c.3-.3 .6-.7 .9-1l45.1 45.1zM408.6 262.6l45.1 45.1c-.3 .3-.7 .6-1 .9l-64 64c-6.2 6.2-6.2 16.4 0 22.6s16.4 6.2 22.6 0l64-64c.3-.3 .6-.7 .9-1L496 350.1c18.7 18.7 18.7 49.1 0 67.9L417.9 496c-18.7 18.7-49.1 18.7-67.9 0l-87.4-87.4L408.6 262.6z" />
               </svg>
-              <p>Drafts</p>
+              <p className={styles.p}>My Profile</p>
             </Link>
           </li>
           <li className={styles.li}>
@@ -93,14 +97,14 @@ const DashboardNav = () => {
           </li>
           <h5 className={styles.h5}>Trending Tags</h5>
           {postCategories.map((category) => {
-                return (
-                  <li className={styles.li} key={category}>
-                    <Link href="" className={styles.link}>
-                      {category}
-                    </Link>
-                  </li>
-                );
-              })}
+            return (
+              <li className={styles.li} key={category}>
+                <Link href="" className={styles.link}>
+                  {category}
+                </Link>
+              </li>
+            );
+          })}
 
           <h5 className={styles.h5}>Personal</h5>
 

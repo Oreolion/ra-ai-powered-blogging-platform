@@ -287,11 +287,11 @@
 }
 
 .header .img__box {
-  height: 5rem;
-  width: 5rem;
+  height: 4rem;
+  width: 4rem;
   border-radius: 50%;
   background-color: #000;
-  top: 19%;
+  top: 23%;
   right: 12%;
   position: absolute;
   display: flex;
@@ -435,9 +435,9 @@
   }
 
   .header .img__box {
-    height: 4.5rem;
-    width: 4.5rem;
-    top: 22%;
+    height: 4rem;
+    width: 4rem;
+    top: 25%;
     right: 12%;
     position: absolute;
   }

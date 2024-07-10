@@ -1,15 +1,18 @@
 "use client";
 // import Image from "next/image";
 import Link from "next/link";
+import { SignedIn, UserButton, useUser, useClerk } from "@clerk/nextjs";
+
 import React, { useState } from "react";
 import styles from "@/styles/mobiledashboardNav.module.css";
-import { SignedIn, useClerk } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 
 const MobileDashBoardNav = () => {
   const [toggle, setToggle] = useState<boolean>(false);
   const [dropDown, setDropDown] = useState<boolean>(false);
   const { signOut } = useClerk();
+  const { user } = useUser();
+
   const router = useRouter();
   function toggleMenu() {
     setToggle(!toggle);
@@ -84,7 +87,7 @@ const MobileDashBoardNav = () => {
               </li>
 
               <li className={styles.li}>
-                <Link className={styles.link} href="/dashboard/nocontent">
+                <Link className={styles.link} href={`/profile/${user?.id}`}>
                   <svg
                     className={styles.svg}
                     xmlns="http://www.w3.org/2000/svg"
@@ -92,7 +95,7 @@ const MobileDashBoardNav = () => {
                   >
                     <path d="M469.3 19.3l23.4 23.4c25 25 25 65.5 0 90.5l-56.4 56.4L322.3 75.7l56.4-56.4c25-25 65.5-25 90.5 0zM44.9 353.2L299.7 98.3 413.7 212.3 158.8 467.1c-6.7 6.7-15.1 11.6-24.2 14.2l-104 29.7c-8.4 2.4-17.4 .1-23.6-6.1s-8.5-15.2-6.1-23.6l29.7-104c2.6-9.2 7.5-17.5 14.2-24.2zM249.4 103.4L103.4 249.4 16 161.9c-18.7-18.7-18.7-49.1 0-67.9L94.1 16c18.7-18.7 49.1-18.7 67.9 0l19.8 19.8c-.3 .3-.7 .6-1 .9l-64 64c-6.2 6.2-6.2 16.4 0 22.6s16.4 6.2 22.6 0l64-64c.3-.3 .6-.7 .9-1l45.1 45.1zM408.6 262.6l45.1 45.1c-.3 .3-.7 .6-1 .9l-64 64c-6.2 6.2-6.2 16.4 0 22.6s16.4 6.2 22.6 0l64-64c.3-.3 .6-.7 .9-1L496 350.1c18.7 18.7 18.7 49.1 0 67.9L417.9 496c-18.7 18.7-49.1 18.7-67.9 0l-87.4-87.4L408.6 262.6z" />
                   </svg>
-                  <p className={styles.p}>Drafts</p>
+                  <p className={styles.p}>My Profile</p>
                 </Link>
               </li>
               <li className={styles.li}>
@@ -243,8 +246,9 @@ const MobileDashBoardNav = () => {
             <path d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z" />
           </svg>
           <div className={styles.img__box}>
-            <Link href="/dashboard/accountprofile">
-              <span className="" v-if="!profile.photoURL">
+            <Link href={`/profile/${user?.id}`}>
+              <UserButton></UserButton>
+              {/* <span className="" v-if="!profile.photoURL">
                 <svg
                   className={styles.svg}
                   xmlns="http://www.w3.org/2000/svg"
@@ -252,7 +256,7 @@ const MobileDashBoardNav = () => {
                 >
                   <path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z" />
                 </svg>
-              </span>
+              </span> */}
 
               {/* <Image src="profile.photoURL" alt="photo" className="" v-else /> */}
             </Link>
