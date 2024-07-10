@@ -70,7 +70,7 @@ export interface PostCardProps {
   content: string;
   category: string;
   author: string;
-  _creationTime: string;
+  _creationTime: number;
   views: number;
   authorImageUrl: string;
   description: string;
