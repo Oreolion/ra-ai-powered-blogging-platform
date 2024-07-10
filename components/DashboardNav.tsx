@@ -8,6 +8,10 @@ import { useRouter } from "next/navigation";
 const DashboardNav = () => {
   const { signOut } = useClerk();
   const router = useRouter();
+
+
+  const postCategories = ["Technology", "Metaphysics & Esoterics", "Science", "World News", "Africa", "Programming", "Machine Learning", "Artificial Intelligence" ];
+
   return (
     <>
       <nav className={styles.dashboard__nav}>
@@ -88,31 +92,15 @@ const DashboardNav = () => {
             </Link>
           </li>
           <h5 className={styles.h5}>Trending Tags</h5>
-          <li className={styles.li}>
-            <Link className={styles.link} href="/dashboard/nocontent">
-              Programming
-            </Link>
-          </li>
-          <li className={styles.li}>
-            <Link className={styles.link} href="/dashboard/nocontent">
-              Data Science
-            </Link>
-          </li>
-          <li className={styles.li}>
-            <Link className={styles.link} href="/dashboard/nocontent">
-              Metaphysics
-            </Link>
-          </li>
-          <li className={styles.li}>
-            <Link className={styles.link} href="/dashboard/nocontent">
-              Machine Learning
-            </Link>
-          </li>
-          <li className={styles.li}>
-            <Link className={styles.link} href="/dashboard/nocontent">
-              Politics
-            </Link>
-          </li>
+          {postCategories.map((category) => {
+                return (
+                  <li className={styles.li} key={category}>
+                    <Link href="" className={styles.link}>
+                      {category}
+                    </Link>
+                  </li>
+                );
+              })}
 
           <h5 className={styles.h5}>Personal</h5>
 

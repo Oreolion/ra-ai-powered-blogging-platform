@@ -37,6 +37,7 @@ import { useRouter } from "next/navigation";
 const formSchema = z.object({
   postTitle: z.string().min(2),
   postDescription: z.string().min(2),
+  postContent: z.string().min(2),
 });
 
 export default function AddBlogPost() {
@@ -64,6 +65,7 @@ export default function AddBlogPost() {
     defaultValues: {
       postTitle: "",
       postDescription: "",
+      postContent: "",
     },
   });
 
@@ -74,9 +76,10 @@ export default function AddBlogPost() {
       if (!postContent || !imageUrl || !postCategory) {
         toast({
           title: "Please Create Post",
+          variant: "destructive",
         });
         setIsSubmitting(false);
-        throw new Error("Please Create Post and Thumbnail");
+        throw new Error("Please Create Post and Add Thumbnail");
       }
 
       const post = await createPost({
@@ -94,6 +97,7 @@ export default function AddBlogPost() {
       });
       toast({
         title: "Post Created Successfully",
+        variant: "success",
       });
       setIsSubmitting(false);
       router.push("/dashboard");
@@ -199,7 +203,7 @@ export default function AddBlogPost() {
             <GeneratePost
               setAudioStorageId={setAudioStorageId}
               setAudio={setAudioUrl}
-              postCategory={postCategory!}
+              postCategory={postCategories}
               audio={audioUrl}
               postContent={postContent}
               setPostContent={setPostContent}

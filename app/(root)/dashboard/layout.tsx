@@ -1,5 +1,6 @@
 import DashboardNav from "@/components/DashboardNav";
 import MobileDashBoardNav from "@/components/MobileDashBoardNav";
+import { Toaster } from "@/components/ui/toaster";
 
 export default function RootLayout({
   children,
@@ -12,6 +13,8 @@ export default function RootLayout({
       <MobileDashBoardNav></MobileDashBoardNav>
 
       {children}
+      <Toaster />
     </main>
+
   );
 }

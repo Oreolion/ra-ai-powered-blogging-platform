@@ -31,12 +31,7 @@ export interface PostProps {
   }
   
   export type postCategory =
-    | "alloy"
-    | "echo"
-    | "fable"
-    | "onyx"
-    | "nova"
-    | "shimmer";
+  "Technology"| "Metaphysics & Esoterics" | "Science" | "World News" | "Africa" | "Programming" | "Machine Learning" | "Artificial Intelligence";
   
   export interface GeneratePostProps {
     postCategory: postCategory;

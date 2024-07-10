@@ -18,6 +18,17 @@ const MobileDashBoardNav = () => {
     setDropDown(!dropDown);
   }
 
+  const postCategories = [
+    "Technology",
+    "Metaphysics & Esoterics",
+    "Science",
+    "World News",
+    "Africa",
+    "Programming",
+    "Machine Learning",
+    "Artificial Intelligence",
+  ];
+
   return (
     <>
       {/*  mobile dashboard navbar  */}
@@ -37,7 +48,11 @@ const MobileDashBoardNav = () => {
               <h5 className={styles.h5}>Overview</h5>
               <li className={styles.li}>
                 <Link className={styles.link} href="/create-post">
-                  <svg className={styles.svg} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                  <svg
+                    className={styles.svg}
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 448 512"
+                  >
                     <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
                   </svg>
                   Create Post
@@ -93,31 +108,15 @@ const MobileDashBoardNav = () => {
                 </Link>
               </li>
               <h5 className={styles.h5}>Trending Tags</h5>
-              <li className={styles.li}>
-                <Link className={styles.link} href="/dashboard/nocontent">
-                  Programming
-                </Link>
-              </li>
-              <li className={styles.li}>
-                <Link className={styles.link} href="/dashboard/nocontent">
-                  Data Science
-                </Link>
-              </li>
-              <li className={styles.li}>
-                <Link className={styles.link} href="/dashboard/nocontent">
-                  Metaphysics
-                </Link>
-              </li>
-              <li className={styles.li}>
-                <Link className={styles.link} href="/dashboard/nocontent">
-                  Machine Learning
-                </Link>
-              </li>
-              <li className={styles.li}>
-                <Link className={styles.link} href="/dashboard/nocontent">
-                  Politics
-                </Link>
-              </li>
+              {postCategories.map((category) => {
+                return (
+                  <li className={styles.li} key={category}>
+                    <Link href="" className={styles.link}>
+                      {category}
+                    </Link>
+                  </li>
+                );
+              })}
 
               <h5 className={styles.h5}>Personal</h5>
 

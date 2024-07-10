@@ -1,6 +1,5 @@
 import DashboardNav from "@/components/DashboardNav";
 import MobileDashBoardNav from "@/components/MobileDashBoardNav";
-
 export default function RootLayout({
   children,
 }: Readonly<{
