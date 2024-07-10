@@ -74,7 +74,7 @@ export interface PostCardProps {
   views: number;
   authorImageUrl: string;
   description: string;
-  postId: Id<"podcasts">;
+  postId: Id<"posts">;
 }
 
 export interface ProfilePostProps {

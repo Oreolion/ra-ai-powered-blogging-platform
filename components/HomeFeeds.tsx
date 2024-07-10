@@ -20,7 +20,7 @@ const HomeFeeds = () => {
     router.push("/create-post");
   };
 
-  
+
   return (
     <>
       <section className={styles.dashboard__feeds}>
@@ -71,7 +71,7 @@ const HomeFeeds = () => {
                       >
                         <div className={styles.user__profile}>
                           <div className={styles.user__image}>
-                            {authorImageUrl ? (
+                            {!authorImageUrl ? (
                               <span
                                 className={styles.span}
                                 //   v-if="!authorImageUrl"

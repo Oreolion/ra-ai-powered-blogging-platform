@@ -39,7 +39,7 @@ const PostCard = ({
       >
         <div className={styles.user__profile}>
           <div className={styles.user__image}>
-            {authorImageUrl ? (
+            {!authorImageUrl ? (
               <span
                 className={styles.span}
                 //   v-if="!authorImageUrl"

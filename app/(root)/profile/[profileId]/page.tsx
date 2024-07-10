@@ -25,7 +25,7 @@ const ProfilePage = ({
   if (!user || !postsData) return <LoaderSpinner />;
 
   return (
-    <section className="mt-9 flex flex-col ml-[19rem] max-md:ml-[0]">
+    <section className="mt-9 flex flex-col ml-[17rem] max-md:ml-[0]">
       <h1 className="text-20 font-bold text-white-1 max-md:text-center">
         Your Profile
       </h1>
@@ -37,7 +37,7 @@ const ProfilePage = ({
         />
       </div>
       <section className="mt-9 flex flex-col gap-5">
-        <h1 className="text-20 font-bold text-white-1">All Podcasts</h1>
+        <h1 className="text-[1.6rem] font-bold text-white-1">All Your Posts</h1>
         {postsData && postsData.posts.length > 0 ? (
           <div className="post_grid">
             {postsData?.posts
@@ -48,7 +48,13 @@ const ProfilePage = ({
                   imageUrl={post.imageUrl!}
                   title={post.postTitle!}
                   description={post.postDescription}
+                  category={post.postCategory}
+                  content={post.postContent}
                   postId={post._id}
+                  views={post.views}
+                  author={post.author}
+                  authorImageUrl={post.authorImageUrl}
+                  _creationTime={post._creationTime}
                 />
               ))}
           </div>
@@ -56,7 +62,7 @@ const ProfilePage = ({
           <EmptyStates
             title="You have not created any posts yet"
             buttonLink="/create-post"
-            buttonText="Create Podcast"
+            buttonText="Create Post"
           />
         )}
       </section>
