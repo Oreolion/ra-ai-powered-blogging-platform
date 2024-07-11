@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "@/styles/homefeeds.module.css";
-import { api } from "@/convex/_generated/api";
-import { useQuery } from "convex/react";
+// import { api } from "@/convex/_generated/api";
+// import { useQuery } from "convex/react";
 import { PostCardProps } from "@/types";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -18,12 +18,12 @@ const PostCard = ({
   authorImageUrl,
   author,
 }: PostCardProps) => {
-  const posts = useQuery(api.posts.getAllPosts);
+  //   const posts = useQuery(api.posts.getAllPosts);
   const router = useRouter();
 
   const handleViews = () => {
     // increase views
-    router.push(`/posts/${postId}`, {
+    router.push(`/post/${postId}`, {
       scroll: true,
     });
   };
@@ -32,10 +32,8 @@ const PostCard = ({
     <>
       <article
         className={styles.post}
-        key={title}
-        v-if="!isLoading"
+        // v-if="!isLoading"
         onClick={handleViews}
-        // onClick={handleBlogDetails(post, index)}
       >
         <div className={styles.user__profile}>
           <div className={styles.user__image}>

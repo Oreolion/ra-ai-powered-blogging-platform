@@ -6,6 +6,7 @@ import { Id } from "../convex/_generated/dataModel";
 
 export interface PostProps {
   _id: Id<"posts">;
+//   profileId: Id<"posts">;
   _creationTime: number;
   audioStorageId: Id<"_storage"> | null;
   user: Id<"users">;
@@ -74,6 +75,7 @@ export interface PostCardProps {
   views: number;
   authorImageUrl: string;
   description: string;
+//   _id: Id<"posts">;
   postId: Id<"posts">;
 }
 

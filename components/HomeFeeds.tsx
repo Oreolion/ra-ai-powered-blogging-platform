@@ -47,7 +47,7 @@ const HomeFeeds = () => {
             <>
               {posts?.map(
                 ({
-                    postId,
+                  _id: postId,
                   views,
                   postCategory,
                   postTitle,
@@ -61,7 +61,7 @@ const HomeFeeds = () => {
                   return (
                     <>
                       <PostCard
-                        key={postId}
+                        key={postId.toString()}
                         imageUrl={imageUrl!}
                         title={postTitle!}
                         description={postDescription}
@@ -72,7 +72,7 @@ const HomeFeeds = () => {
                         author={author}
                         authorImageUrl={authorImageUrl}
                         _creationTime={_creationTime}
-                      />{" "}
+                      />
                     </>
                   );
                 }

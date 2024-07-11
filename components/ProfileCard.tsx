@@ -15,13 +15,13 @@ const ProfileCard = ({
 }: ProfileCardProps) => {
   //   const { setAudio } = useAudio();
 
-  const [randomPost, setRandomPost] = useState<PostProps | null>(null);
+//   const [randomPost, setRandomPost] = useState<PostProps | null>(null);
 
-  const playRandomPost = () => {
-    const randomIndex = Math.floor(Math.random() * postData.posts.length);
+//   const playRandomPost = () => {
+//     const randomIndex = Math.floor(Math.random() * postData.posts.length);
 
-    setRandomPost(postData.posts[randomIndex]);
-  };
+//     setRandomPost(postData.posts[randomIndex]);
+//   };
 
   //   useEffect(() => {
   //     if (randomPost) {

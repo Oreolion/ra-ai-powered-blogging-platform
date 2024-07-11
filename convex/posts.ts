@@ -150,3 +150,25 @@ export const getAllPosts = query({
         .take(10);
     },
   });
+
+
+  
+// this query will get all the posts based on the post category of the post , which we are showing in the Similar Posts section.
+export const getPostByPostCategory = query({
+    args: {
+      postId: v.id("posts"),
+    },
+    handler: async (ctx, args) => {
+      const post = await ctx.db.get(args.postId);
+  
+      return await ctx.db
+        .query("posts")
+        .filter((q) =>
+          q.and(
+            q.eq(q.field("postCategory"), post?.postCategory),
+            q.neq(q.field("_id"), args.postId)
+          )
+        )
+        .collect();
+    },
+  });

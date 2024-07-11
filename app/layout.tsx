@@ -17,6 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+        {/* TODO: scrolltotopIcon */}
       <body className={inter.className}>
         <ConvexClerkProvider>{children}</ConvexClerkProvider>
       </body>
