@@ -6,6 +6,7 @@ import { SignedIn, UserButton, useUser, useClerk } from "@clerk/nextjs";
 import React, { useState } from "react";
 import styles from "@/styles/mobiledashboardNav.module.css";
 import { useRouter } from "next/navigation";
+import { postCategory } from "@/types";
 
 const MobileDashBoardNav = () => {
   const [toggle, setToggle] = useState<boolean>(false);
@@ -21,7 +22,7 @@ const MobileDashBoardNav = () => {
     setDropDown(!dropDown);
   }
 
-  const postCategories = [
+  const postCategories: postCategory[] = [
     "Technology",
     "Metaphysics & Esoterics",
     "Science",
@@ -102,7 +103,10 @@ const MobileDashBoardNav = () => {
               {postCategories.map((category) => {
                 return (
                   <li className={styles.li} key={category}>
-                    <Link href="" className={styles.link}>
+                    <Link
+                      href={`/filter-posts/${category}`}
+                      className={styles.link}
+                    >
                       {category}
                     </Link>
                   </li>
@@ -123,7 +127,7 @@ const MobileDashBoardNav = () => {
                   <p className={styles.p}>My Profile</p>
                 </Link>
               </li>
-              
+
               <li className={styles.li}>
                 <Link className={styles.link} href="/dashboard/nocontent">
                   <svg

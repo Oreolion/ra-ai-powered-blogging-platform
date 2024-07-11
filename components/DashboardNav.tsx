@@ -4,13 +4,16 @@ import React from "react";
 import styles from "@/styles/dashboardnav.module.css";
 import { SignedIn, UserButton, useUser, useClerk } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
+import { postCategory } from "@/types";
+
+// import LoaderSpinner from "./LoaderSpinner";
 
 const DashboardNav = () => {
   const { signOut } = useClerk();
   const { user } = useUser();
   const router = useRouter();
 
-  const postCategories = [
+  const postCategories: postCategory[] = [
     "Technology",
     "Metaphysics & Esoterics",
     "Science",
@@ -88,7 +91,7 @@ const DashboardNav = () => {
           {postCategories.map((category) => {
             return (
               <li className={styles.li} key={category}>
-                <Link href="" className={styles.link}>
+                <Link href={`/filter-posts/${category}`} className={styles.link}>
                   {category}
                 </Link>
               </li>

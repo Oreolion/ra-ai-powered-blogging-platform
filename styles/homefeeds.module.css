@@ -45,6 +45,7 @@
 .leftbox .p {
   font-size: 1rem;
   letter-spacing: 1px;
+  max-width: 18rem;
 }
 
 .dashboardfeeds__nav {
@@ -68,7 +69,7 @@
 .post__box {
   display: flex;
   flex-direction: column;
-  gap: 6rem;
+  gap: 4rem;
 }
 
 .post {
@@ -224,7 +225,7 @@
   .post {
     height: 65rem;
     min-width: 29rem;
-    width: 37rem;
+    width: 35rem;
   }
 
   .post .h2 {
@@ -253,7 +254,7 @@
 
 @media (max-width: 640px) {
   .dashboard__feeds {
-    width: 38rem;
+    width: 36rem;
   }
 }
 
@@ -266,7 +267,7 @@
     margin-right: 0.5rem;
     border: none;
     padding: 2rem 1rem;
-    width: 34rem;
+    width: 32rem;
   }
 
   .leftbox {
@@ -280,11 +281,12 @@
 
   .dashboardfeeds__header {
     margin-left: -1rem;
-    gap: 2rem;
+    justify-content: flex-start;
+    gap: 4rem;
   }
 
   .dashboardfeeds__header .button {
-    width: 17rem;
+    width: 13rem;
   }
 
   .reactionbox .button {
@@ -297,14 +299,15 @@
 
   .post__box {
     gap: 4rem;
-    width: 95%;
+    width: 90%;
   }
 
   .post {
     padding-left: 0;
+    width: 30rem;
   }
   .post .image {
-    width: 30rem;
+    width: 28rem;
     height: 20rem;
     margin-bottom: 1rem;
   }
@@ -324,13 +327,13 @@
 
 @media (max-width: 320px) {
   .dashboard__feeds {
-    width: 31rem;
+    width: 29rem;
     padding: 1rem;
     margin-left: -2rem;
   }
 
   .dashboardfeeds__header .button {
-    width: 16rem;
+    width: 15rem;
   }
 
   .leftbox {
@@ -352,12 +355,14 @@
   }
 
   .post__box {
-    width: 90%;
+    width: 88%;
     gap: 2rem;
   }
 
   .post {
     padding-left: 1rem;
+    width: 28rem;
+
   }
 
   .post .image {
