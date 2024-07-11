@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import ConvexClerkProvider from "./providers/ConvexClerkProvider";
+import Image from "next/image";
+import ScrollToTop from "@/components/ScrollToTop";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,11 +17,15 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+
+
+
   return (
     <html lang="en">
-        {/* TODO: scrolltotopIcon */}
       <body className={inter.className}>
         <ConvexClerkProvider>{children}</ConvexClerkProvider>
+        <ScrollToTop></ScrollToTop>
       </body>
     </html>
   );

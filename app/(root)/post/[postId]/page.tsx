@@ -180,7 +180,7 @@ const PostDetails = ({
           <>
             <EmptyStates
               title="No Similar post Found"
-              buttonLink="/discover"
+              buttonLink="/dashboard"
               buttonText="Discover more posts"
             ></EmptyStates>
           </>
