@@ -75,7 +75,6 @@ export interface PostCardProps {
   views: number;
   authorImageUrl: string;
   description: string;
-//   _id: Id<"posts">;
   postId: Id<"posts">;
 }
 
