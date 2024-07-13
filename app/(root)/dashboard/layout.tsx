@@ -15,6 +15,5 @@ export default function RootLayout({
       {children}
       <Toaster />
     </main>
-
   );
 }

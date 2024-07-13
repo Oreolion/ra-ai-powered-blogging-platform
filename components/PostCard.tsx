@@ -5,6 +5,8 @@ import styles from "@/styles/homefeeds.module.css";
 import { PostCardProps } from "@/types";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { useUser } from "@clerk/nextjs";
 
 const PostCard = ({
   imageUrl,
@@ -20,6 +22,7 @@ const PostCard = ({
 }: PostCardProps) => {
   //   const posts = useQuery(api.posts.getAllPosts);
   const router = useRouter();
+  const { user } = useUser();
 
   const handleViews = () => {
     // increase views
@@ -36,7 +39,7 @@ const PostCard = ({
         onClick={handleViews}
       >
         <div className={styles.user__profile}>
-          <div className={styles.user__image}>
+          <Link href={`/profile/${user?.id}`} className={styles.user__image}>
             {!authorImageUrl ? (
               <span
                 className={styles.span}
@@ -58,7 +61,7 @@ const PostCard = ({
                 height={30}
               />
             )}
-          </div>
+          </Link>
           <div className={styles.user__info}>
             <div className="">
               <h3 className={styles.username}>Name: {author}</h3>

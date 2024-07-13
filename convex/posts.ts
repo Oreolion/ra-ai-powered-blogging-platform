@@ -57,118 +57,112 @@ export const createPost = mutation({
 
 // this mutation is required to generate the url after uploading the file to the storage.
 export const getUrl = mutation({
-    args: {
-      storageId: v.id("_storage"),
-    },
-    handler: async (ctx, args) => {
-      return await ctx.storage.getUrl(args.storageId);
-    },
-  });
-  
+  args: {
+    storageId: v.id("_storage"),
+  },
+  handler: async (ctx, args) => {
+    return await ctx.storage.getUrl(args.storageId);
+  },
+});
 
-  // this query will get all the posts.
+// this query will get all the posts.
 export const getAllPosts = query({
-    handler: async (ctx) => {
+  handler: async (ctx) => {
+    return await ctx.db.query("posts").order("desc").collect();
+  },
+});
+
+// this query will get the post by the postId.
+export const getPostById = query({
+  args: {
+    postId: v.id("posts"),
+  },
+  handler: async (ctx, args) => {
+    return await ctx.db.get(args.postId);
+  },
+});
+
+// this query will get the posts based on the views of the post , which we are showing in the Trending Posts section.
+export const getTrendingPosts = query({
+  handler: async (ctx) => {
+    const post = await ctx.db.query("posts").collect();
+
+    return post.sort((a, b) => b.views - a.views).slice(0, 8);
+  },
+});
+
+// this query will get the post by the authorId.
+export const getPostByAuthorId = query({
+  args: {
+    authorId: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const posts = await ctx.db
+      .query("posts")
+      .filter((q) => q.eq(q.field("authorId"), args.authorId))
+      .collect();
+
+    const totalListeners = posts.reduce((sum, post) => sum + post.views, 0);
+
+    return { posts, listeners: totalListeners };
+  },
+});
+
+// this query will get the post by the search query.
+export const getPostBySearch = query({
+  args: {
+    search: v.string(),
+  },
+  handler: async (ctx, args) => {
+    if (args.search === "") {
       return await ctx.db.query("posts").order("desc").collect();
-    },
-  });
-  
-  // this query will get the post by the postId.
-  export const getPostById = query({
-    args: {
-      postId: v.id("posts"),
-    },
-    handler: async (ctx, args) => {
-      return await ctx.db.get(args.postId);
-    },
-  });
-  
-  // this query will get the posts based on the views of the post , which we are showing in the Trending Posts section.
-  export const getTrendingPosts = query({
-    handler: async (ctx) => {
-      const post = await ctx.db.query("posts").collect();
-  
-      return post.sort((a, b) => b.views - a.views).slice(0, 8);
-    },
-  });
-  
-  // this query will get the post by the authorId.
-  export const getPostByAuthorId = query({
-    args: {
-      authorId: v.string(),
-    },
-    handler: async (ctx, args) => {
-      const posts = await ctx.db
-        .query("posts")
-        .filter((q) => q.eq(q.field("authorId"), args.authorId))
-        .collect();
-  
-      const totalListeners = posts.reduce(
-        (sum, post) => sum + post.views,
-        0
-      );
-  
-      return { posts, listeners: totalListeners };
-    },
-  });
-  
-  // this query will get the post by the search query.
-  export const getPostBySearch = query({
-    args: {
-      search: v.string(),
-    },
-    handler: async (ctx, args) => {
-      if (args.search === "") {
-        return await ctx.db.query("posts").order("desc").collect();
-      }
-  
-      const authorSearch = await ctx.db
-        .query("posts")
-        .withSearchIndex("search_author", (q) => q.search("author", args.search))
-        .take(10);
-  
-      if (authorSearch.length > 0) {
-        return authorSearch;
-      }
-  
-      const titleSearch = await ctx.db
-        .query("posts")
-        .withSearchIndex("search_title", (q) =>
-          q.search("postTitle", args.search)
-        )
-        .take(10);
-  
-      if (titleSearch.length > 0) {
-        return titleSearch;
-      }
-  
-      return await ctx.db
-        .query("posts")
-        .withSearchIndex("search_body", (q) =>
-          q.search("postDescription" || "postTitle", args.search)
-        )
-        .take(10);
-    },
-  });
+    }
 
+    const authorSearch = await ctx.db
+      .query("posts")
+      .withSearchIndex("search_author", (q) => q.search("author", args.search))
+      .take(10);
 
-  
+    if (authorSearch.length > 0) {
+      return authorSearch;
+    }
+
+    const titleSearch = await ctx.db
+      .query("posts")
+      .withSearchIndex("search_title", (q) =>
+        q.search("postTitle", args.search)
+      )
+      .take(10);
+
+    if (titleSearch.length > 0) {
+      return titleSearch;
+    }
+
+    return await ctx.db
+      .query("posts")
+      .withSearchIndex("search_body", (q) =>
+        q.search("postDescription" || "postTitle", args.search)
+      )
+      .take(10);
+  },
+});
+
 // this query will get all the posts based on the post category of the post , which we are showing in the Similar Posts section.
 export const getPostByPostCategory = query({
-    args: {
-      postId: v.id("posts"),
-    },
-    handler: async (ctx, args) => {
-      const post = await ctx.db.get(args.postId);
-  
-      return await ctx.db
-        .query("posts")
-        .filter((q) =>
-          q.and(
-            q.eq(q.field("postCategory"), post?.postCategory),
-            q.neq(q.field("_id"), args.postId)
-          )
+  args: {
+    postId: v.id("posts"),
+  },
+  handler: async (ctx, args) => {
+    const post = await ctx.db.get(args.postId);
+
+    return await ctx.db
+      .query("posts")
+      .filter((q) =>
+        q.and(
+          q.eq(q.field("postCategory"), post?.postCategory),
+          q.neq(q.field("_id"), args.postId)
         )
-        .collect();
-    },
-  });
+      )
+      .collect();
+  },
+});

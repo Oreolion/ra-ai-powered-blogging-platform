@@ -1,6 +1,5 @@
 .logo {
   color: #e67e22;
-  font-weight: bold;
   margin-right: auto;
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
@@ -9,7 +8,7 @@
 .h3 {
   line-height: 1;
   letter-spacing: 0.7;
-  font-size: 1rem;
+  font-size: .8rem;
   font-weight: bold;
   text-align: center;
 }
@@ -45,7 +44,7 @@
 }
 
 .logo .p {
-  font-size: .8rem;
+  font-size: .6rem;
   font-weight: bold;
   letter-spacing: 1px;
   padding: 0.5rem;
@@ -61,13 +60,13 @@
   font-weight: bold;
   border-radius: 0.4rem;
   padding: 0.2rem;
-  font-size: 1rem;
+  font-size: .6rem;
 }
 .dashboard__nav {
   position: fixed;
   top: 0;
   left: 0;
-  padding: .2rem 2rem;
+  padding: .7rem 2rem;
   width: 18rem;
   height: 100vh;
   background: rgba(0, 0, 05, 0.8);

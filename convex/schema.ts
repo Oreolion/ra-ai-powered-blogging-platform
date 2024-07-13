@@ -3,19 +3,21 @@ import { v } from "convex/values";
 
 
 export default defineSchema({
-  Posts: defineTable({
+  posts: defineTable({
     user: v.id("users"),
     postTitle: v.string(),
     postContent: v.string(),
     postCategory: v.string(),
     postDescription: v.string(),
     audioUrl: v.optional(v.string()),
-    audioStrorageId: v.optional(v.id("_storage")),
+    imageStorageId: v.optional(v.id("_storage")),
+    audioStorageId: v.union(v.id("_storage"), v.null()),
     author: v.string(),
     authorId: v.string(),
     authorImageUrl: v.string(),
+    imageUrl: v.string(),
     imagePrompt: v.string(),
-    audioDuration: v.number(),
+    // audioDuration: v.number(),
     views: v.number(),
 
   })
