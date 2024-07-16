@@ -35,9 +35,8 @@ import { api } from "@/convex/_generated/api";
 import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
-  postTitle: z.string().min(2),
-  postDescription: z.string().min(2),
-  postContent: z.string().min(2),
+    postTitle: z.string().min(2, "Title must be at least 2 characters"),
+    postDescription: z.string().min(2, "Description must be at least 2 characters"),
 });
 
 export default function AddBlogPost() {
@@ -56,7 +55,6 @@ export default function AddBlogPost() {
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const { toast } = useToast();
   const router = useRouter();
-  // @ts-ignore
   const createPost = useMutation(api.posts.createPost);
 
   // 1. Define your form.
@@ -65,7 +63,6 @@ export default function AddBlogPost() {
     defaultValues: {
       postTitle: "",
       postDescription: "",
-      postContent: "",
     },
   });
 
@@ -85,19 +82,20 @@ export default function AddBlogPost() {
       const post = await createPost({
         postTitle: data.postTitle,
         postDescription: data.postDescription,
-        postCategory,
         postContent,
+        postCategory,
         // audioUrl,
         imageUrl,
         imagePrompt,
         views: 0,
+        likes: 0,
         // audioDuration,
         audioStorageId: audioStorageId!,
         imageStorageId: imageStorageId!,
       });
       toast({
         title: "Post Created Successfully",
-        variant: "success",
+        // variant: "success",
       });
       setIsSubmitting(false);
       router.push("/dashboard");

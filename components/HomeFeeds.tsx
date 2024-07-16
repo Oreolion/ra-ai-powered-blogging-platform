@@ -56,10 +56,11 @@ const HomeFeeds = () => {
             <Loader />
           ) : search ? (
             searchData?.length > 0 ? (
-              searchData.map(
+              searchData?.map(
                 ({
                   _id: postId,
                   views,
+                  likes,
                   postCategory,
                   postTitle,
                   postDescription,
@@ -78,6 +79,7 @@ const HomeFeeds = () => {
                     content={postContent}
                     postId={postId}
                     views={views}
+                    likes={likes}
                     author={author}
                     authorImageUrl={authorImageUrl}
                     _creationTime={_creationTime}
@@ -92,6 +94,7 @@ const HomeFeeds = () => {
               ({
                 _id: postId,
                 views,
+                likes,
                 postCategory,
                 postTitle,
                 postDescription,
@@ -110,6 +113,7 @@ const HomeFeeds = () => {
                   content={postContent}
                   postId={postId}
                   views={views}
+                  likes={likes}
                   author={author}
                   authorImageUrl={authorImageUrl}
                   _creationTime={_creationTime}

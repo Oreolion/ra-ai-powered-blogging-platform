@@ -19,6 +19,7 @@ export default defineSchema({
     imagePrompt: v.string(),
     // audioDuration: v.number(),
     views: v.number(),
+    likes: v.optional(v.number()),
 
   })
   .searchIndex("search_author", {searchField: "author"})

@@ -17,6 +17,7 @@ export const createPost = mutation({
     imagePrompt: v.string(),
     postCategory: v.string(),
     views: v.number(),
+    likes: v.number(),
     // audioDuration: v.number(),
   },
   handler: async (ctx, args) => {
@@ -49,6 +50,7 @@ export const createPost = mutation({
       imagePrompt: args.imagePrompt,
       postCategory: args.postCategory,
       views: args.views,
+      likes: args.likes,
       authorImageUrl: user[0].imageUrl,
       audioDuration: args.audioDuration,
     });
