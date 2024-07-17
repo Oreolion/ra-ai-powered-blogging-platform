@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import Loader from "./Loader";
-import PostCard from "./PostCard";
+import HomeCard from "./HomeCard";
 import EmptyStates from "@/components/EmptyStates";
 import SearchBar from "./SearchBar";
 
@@ -70,7 +70,7 @@ const HomeFeeds = () => {
                   author,
                   _creationTime,
                 }) => (
-                  <PostCard
+                  <HomeCard
                     key={postId.toString()}
                     imageUrl={imageUrl}
                     title={postTitle}
@@ -104,7 +104,7 @@ const HomeFeeds = () => {
                 author,
                 _creationTime,
               }) => (
-                <PostCard
+                <HomeCard
                   key={postId.toString()}
                   imageUrl={imageUrl}
                   title={postTitle}

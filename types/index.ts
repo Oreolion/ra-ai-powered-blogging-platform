@@ -22,7 +22,7 @@ export interface PostProps {
   imagePrompt: string | null;
   audioDuration: number;
   views: number;
-  likes: number| null;
+  likes: number;
 }
 
 export interface ProfilePostProps {
@@ -74,7 +74,7 @@ export interface PostCardProps {
   _creationTime: number;
   views: number;
   likes: number;
-  authorImageUrl: string;
+  authorImageUrl?: string;
   description: string;
   postId: Id<"posts">;
 }

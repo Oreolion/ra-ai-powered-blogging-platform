@@ -8,10 +8,9 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useUser } from "@clerk/nextjs";
 import Like from "./post-actions/Like";
-import { PostComments } from "./PostComments";
-import { Tab, Tabs } from "./Tabs";
 
-const PostCard = ({
+
+const HomeCard = ({
   imageUrl,
   views,
   likes,
@@ -28,22 +27,21 @@ const PostCard = ({
   const router = useRouter();
   const { user } = useUser();
 
-  const tabs: Tab[] = [{
-      title: "Comments",
-      color: "#000",
-      content: (
-        <div className="mt-[-5rem] flex flex-col gap-10">
-          <PostComments postId={postId as string} />
-        </div>
-      ),
-    },
-  ];
+  const handleViews = () => {
+    // increase views
+    router.push(`/post/${postId}`, {
+      scroll: true,
+    });
+  };
+
+  
 
   return (
     <>
       <article
         className={styles.post}
         // v-if="!isLoading"
+        onClick={handleViews}
       >
         <div className={styles.user__profile}>
           <Link href={`/profile/${user?.id}`} className={styles.user__image}>
@@ -114,8 +112,17 @@ const PostCard = ({
             </div>
           </div>
           <div className={styles.right}>
-            {/* <PostComments postId={postId}></PostComments> */}
-            <Tabs tabs={tabs} />
+            <button type="button" className={styles.icon}>
+              <svg
+                className={styles.svg}
+                fill="#ccc"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 512 512"
+              >
+                <path d="M512 240c0 114.9-114.6 208-256 208c-37.1 0-72.3-6.4-104.1-17.9c-11.9 8.7-31.3 20.6-54.3 30.6C73.6 471.1 44.7 480 16 480c-6.5 0-12.3-3.9-14.8-9.9c-2.5-6-1.1-12.8 3.4-17.4l0 0 0 0 0 0 0 0 .3-.3c.3-.3 .7-.7 1.3-1.4c1.1-1.2 2.8-3.1 4.9-5.7c4.1-5 9.6-12.4 15.2-21.6c10-16.6 19.5-38.4 21.4-62.9C17.7 326.8 0 285.1 0 240C0 125.1 114.6 32 256 32s256 93.1 256 208z" />
+              </svg>
+              {/* <span>{{ commentLists.length }} </span> */}
+            </button>{" "}
             <div
               className="flex gap-2 items-center justify-center"
               //  onClick={onLike}
@@ -129,4 +136,4 @@ const PostCard = ({
   );
 };
 
-export default PostCard;
+export default HomeCard;

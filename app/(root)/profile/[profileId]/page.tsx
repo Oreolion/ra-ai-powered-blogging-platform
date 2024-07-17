@@ -4,7 +4,7 @@ import { useQuery } from "convex/react";
 
 import EmptyStates from "@/components/EmptyStates";
 import LoaderSpinner from "@/components/LoaderSpinner";
-import PostCard from "@/components/PostCard";
+import HomeCard from "@/components/HomeCard";
 import ProfileCard from "@/components/ProfileCard";
 import { api } from "@/convex/_generated/api";
 
@@ -43,7 +43,7 @@ const ProfilePage = ({
             {postsData?.posts
               ?.slice(0, 4)
               .map((post: any) => (
-                <PostCard
+                <HomeCard
                   key={post._id}
                   imageUrl={post.imageUrl!}
                   title={post.postTitle!}
@@ -52,6 +52,7 @@ const ProfilePage = ({
                   content={post.postContent}
                   postId={post._id}
                   views={post.views}
+                  likes={post.likes}
                   author={post.author}
                   authorImageUrl={post.authorImageUrl}
                   _creationTime={post._creationTime}
