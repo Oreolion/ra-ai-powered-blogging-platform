@@ -3,80 +3,81 @@ import { useUser } from "@clerk/nextjs";
 import React, { useState, useEffect } from "react";
 import { FcLike, FcLikePlaceholder } from "react-icons/fc";
 import { useToast } from "../ui/use-toast";
+import { api } from "@/convex/_generated/api";
+import { useMutation } from "convex/react";
+import { useRouter } from "next/navigation";
 
-const Like = ({likes}: {likes: number}) => {
+const Like = ({ likes, postId }: { likes: number; postId: string }) => {
   const [isLiked, setIsLiked] = useState(false);
   const [likeBounce, setLikeBounce] = useState(false);
-  const [likeCount, setLikeCount] = useState(0);
+  const [likeCount, setLikeCount] = useState(likes);
   const formattedNumber = useNumFormatter(likeCount);
   const { user } = useUser();
- const { toast } = useToast()
+  const { toast } = useToast();
+  const router = useRouter();
 
   useEffect(() => {
     if (likes) {
-    //   const currentPostLikes = likes;
+      //   const currentPostLikes = likes;
       setLikeCount(likes);
-    //   setIsLiked(
-    //     data && data.findIndex((item) => item.id === user?.id) !== -1
-    //   );
+      setIsLiked(likes > 0);
     }
-  }, [likes, user]);
+  }, [likes]);
+
+  const updatePostLikes = useMutation(api.posts.updatePostLikes);
 
   const handleLike = async () => {
     try {
       if (user) {
         // const likeRef = doc(db, "posts", id, "likes", currentUser?.uid);
 
-        setIsLiked(!isLiked);
-        setLikeCount(isLiked ? likeCount - 1 : likeCount + 1);
+        const increment = !isLiked;
+        setIsLiked(increment);
+        setLikeCount(increment ? likeCount + 1 : likeCount - 1);
 
-        if (isLiked) {
-        //   await deleteDoc(likeRef);
-        } else {
-        //   await setDoc(likeRef, {
-        //     userId: currentUser?.uid,
-        //   });
-        }
+        await updatePostLikes({ postId, increment });
+
         setLikeBounce(true);
 
         setTimeout(() => {
           setLikeBounce(false);
-        }, 2000);
+        }, 5000);
 
         // setTimeout(() => {
         //   refetch();
         // }, 5000);
       } else {
-        // navigate("/sign-in");
+        router.push("/sign-in");
       }
     } catch (error) {
-        toast({
-            title: "Error occured while Creating post",
-            variant: "destructive",
-          });
+      toast({
+        title: "Error occured while liking post",
+        variant: "destructive",
+      });
       setIsLiked(!isLiked);
       setLikeCount(isLiked ? likeCount + 1 : likeCount - 1);
     }
   };
 
   return (
-    <div>
-      <div className="flex gap-1.5 items-center" onClick={handleLike}>
-        {isLiked ? (
-          <FcLike
-            size={30}
-            className={`opacity-50 hover:opacity-100 cursor-pointer ${
-              likeBounce ? "scale-up" : ""
-            }`}
-          />
-        ) : (
-          <FcLikePlaceholder
-            size={30}
-            className="opacity-50 hover:opacity-100 cursor-pointer"
-          />
-        )}
-        <span className="text-2xl">{formattedNumber}</span>
-      </div>
+    <div
+      className=" mt-[-1.2rem] flex gap-1.5 items-center"
+      onClick={handleLike}
+    >
+      {isLiked ? (
+        <FcLike
+          size={30}
+          className={`opacity-50 hover:opacity-100 cursor-pointer ${
+            likeBounce ? "scale-up" : ""
+          }`}
+        />
+      ) : (
+        <FcLikePlaceholder
+          size={30}
+          className="opacity-50 hover:opacity-100 cursor-pointer"
+        />
+      )}
+      <span className="text-2xl">{formattedNumber}</span>
     </div>
   );
 };

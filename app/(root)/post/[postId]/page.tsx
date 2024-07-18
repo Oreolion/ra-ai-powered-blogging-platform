@@ -8,7 +8,7 @@ import { useQuery } from "convex/react";
 import Image from "next/image";
 import React from "react";
 import { Id } from "@/convex/_generated/dataModel";
-import PostCard from "@/components/PostCard";
+// import PostCard from "@/components/PostCard";
 import { useUser } from "@clerk/nextjs";
 import styles from "@/styles/homefeeds.module.css";
 import Like from "@/components/post-actions/Like";
@@ -132,7 +132,7 @@ const PostDetails = ({
               //   type="button"
               //  onClick={onLike}
             >
-              <Like likes={post?.likes}></Like>
+              <Like likes={post?.likes} postId={post._id}></Like>
             </div>
           </div>
         </div>

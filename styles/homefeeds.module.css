@@ -101,7 +101,7 @@
   align-items: center;
   justify-content: center;
   &:hover {
-    opacity: .7;
+    opacity: 0.7;
   }
 }
 
@@ -189,7 +189,6 @@
   align-items: center;
   justify-content: center;
   height: 2.5rem;
-
 }
 
 .post .reactionbox div:hover {
@@ -210,13 +209,19 @@
 
 .post .reactionbox .right {
   display: flex;
+  gap: 3rem;
+  align-items: center;
+  justify-content: center;
 }
 
-.post .reactionbox .right .button:nth-child(2):active .svg {
-  fill: red;
+.post .reactionbox .left {
+  margin-right: 1rem;
+  margin-top: -1rem;
 }
+
 .post .reactionbox .right .icon {
-  margin-right: 2rem;
+  margin-right: 1rem;
+  margin-top: 0rem;
 }
 
 @media (max-width: 767px) {
@@ -353,7 +358,6 @@
     display: none;
   }
 
-
   .user__profile {
     flex-direction: row;
   }
@@ -366,7 +370,6 @@
   .post {
     padding-left: 1rem;
     width: 28rem;
-
   }
 
   .post .image {

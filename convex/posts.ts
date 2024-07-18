@@ -168,3 +168,25 @@ export const getPostByPostCategory = query({
       .collect();
   },
 });
+
+// this mutation will update the likes of the post.
+export const updatePostLikes = mutation({
+    args: {
+      postId: v.id("posts"),
+      increment: v.boolean(),
+    },
+    handler: async (ctx, args) => {
+      const post = await ctx.db.get(args.postId);
+      console.log(post)
+  
+      if (!post) {
+        throw new ConvexError("Post not found");
+      }
+  
+      const newLikes = args.increment ? post.likes + 1 : post.likes - 1;
+
+      return await ctx.db.patch(args.postId, {
+        likes: newLikes,
+      });
+    },
+  });

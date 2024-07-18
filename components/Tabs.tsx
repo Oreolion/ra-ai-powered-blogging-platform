@@ -15,11 +15,12 @@ export const Tabs: React.FC<TabsProps> = ({ tabs }) => {
 
   const handleTabClick = (index: number) => {
     setActiveTabIndex(index);
+    console.log(index);
   };
 
   return (
-    <div className="pt-10">
-      <div className="scrollbar-hide -mx-5 mb-12 overflow-x-scroll pl-5">
+    <div className="pt-3 flex gap-10">
+      <div className="scrollbar-hide -mx-5 mb-12  pl-5">
         <ul className="m-auto flex max-w-4xl gap-2 font-semibold uppercase lg:flex-wrap lg:justify-start">
           {tabs.map((tab, index) => (
             <li key={index}>
@@ -40,7 +41,7 @@ export const Tabs: React.FC<TabsProps> = ({ tabs }) => {
           ))}
         </ul>
       </div>
-      <div>{tabs[activeTabIndex].content}</div>
+      {/* <div>{tabs[activeTabIndex].content}</div> */}
     </div>
   );
 };

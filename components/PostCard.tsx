@@ -28,7 +28,8 @@ const PostCard = ({
   const router = useRouter();
   const { user } = useUser();
 
-  const tabs: Tab[] = [{
+  const tabs: Tab[] = [
+    {
       title: "Comments",
       color: "#000",
       content: (
@@ -114,13 +115,9 @@ const PostCard = ({
             </div>
           </div>
           <div className={styles.right}>
-            {/* <PostComments postId={postId}></PostComments> */}
             <Tabs tabs={tabs} />
-            <div
-              className="flex gap-2 items-center justify-center"
-              //  onClick={onLike}
-            >
-              <Like likes={likes}></Like>
+            <div className="flex gap-2 items-center justify-center">
+              <Like likes={likes} postId={postId}></Like>
             </div>
           </div>
         </div>

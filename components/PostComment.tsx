@@ -79,28 +79,28 @@ export const PostComment = ({ item: comment, postId, postInfo }: Props) => {
       {!isEdit ? (
         <>
           <div className="flex items-start gap-2  mb-4 w-full">
-          {postInfo ? (
-          !postInfo.authorImageUrl ? (
-            <>
-              <span className={styles.span}>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 448 512"
-                  className={styles.svg}
-                >
-                  <path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z" />
-                </svg>
-              </span>
-            </>
-          ) : (
-            <Image
-              src={postInfo.authorImageUrl}
-              alt="userpicture"
-              width={30}
-              height={30}
-            />
-          )
-        ) : null}
+            {postInfo ? (
+              !postInfo.authorImageUrl ? (
+                <>
+                  <span className={styles.span}>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 448 512"
+                      className={styles.svg}
+                    >
+                      <path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z" />
+                    </svg>
+                  </span>
+                </>
+              ) : (
+                <Image
+                  src={postInfo.authorImageUrl}
+                  alt="userpicture"
+                  width={30}
+                  height={30}
+                />
+              )
+            ) : null}
             <div className="flex-1 flex items-center justify-between">
               <div className="flex flex-col justify-center">
                 {/* <p className="text-sm font-semibold mb-0 pb-0">

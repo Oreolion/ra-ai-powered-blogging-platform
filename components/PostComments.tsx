@@ -134,7 +134,7 @@ export const PostComments = ({ postId, postInfo }: Props) => {
       ) : (
         <>
           {comments && comments.length === 0 ? (
-            <p className="text-xs font-medium opacity-50 text-center mt-5">
+            <p className="text-xs font-medium opacity-50 text-center mt-3">
               Be the first to comment on this post
             </p>
           ) : (
