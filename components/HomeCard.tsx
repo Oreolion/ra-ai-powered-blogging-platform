@@ -125,7 +125,6 @@ const HomeCard = ({
             </div>{" "}
             <div
               className="flex gap-2 items-center justify-center"
-              //  onClick={onLike}
             >
               <Like likes={likes} postId={postId}></Like>
             </div>

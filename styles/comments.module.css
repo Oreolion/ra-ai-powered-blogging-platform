@@ -1,0 +1,79 @@
+.comment__box {
+  position: relative;
+  background: rgba(222, 222, 220, 0.2);
+  padding: 1rem;
+  border-radius: 1rem;
+  right: 0%;
+  left: 0%;
+  top: -2%;
+  min-width: 35rem;
+}
+
+.comment__box .user__profile {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 1rem;
+}
+
+.comment__box .textarea {
+  height: 10rem;
+  border-radius: 2rem;
+  margin-bottom: 1rem;
+  background-color: rgba(29, 19, 19, 0.5);
+  color: #ccc;
+  text-indent: 1rem;
+  width: 94%;
+}
+
+.comment__box .btnbox {
+  display: flex;
+  gap: 1rem;
+}
+
+.comment__box .h3 {
+  font-size: 1.5rem;
+}
+
+.comment__box .comment__content {
+  background-color: transparent;
+  margin-top: -2rem;
+  margin-left: 8rem;
+  border-radius: 0.5rem;
+  border: 1px solid #ccc;
+  padding: 0.5rem;
+  width: 70%;
+  height: 5rem;
+}
+
+.comment__lists {
+  margin-bottom: 2rem;
+}
+
+.comment__lists + .user .user__image {
+  width: 4rem;
+  height: 4rem;
+}
+
+@media (max-width: 767px) {
+  .comment__box {
+    right: -10%;
+  }
+}
+@media (max-width: 480px) {
+  .comment__box {
+    right: -27%;
+  }
+
+  .comment__box textarea {
+    width: 90%;
+    height: 10rem;
+  }
+}
+
+@media (max-width: 320px) {
+  .comment__box {
+    top: -5%;
+    right: -19%;
+    min-width: 32rem;
+  }
+}
