@@ -1,4 +1,6 @@
 export const useNumFormatter = (num: number): string => {
+    
+   
     if (num >= 1e9) {
       return (num / 1e9).toFixed(1) + "B";
     } else if (num >= 1e6) {

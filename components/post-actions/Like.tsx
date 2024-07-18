@@ -18,7 +18,6 @@ const Like = ({ likes, postId }: { likes: number; postId: string }) => {
 
   useEffect(() => {
     if (likes) {
-      //   const currentPostLikes = likes;
       setLikeCount(likes);
       setIsLiked(likes > 0);
     }
@@ -29,7 +28,6 @@ const Like = ({ likes, postId }: { likes: number; postId: string }) => {
   const handleLike = async () => {
     try {
       if (user) {
-        // const likeRef = doc(db, "posts", id, "likes", currentUser?.uid);
 
         const increment = !isLiked;
         setIsLiked(increment);

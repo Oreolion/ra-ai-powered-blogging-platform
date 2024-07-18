@@ -15,10 +15,6 @@ const SimilarPostByCategory = ({
 }) => {
   const posts = useQuery(api.posts.getAllPosts);
 
-  // const filteredPosts = useQuery(api.posts.getPostByPostCategory, {
-  //   postId: params.category as any,
-  // });
-
   const filteredPosts = posts?.filter(
     (post) => post.postCategory === params.category
   );
@@ -34,6 +30,7 @@ const SimilarPostByCategory = ({
             ({
               postId,
               views,
+              likes,
               postCategory,
               postTitle,
               postDescription,
@@ -53,6 +50,7 @@ const SimilarPostByCategory = ({
                   content={postContent}
                   postId={postId}
                   views={views}
+                  likes={likes}
                   author={author}
                   authorImageUrl={authorImageUrl}
                   _creationTime={_creationTime}
@@ -66,7 +64,7 @@ const SimilarPostByCategory = ({
           <EmptyStates
             title="No Similar post Found"
             buttonLink="/dashboard"
-            buttonText="Discover more posts"
+            buttonText="Discover more Posts"
           ></EmptyStates>
         </>
       )}
