@@ -25,6 +25,17 @@ export interface PostProps {
   likes: number;
 }
 
+export interface PostCommentType {
+    content: string;
+    _id: string;
+    _creationTime: number;
+    creationAt: number;
+    postId: string;
+    userId: string;
+}
+
+export type PostCommentsArrayType = PostCommentType[];
+
 export interface ProfilePostProps {
   posts: PostProps[];
   listeners: number;

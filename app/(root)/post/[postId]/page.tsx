@@ -34,17 +34,6 @@ const PostDetails = ({
     postId: postId,
   });
 
-  //   const tabs: Tab[] = [
-  //     {
-  //       title: "Comments",
-  //       color: "#000",
-  //       content: (
-  //         <div className="mt-[-5rem] flex flex-col gap-10">
-  //           <PostComments postId={postId as string} />
-  //         </div>
-  //       ),
-  //     },
-  //   ];
 
   //   const isOwner = user?.id === post?.authorId;
 
@@ -133,7 +122,6 @@ const PostDetails = ({
             </div>
           </div>
           <div className={styles.right}>
-            {/* <Tabs tabs={tabs} /> */}
             
             <button
               type="button"
@@ -150,11 +138,11 @@ const PostDetails = ({
               </svg>
               {/* <span>{ commentLists.length } </span> */}
             </button>
-            {toggleComment && <PostComments postId={postId}></PostComments>}
+            {toggleComment && <PostComments postId={postId} 
+            // content={}
+            ></PostComments>}
             <div
               className="flex gap-2 items-center justify-center"
-              //   type="button"
-              //  onClick={onLike}
             >
               <Like likes={post?.likes} postId={post._id}></Like>
             </div>

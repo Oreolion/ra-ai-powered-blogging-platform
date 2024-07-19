@@ -41,9 +41,6 @@ const Like = ({ likes, postId }: { likes: number; postId: string }) => {
           setLikeBounce(false);
         }, 5000);
 
-        // setTimeout(() => {
-        //   refetch();
-        // }, 5000);
       } else {
         router.push("/sign-in");
       }

@@ -31,4 +31,11 @@ export default defineSchema({
     clerkId: v.string(),
     name: v.string(),
   }),
+    // ... your existing tables ...
+    comments: defineTable({
+      postId: v.id("posts"),
+      userId: v.id("users"),
+      content: v.string(),
+      createdAt: v.number(),
+    }).index("by_post", ["postId"]),
 });

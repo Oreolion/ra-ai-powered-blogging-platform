@@ -29,19 +29,6 @@ const PostCard = ({
   const router = useRouter();
   const { user } = useUser();
 
-//   const tabs: Tab[] = [
-//     {
-//       title: "Comments",
-//       color: "#000",
-//       content: (
-//         <div className="mt-[-5rem] flex flex-col gap-10">
-//                     <PostComments postId={postId} postInfo={{ imageUrl, views, likes, _creationTime, postId, description, category, title, content, authorImageUrl, author }} />
-
-//         </div>
-//       ),
-//     },
-//   ];
-
 const handleToggleCommentBox = () => {
     setToggleComment(!toggleComment)
 

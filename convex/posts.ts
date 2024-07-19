@@ -4,7 +4,6 @@ import { ConvexError, v } from "convex/values";
 import { mutation, query } from "./_generated/server";
 
 // create post mutation
-
 export const createPost = mutation({
   args: {
     audioStorageId: v.union(v.id("_storage"), v.null()),
@@ -56,6 +55,48 @@ export const createPost = mutation({
     });
   },
 });
+
+export const createComment = mutation({
+  args: {
+    postId: v.id("posts"),
+    content: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+
+    if (!identity) {
+      throw new Error("Not authenticated");
+    }
+
+    const user = await ctx.db
+      .query("users")
+      .filter((q) => q.eq(q.field("email"), identity.email))
+      .first();
+
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    return await ctx.db.insert("comments", {
+      postId: args.postId,
+      userId: user._id,
+      content: args.content,
+      createdAt: Date.now(),
+    });
+  },
+});
+
+// this query will get all the comments.
+export const getComments = query({
+    args: { postId: v.id("posts") },
+    handler: async (ctx, args) => {
+      return await ctx.db
+        .query("comments")
+        .withIndex("by_post", (q) => q.eq("postId", args.postId))
+        .order("desc")
+        .collect();
+    },
+  });
 
 // this mutation is required to generate the url after uploading the file to the storage.
 export const getUrl = mutation({
@@ -171,22 +212,22 @@ export const getPostByPostCategory = query({
 
 // this mutation will update the likes of the post.
 export const updatePostLikes = mutation({
-    args: {
-      postId: v.id("posts"),
-      increment: v.boolean(),
-    },
-    handler: async (ctx, args) => {
-      const post = await ctx.db.get(args.postId);
-      console.log(post)
-  
-      if (!post) {
-        throw new ConvexError("Post not found");
-      }
-  
-      const newLikes = args.increment ? post.likes + 1 : post.likes - 1;
+  args: {
+    postId: v.id("posts"),
+    increment: v.boolean(),
+  },
+  handler: async (ctx, args) => {
+    const post = await ctx.db.get(args.postId);
+    console.log(post);
 
-      return await ctx.db.patch(args.postId, {
-        likes: newLikes,
-      });
-    },
-  });
+    if (!post) {
+      throw new ConvexError("Post not found");
+    }
+
+    const newLikes = args.increment ? post.likes + 1 : post.likes - 1;
+
+    return await ctx.db.patch(args.postId, {
+      likes: newLikes,
+    });
+  },
+});
