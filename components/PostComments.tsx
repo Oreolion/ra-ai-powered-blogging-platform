@@ -13,10 +13,8 @@ import { MdModeEdit, MdOutlineDelete } from "react-icons/md";
 
 export const PostComments = ({
   postId,
-  content,
 }: {
   postId: string;
-  content: string;
 }) => {
   //   const navigate = useNavigate();
   const [comment, setComment] = useState("");
@@ -24,7 +22,7 @@ export const PostComments = ({
   const [toggleComment, setToggleComment] = useState<boolean>(true);
   const [more, setMore] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
-  const [editComment, setEditComment] = useState(comment.content);
+  const [editComment, setEditComment] = useState(comment?.content);
   const [isLoading, setIsLoading] = useState(false);
   const [loading, setLoading] = useState(false);
   //   const [commentsToShow, setCommentsToShow] = useState(5);
@@ -137,37 +135,28 @@ export const PostComments = ({
 
   return (
     <div className={styles.comment__box}>
-      {!isEdit ? (
-        <>
-          {comments && comments.length > 0 ? (
-            <div className={styles.comment__lists}>
-              {comments.map((comment, i) => {
-                return (
-                  <>
-                    <div className={styles.user}>
-                      <div className={styles.user__profile}>
-                        <div className={styles.user__image}>
-                          <span className="" v-if="!each.photoURL">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              viewBox="0 0 448 512"
-                            >
-                              <path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z" />
-                            </svg>
-                          </span>
-                          {/* <img :src="each.photoURL" alt="picture" v-else /> */}
-                        </div>
-                        <h3 className={styles.username}>
-                          {/* {{ each.comment.displayName || each.comment.email }} */}
-                        </h3>
-                      </div>
-                    </div>
-                    <div className="flex-1 flex items-center justify-between">
-                      <div className="flex flex-col justify-center">
-                        <p className={styles.username}>{user?.firstName}</p>
-                        {/* <span className="text-xs font-thin">{timeAgo}</span> */}
-                      </div>
-                      {user && user.id === comment.userId && (
+      {comments && comments.length > 0 ? (
+        <ul className={styles.commentlist}>
+          {comments.map((comment, i) => {
+            return (
+              <>
+                <li className={styles.comment__item} key={i}>
+                  <div className={styles.user__profile}>
+                    {/* <div className={styles.user__image}>
+                       <span className="" v-if="!each.photoURL">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 448 512"
+                          >
+                            <path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z" />
+                          </svg>
+                        </span> 
+                        <img :src="each.photoURL" alt="picture" v-else />
+                      </div> */}
+                    <p className={styles.username}>{user?.firstName}</p>
+                    {/* <span className="text-xs font-thin">{timeAgo}</span> */}
+                  </div>
+                  {/* {user && user.id === comment.userId && (
                         <div className="flex gap-2">
                           <MdModeEdit
                             size={25}
@@ -183,29 +172,27 @@ export const PostComments = ({
                             className=" opacity-50 hover:opacity-70 cursor-pointer hover:fill-[red]"
                           />
                         </div>
-                      )}
-                    </div>
+                      )} */}
 
-                    <div className="flex justify-between">
-                      <p className="text-xs text-[#d1d5db;]">
-                        {more
-                          ? comment.content
-                          : comment.content.substring(0, 100)}
-                        {comment.content.length > 100 && (
-                          <button type="button" onClick={() => setMore(!more)}>
-                            {more ? "...less" : "...more"}
-                          </button>
-                        )}
-                      </p>
-                    </div>
-                  </>
-                );
-              })}
-            </div>
-          ) : (
-            "Be the First to Comment"
-          )}
+                  <p className="text-xl text-[#d1d5db;]">
+                    {more ? comment.content : comment.content.substring(0, 100)}
+                    {comment.content.length > 100 && (
+                      <button type="button" onClick={() => setMore(!more)}>
+                        {more ? "...less" : "...more"}
+                      </button>
+                    )}
+                  </p>
+                </li>
+              </>
+            );
+          })}
+        </ul>
+      ) : (
+        "Be the First to Comment"
+      )}
 
+      {!isEdit ? (
+        <div className={styles.comment__inputbox}>
           <div className={styles.user}>
             <div className={styles.user__profile}>
               <div className={styles.user__image}>
@@ -238,16 +225,24 @@ export const PostComments = ({
                 onChange={(e) => setComment(e.target.value)}
               ></textarea>
             </label>
+          </div>
             <div className={styles.btnbox}>
-              <button type="button" onClick={handleToggleCommentBox}>
+              <button
+                className={styles.button}
+                type="button"
+                onClick={handleToggleCommentBox}
+              >
                 cancel
               </button>
-              <button type="button" onClick={createComment}>
+              <button
+                className={styles.button}
+                type="button"
+                onClick={createComment}
+              >
                 comment
               </button>
             </div>
-          </div>
-        </>
+        </div>
       ) : (
         <div>
           <textarea

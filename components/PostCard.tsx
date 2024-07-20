@@ -109,7 +109,6 @@ const handleToggleCommentBox = () => {
             </div>
           </div>
           <div className={styles.right}>
-            {/* <Tabs tabs={tabs} /> */}
             <button type="button" onClick={handleToggleCommentBox} className="icon">
             <svg
               fill="#ccc"

@@ -8,12 +8,9 @@ import { useQuery } from "convex/react";
 import Image from "next/image";
 import React, { useState } from "react";
 import { Id } from "@/convex/_generated/dataModel";
-// import PostCard from "@/components/PostCard";
 import { useUser } from "@clerk/nextjs";
 import styles from "@/styles/homefeeds.module.css";
 import Like from "@/components/post-actions/Like";
-// import { Tab, Tabs } from "@/components/Tabs";
-// import { PostComments } from "@/components/PostComments";
 import HomeCard from "@/components/HomeCard";
 import { PostComments } from "@/components/PostComments";
 
@@ -34,7 +31,6 @@ const PostDetails = ({
     postId: postId,
   });
 
-
   //   const isOwner = user?.id === post?.authorId;
 
   if (!similarPosts || !post) return <LoaderSpinner></LoaderSpinner>;
@@ -50,7 +46,7 @@ const PostDetails = ({
   return (
     <section className="ml-[18rem] mt-[9rem] max-md:ml-[0]">
       <article
-        className={styles.post}
+        className={`${styles.post} ${styles.postdetails}`}
         // v-if="!isLoading"
       >
         <div className={styles.user__profile}>
@@ -110,19 +106,19 @@ const PostDetails = ({
 
         <div className={styles.reactionbox}>
           <div className={styles.left}>
-            <div className={styles.user}>
-              <svg
-                className={styles.svg}
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 448 512"
-              >
-                <path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z" />
-              </svg>
-              <span className={styles.span}>{post?.views} views</span>
-            </div>
+              <div className={styles.user}>
+                <svg
+                  className={styles.svg}
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 448 512"
+                >
+                  <path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z" />
+                </svg>
+                <span className={styles.span}>{post?.views} views</span>
+              </div>
+            
           </div>
           <div className={styles.right}>
-            
             <button
               type="button"
               onClick={handleToggleCommentBox}
@@ -138,16 +134,12 @@ const PostDetails = ({
               </svg>
               {/* <span>{ commentLists.length } </span> */}
             </button>
-            {toggleComment && <PostComments postId={postId} 
-            // content={}
-            ></PostComments>}
-            <div
-              className="flex gap-2 items-center justify-center"
-            >
+            <div className="flex gap-2 items-center justify-center">
               <Like likes={post?.likes} postId={post._id}></Like>
             </div>
           </div>
         </div>
+        {toggleComment && <PostComments postId={postId}></PostComments>}
       </article>
 
       <section className="mt-8 flex flex-col gap-5">
