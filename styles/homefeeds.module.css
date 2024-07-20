@@ -93,7 +93,7 @@
   box-shadow: 4px 4px 4px 4px rgba(250, 250, 220, 0.2);
   min-height: 66rem;
   min-width: 28rem;
-  width: 48rem;
+  width: 50rem;
   border-radius: 1rem;
   padding: 2rem;
   line-height: 1.1;
@@ -176,6 +176,7 @@
 .post a,
 .p1 {
   display: flex;
+  font-size: 1rem;
   align-items: center;
   gap: 1rem;
   margin-bottom: 1rem;
@@ -187,7 +188,9 @@
   justify-content: space-between;
   width: 100%;
   padding-top: 1rem;
-  margin-bottom: 0.2rem;
+  margin-bottom: 0.4rem;
+  border-bottom: 2px solid #e67e22;
+  border-top: 2px solid #e67e22;
 }
 
 .post .reactionbox div {
@@ -349,6 +352,10 @@
 
   .post .reactionbox .right .icon {
     margin-right: 1rem;
+    &:hover {
+      opacity: 0.3;
+      letter-spacing: 1px;
+    }
   }
 }
 

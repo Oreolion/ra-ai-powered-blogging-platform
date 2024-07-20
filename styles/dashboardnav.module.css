@@ -8,13 +8,13 @@
 .h3 {
   line-height: 1;
   letter-spacing: 0.7;
-  font-size: .8rem;
+  font-size: 0.8rem;
   font-weight: bold;
   text-align: center;
 }
 
 .p {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 .h3 .span {
@@ -27,24 +27,22 @@
 }
 
 .spanheader {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: .8rem;
-    border-bottom: 4px solid #e67e22;
-    cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.8rem;
+  border-bottom: 4px solid #e67e22;
+  cursor: pointer;
 }
 
-
-
-.spanheader .svg  {
-    height: 1rem;
-    width: 1rem;
-    fill: #e67e22;
+.spanheader .svg {
+  height: 1rem;
+  width: 1rem;
+  fill: #e67e22;
 }
 
 .logo .p {
-  font-size: .6rem;
+  font-size: 0.6rem;
   font-weight: bold;
   letter-spacing: 1px;
   padding: 0.5rem;
@@ -60,13 +58,13 @@
   font-weight: bold;
   border-radius: 0.4rem;
   padding: 0.2rem;
-  font-size: .6rem;
+  font-size: 0.6rem;
 }
 .dashboard__nav {
   position: fixed;
   top: 0;
   left: 0;
-  padding: .7rem 2rem;
+  padding: 0.7rem 2rem;
   width: 18rem;
   height: 100vh;
   background: rgba(0, 0, 05, 0.8);
@@ -76,8 +74,8 @@
   flex-direction: column;
   align-items: center;
   z-index: 11111;
+  overflow-y: scroll;
 }
-
 
 .logo {
   margin: 1rem 0;
@@ -91,12 +89,12 @@
 .dashboard__navlists .link {
   display: flex;
   gap: 1rem;
-  margin-bottom: .5rem;
+  margin-bottom: 0.5rem;
   margin-left: 1rem;
   white-space: nowrap;
   cursor: pointer;
   font-weight: bold;
-  font-size: .8rem;
+  font-size: 0.8rem;
   color: #ddd;
   &:hover {
     letter-spacing: 1px;
@@ -120,15 +118,15 @@
 .dashboard__navlists .h5 {
   font-size: 1rem;
   font-weight: bold;
-  margin-bottom: .8rem;
+  margin-bottom: 0.8rem;
   border-bottom: 4px solid #e67e22;
   /* display: flex; */
 }
 
 .spanheader .h5 {
-    margin-bottom: .2rem;
-    border-bottom: 0;
-    border-color: none;
+  margin-bottom: 0.2rem;
+  border-bottom: 0;
+  border-color: none;
 }
 
 .dashboard__navlists .link .li {

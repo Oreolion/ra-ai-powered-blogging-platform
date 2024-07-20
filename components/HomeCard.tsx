@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "@/styles/homefeeds.module.css";
 // import { api } from "@/convex/_generated/api";
 // import { useQuery } from "convex/react";
@@ -8,7 +8,6 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useUser } from "@clerk/nextjs";
 import Like from "./post-actions/Like";
-
 
 const HomeCard = ({
   imageUrl,
@@ -23,6 +22,7 @@ const HomeCard = ({
   authorImageUrl,
   author,
 }: PostCardProps) => {
+  const [more, setMore] = useState<boolean>(false);
   //   const posts = useQuery(api.posts.getAllPosts);
   const router = useRouter();
   const { user } = useUser();
@@ -34,14 +34,12 @@ const HomeCard = ({
     });
   };
 
-  
-
   return (
     <>
       <article
         className={styles.post}
         // v-if="!isLoading"
-        onClick={handleViews}
+        // onClick={handleViews}
       >
         <div className={styles.user__profile}>
           <Link href={`/profile/${user?.id}`} className={styles.user__image}>
@@ -92,7 +90,17 @@ const HomeCard = ({
 
         <div className={styles.postheader}>
           <h2 className={styles.h2}> {title} </h2>
-          <p className={styles.p}> {content} </p>
+          <p className={styles.p}>
+            {more ? content : content.substring(0, 100)}
+            {content.length > 100 && (
+              <Link
+                href={`/post/${postId}`}
+                   onClick={handleViews}
+              >
+                Continue reading...
+              </Link>
+            )}
+          </p>
         </div>
         <div className={styles.image}>
           <Image src={imageUrl} alt="thumbnail" width={230} height={46} />
@@ -112,7 +120,9 @@ const HomeCard = ({
             </div>
           </div>
           <div className={styles.right}>
-            <div className={styles.icon}>
+            <div className={styles.icon}
+            onClick={handleViews}
+            >
               <svg
                 className={styles.svg}
                 fill="#ccc"
@@ -123,9 +133,7 @@ const HomeCard = ({
               </svg>
               {/* <span>{{ commentLists.length }} </span> */}
             </div>{" "}
-            <div
-              className="flex gap-2 items-center justify-center"
-            >
+            <div className="flex gap-2 items-center justify-center">
               <Like likes={likes} postId={postId}></Like>
             </div>
           </div>
