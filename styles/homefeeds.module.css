@@ -102,6 +102,11 @@
   cursor: pointer;
 }
 
+.user {
+  display: flex;
+  gap: 1rem;
+}
+
 .user__profile {
   display: flex;
   gap: 2rem;
@@ -129,6 +134,11 @@
   height: 100%;
   border-radius: 50%;
   object-fit: cover;
+}
+
+.userrole {
+  color: #e67e22;
+  font-weight: bold;
 }
 
 .user__info div {
@@ -250,6 +260,9 @@
 .post .reactionbox .right .icon {
   margin-right: 1rem;
   margin-top: -0.5rem;
+  &:hover {
+    opacity: 0.7;
+  }
 }
 
 @media (max-width: 767px) {

@@ -8,6 +8,7 @@
   min-width: 23rem;
   display: flex;
   flex-direction: column;
+  
 }
 
 .comment__box .user__profile {

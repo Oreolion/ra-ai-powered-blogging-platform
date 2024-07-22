@@ -9,6 +9,8 @@ import Link from "next/link";
 import { useUser } from "@clerk/nextjs";
 import Like from "./post-actions/Like";
 import { PostComments } from "./PostComments";
+import { useQuery } from "convex/react";
+import { api } from "@/convex/_generated/api";
 // import { PostComments } from "./PostComments";
 // import { Tab, Tabs } from "./Tabs";
 
@@ -29,6 +31,10 @@ const PostCard = ({
   const [toggleComment, setToggleComment] = useState<boolean>(false);
   const router = useRouter();
   const { user } = useUser();
+  const postComments = useQuery(api.posts.getComments, {
+    // @ts-ignore
+    postId,
+  });
 
   const handleToggleCommentBox = () => {
     setToggleComment(!toggleComment);
@@ -65,8 +71,8 @@ const PostCard = ({
             )}
           </Link>
           <div className={styles.user__info}>
-            <div className="">
-              <h3 className={styles.username}>Name: {author}</h3>
+            <div className="flex justify-between">
+              <h3 className={styles.username}> {author}</h3>
               <p className={styles.p1}>
                 <svg
                   className={styles.svg}
@@ -98,22 +104,18 @@ const PostCard = ({
         <div className={styles.reactionbox}>
           <div className={styles.left}>
             <div className={styles.user}>
-              <svg
-                className={styles.svg}
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 448 512"
-              >
-                <path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z" />
-              </svg>
+              <Image
+                src="/images/icons8-views-64.png"
+                alt="views"
+                width={30}
+                height={30}
+              />
+
               <span className={styles.span}>{views} views</span>
             </div>
           </div>
           <div className={styles.right}>
-            <button
-              type="button"
-              onClick={handleToggleCommentBox}
-              className="icon"
-            >
+            <div onClick={handleToggleCommentBox} className={styles.icon}>
               <svg
                 className={styles.svg}
                 fill="#ccc"
@@ -122,8 +124,8 @@ const PostCard = ({
               >
                 <path d="M512 240c0 114.9-114.6 208-256 208c-37.1 0-72.3-6.4-104.1-17.9c-11.9 8.7-31.3 20.6-54.3 30.6C73.6 471.1 44.7 480 16 480c-6.5 0-12.3-3.9-14.8-9.9c-2.5-6-1.1-12.8 3.4-17.4l0 0 0 0 0 0 0 0 .3-.3c.3-.3 .7-.7 1.3-1.4c1.1-1.2 2.8-3.1 4.9-5.7c4.1-5 9.6-12.4 15.2-21.6c10-16.6 19.5-38.4 21.4-62.9C17.7 326.8 0 285.1 0 240C0 125.1 114.6 32 256 32s256 93.1 256 208z" />
               </svg>
-              {/* <span>{ commentLists.length } </span> */}
-            </button>
+              <span>{postComments?.length} </span>
+            </div>
             <div className="flex gap-2 items-center justify-center">
               <Like likes={likes} postId={postId}></Like>
             </div>

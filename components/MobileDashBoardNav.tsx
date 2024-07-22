@@ -37,7 +37,7 @@ const MobileDashBoardNav = () => {
       {/*  mobile dashboard navbar  */}
       {toggle && (
         <>
-          <nav className={`${styles.dashboard__nav} ${styles.mobile}`}>
+          <nav className={`${styles.dashboard__nav} ${styles.mobile}` }>
             <div className={`${styles.logo} ${styles.link}`}>
               <h3 className={styles.h3}>
                 THE <span className={styles.span}>RA</span> APP
