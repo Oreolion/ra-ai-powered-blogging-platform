@@ -88,7 +88,7 @@ export const createComment = mutation({
 
 // this query will get all the comments.
 export const getComments = query({
-    args: { postId: v.id("posts") },
+    args: { postId: v.optional(v.id("posts")) },
     handler: async (ctx, args) => {
       return await ctx.db
         .query("comments")

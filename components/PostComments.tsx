@@ -32,7 +32,8 @@ export const PostComments = ({
   const { toast } = useToast();
   const addComment = useMutation(api.posts.createComment);
   const postComments = useQuery(api.posts.getComments, {
-    postId: postId,
+      // @ts-ignore
+    postId,
   });
   //   const getUserData = allUsers.find((user) => user.id === user?.uid);
 
