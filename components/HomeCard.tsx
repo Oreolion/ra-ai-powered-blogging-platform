@@ -39,15 +39,11 @@ const HomeCard = ({
       <article
         className={styles.post}
         // v-if="!isLoading"
-        // onClick={handleViews}
       >
         <div className={styles.user__profile}>
           <Link href={`/profile/${user?.id}`} className={styles.user__image}>
             {!authorImageUrl ? (
-              <span
-                className={styles.span}
-                //   v-if="!authorImageUrl"
-              >
+              <span className={styles.span}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 448 512"
@@ -90,20 +86,19 @@ const HomeCard = ({
 
         <div className={styles.postheader}>
           <h2 className={styles.h2}> {title} </h2>
+        </div>
+        <div className={styles.contentbox}>
           <p className={styles.p}>
             {more ? content : content.substring(0, 100)}
             {content.length > 100 && (
-              <Link
-                href={`/post/${postId}`}
-                   onClick={handleViews}
-              >
+              <Link href={`/post/${postId}`} onClick={handleViews}>
                 Continue reading...
               </Link>
             )}
           </p>
-        </div>
-        <div className={styles.image}>
-          <Image src={imageUrl} alt="thumbnail" width={230} height={46} />
+          <div className={styles.image}>
+            <Image src={imageUrl} alt="thumbnail" width={230} height={20} />
+          </div>
         </div>
 
         <div className={styles.reactionbox}>
@@ -120,9 +115,7 @@ const HomeCard = ({
             </div>
           </div>
           <div className={styles.right}>
-            <div className={styles.icon}
-            onClick={handleViews}
-            >
+            <div className={styles.icon} onClick={handleViews}>
               <svg
                 className={styles.svg}
                 fill="#ccc"

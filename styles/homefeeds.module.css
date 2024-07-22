@@ -1,5 +1,5 @@
 .dashboard__feeds {
-  margin-top: 10rem;
+  margin-top: 23rem;
   margin-left: 20rem;
   font-weight: bold;
   font-size: 1rem;
@@ -20,7 +20,7 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 2rem;
-  margin-top: 8rem;
+  margin-top: 3rem;
 }
 
 .leftbox {
@@ -35,9 +35,10 @@
   letter-spacing: 2px;
 }
 
-.postheader a {
+.contentbox a {
   color: green;
   font-weight: bold;
+  font-size: 0.7rem;
   &:hover {
     letter-spacing: 1px;
   }
@@ -142,9 +143,19 @@
   margin-top: 1rem;
 }
 
+.post .contentbox {
+  display: flex;
+  gap: 3rem;
+  height: 18rem;
+}
+
+.post .contentbox > * {
+  flex: 1 1 50%;
+}
+
 .post .image {
   width: 94%;
-  height: 22rem;
+  /* height: 22rem; */
   margin-bottom: 1rem;
 }
 
@@ -158,7 +169,6 @@
 .post .h2 {
   font-size: 1.8rem;
   font-weight: bold;
-  color: var(--green);
   margin-bottom: 1rem;
   max-width: 90%;
   text-transform: uppercase;
@@ -217,6 +227,7 @@
   height: 1.8rem;
   width: 1.8rem;
   margin-right: 1rem;
+  margin-top: 0rem;
 }
 
 .svg {
@@ -238,7 +249,7 @@
 
 .post .reactionbox .right .icon {
   margin-right: 1rem;
-  margin-top: 0rem;
+  margin-top: -0.5rem;
 }
 
 @media (max-width: 767px) {
@@ -340,6 +351,20 @@
     width: 27rem;
     height: 20rem;
     margin-bottom: 1rem;
+  }
+
+  .post .contentbox {
+    flex-direction: column;
+    gap: 2rem;
+    height: 28rem;
+  }
+
+  .post .contentbox .p {
+    height: 15rem;
+  }
+
+  .post .contentbox img {
+    margin-top: -7rem;
   }
 
   .post .reactionbox .left {

@@ -216,7 +216,6 @@ const MobileDashBoardNav = () => {
               </svg>
             </div>
           </nav>
-          {/* <SearchBar></SearchBar> */}
        
           <div className={styles.img__box}>
             <Link href={`/profile/${user?.id}`}>

@@ -8,11 +8,11 @@
   line-height: 1;
   letter-spacing: 0.7;
   color: #e67e22;
-  font-size: 0.8rem;
+  font-size: 0.6rem;
   text-align: center;
 }
 
-.h3 .span {
+.logo .h3 .span {
   color: green;
   background-color: #e67e22;
   border-top-left-radius: 6px;
@@ -271,7 +271,7 @@
 .search_form {
   position: absolute;
   width: 34rem;
-  top: 5%;
+  top: -25%;
   left: 30%;
   display: flex;
   align-items: center;
@@ -410,11 +410,11 @@
   .innerdashboard__container .header .h3 {
     line-height: 1;
     letter-spacing: 0.2;
-    font-size: 2rem;
+    font-size: 1rem;
   }
 
   .innerdashboard__container .header .logo .p {
-    font-size: 1.1rem;
+    font-size: 0.8rem;
     letter-spacing: 1px;
     padding-left: 4px;
   }
@@ -511,6 +511,10 @@
     right: 27%;
     gap: 1rem;
   }
+
+  .search_form {
+    left: 10%;
+  }
 }
 
 @media (max-width: 320px) {
@@ -519,8 +523,8 @@
     margin-top: 3rem;
   }
 
-  .h3 {
-    font-size: 1rem;
+  .logo .h3 {
+    font-size: 0.7rem;
   }
 
   .logo .p {
@@ -531,7 +535,7 @@
 
   .logo .p .span {
     padding: 0.2rem;
-    font-size: 0.7rem;
+    font-size: 0.6rem;
   }
 
   .dashboard__navlists .h5 {

@@ -31,8 +31,8 @@ const HomeFeeds = () => {
 
   return (
     <>
+      <SearchBar />
       <section className={styles.dashboard__feeds}>
-        <SearchBar />
         <div className={styles.dashboardfeeds__header}>
           <div className={styles.leftbox}>
             <h1 className={styles.h1}>FEEDS</h1>
