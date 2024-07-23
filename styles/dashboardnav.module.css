@@ -86,6 +86,14 @@
   display: none;
 }
 
+.dashboard__navlists .active_link {
+  background-color: rgba(255, 255, 255, 0.1);
+  font-weight: bold;
+  color: green;
+  border-bottom: 3px solid #ccc;
+  padding: 2px;
+}
+
 .dashboard__navlists .link {
   display: flex;
   gap: 1rem;

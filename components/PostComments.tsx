@@ -20,7 +20,7 @@ export const PostComments = ({ postId }: { postId: string }) => {
   const [editComment, setEditComment] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [loading, setLoading] = useState(false);
-  const { user, allUsers } = useUser();
+  const { user } = useUser();
   const router = useRouter();
   const { toast } = useToast();
   const addComment = useMutation(api.posts.createComment);
