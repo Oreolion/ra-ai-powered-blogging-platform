@@ -11,6 +11,8 @@ import Like from "./post-actions/Like";
 import { PostComments } from "./PostComments";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
+import Delete from "./post-actions/Delete";
+import { Share } from "./post-actions/Share";
 // import { PostComments } from "./PostComments";
 // import { Tab, Tabs } from "./Tabs";
 
@@ -26,6 +28,8 @@ const PostCard = ({
   content,
   authorImageUrl,
   author,
+  imageStorageId,
+  audioStorageId,
 }: PostCardProps) => {
   //   const posts = useQuery(api.posts.getAllPosts);
   const [toggleComment, setToggleComment] = useState<boolean>(false);
@@ -115,6 +119,12 @@ const PostCard = ({
             </div>
           </div>
           <div className={styles.right}>
+            <Delete
+              postId={postId}
+              imageStorageId={imageStorageId}
+              audioStorageId={audioStorageId}
+            ></Delete>
+            <Share></Share>
             <div onClick={handleToggleCommentBox} className={styles.icon}>
               <svg
                 className={styles.svg}

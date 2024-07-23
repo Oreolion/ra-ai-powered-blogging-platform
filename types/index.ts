@@ -26,12 +26,12 @@ export interface PostProps {
 }
 
 export interface PostCommentType {
-    content: string;
-    _id: string;
-    _creationTime: number;
-    creationAt: number;
-    postId: string;
-    userId: string;
+  content: string;
+  _id: string;
+  _creationTime: number;
+  creationAt: number;
+  postId: string;
+  userId: string;
 }
 
 export type PostCommentsArrayType = PostCommentType[];
@@ -88,6 +88,8 @@ export interface PostCardProps {
   authorImageUrl?: string;
   description: string;
   postId: Id<"posts">;
+  imageStorageId: string;
+  audioStorageId: string | null;
 }
 
 export interface ProfilePostProps {

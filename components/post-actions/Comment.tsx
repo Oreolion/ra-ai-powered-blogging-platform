@@ -10,15 +10,15 @@ const Comment = () => {
 
   return (
     <>
-      <div className="flex gap-1.5 items-center">
+      <div className="flex gap-1.5 items-center mt-[-.5rem]">
         <AiOutlineComment
           opacity={0.5}
-          size={20}
+          size={30}
           className="hover:opacity-100 cursor-pointer"
         />
-        <span className="text-xs font-semibold opacity-80 ">
+        {/* <span className="text-xs font-semibold opacity-80 ">
           {formattedNumber}
-        </span>
+        </span> */}
       </div>
     </>
   );

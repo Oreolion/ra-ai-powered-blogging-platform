@@ -247,7 +247,7 @@
 
 .post .reactionbox .right {
   display: flex;
-  gap: 3rem;
+  gap: 1.5rem;
   align-items: center;
   justify-content: center;
 }

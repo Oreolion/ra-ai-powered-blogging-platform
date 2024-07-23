@@ -72,7 +72,7 @@ const Like = ({ likes, postId }: { likes: number; postId: string }) => {
           className="opacity-50 hover:opacity-100 cursor-pointer"
         />
       )}
-      <span className="text-2xl">{formattedNumber}</span>
+      <span className="text-xl">{formattedNumber}</span>
     </div>
   );
 };

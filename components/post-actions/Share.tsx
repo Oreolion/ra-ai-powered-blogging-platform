@@ -1,21 +1,28 @@
 import { HiLink } from "react-icons/hi";
+import { useToast } from "../ui/use-toast";
 
 export const Share = () => {
   const path = window.location.href;
+  const { toast } = useToast();
 
   const copyLink = async () => {
     try {
       await navigator.clipboard.writeText(path);
-    //   toast.success("Post link copied");
+      toast({
+        title: "Post Link Copied successfully",
+      });
     } catch (error) {
-    //   toast.error((error as Error).message);
+      toast({
+        title: "Post Link Copied successfully",
+        variant: "destructive",
+      });
     }
   };
 
   return (
-    <div className="flex gap-1.5 items-center" onClick={copyLink}>
+    <div className="flex gap-1.5 items-center mt-[-1rem]" onClick={copyLink}>
       <HiLink
-        size={20}
+        size={30}
         opacity={0.5}
         className="hover:opacity-100 cursor-pointer"
       />

@@ -88,15 +88,15 @@ export const createComment = mutation({
 
 // this query will get all the comments.
 export const getComments = query({
-    args: { postId: v.optional(v.id("posts")) },
-    handler: async (ctx, args) => {
-      return await ctx.db
-        .query("comments")
-        .withIndex("by_post", (q) => q.eq("postId", args.postId))
-        .order("desc")
-        .collect();
-    },
-  });
+  args: { postId: v.optional(v.id("posts")) },
+  handler: async (ctx, args) => {
+    return await ctx.db
+      .query("comments")
+      .withIndex("by_post", (q) => q.eq("postId", args.postId))
+      .order("desc")
+      .collect();
+  },
+});
 
 // this mutation is required to generate the url after uploading the file to the storage.
 export const getUrl = mutation({
@@ -229,5 +229,43 @@ export const updatePostLikes = mutation({
     return await ctx.db.patch(args.postId, {
       likes: newLikes,
     });
+  },
+});
+
+// this mutation will update the views of the post.
+export const updatePostViews = mutation({
+  args: {
+    postId: v.id("posts"),
+  },
+  handler: async (ctx, args) => {
+    const post = await ctx.db.get(args.postId);
+
+    if (!post) {
+      throw new ConvexError("Post not found");
+    }
+
+    return await ctx.db.patch(args.postId, {
+      views: post.views + 1,
+    });
+  },
+});
+
+// this mutation will delete the post.
+export const deletePost = mutation({
+  args: {
+    postId: v.id("posts"),
+    imageStorageId: v.id("_storage"),
+    audioStorageId: v.id("_storage") | null,
+  },
+  handler: async (ctx, args) => {
+    const post = await ctx.db.get(args.postId);
+
+    if (!post) {
+      throw new ConvexError("Post not found");
+    }
+
+    await ctx.storage.delete(args.imageStorageId);
+    await ctx.storage.delete(args.audioStorageId);
+    return await ctx.db.delete(args.postId);
   },
 });
