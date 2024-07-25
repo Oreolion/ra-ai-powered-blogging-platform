@@ -274,8 +274,8 @@
 
   .post {
     height: 65rem;
-    min-width: 28rem;
-    width: 35rem;
+    min-width: 27rem;
+    width: 33rem;
   }
 
   .postdetails {
@@ -340,7 +340,7 @@
   }
 
   .dashboardfeeds__header .button {
-    width: 13rem;
+    width: 12rem;
   }
 
   .reactionbox .button {
@@ -357,11 +357,11 @@
   }
 
   .post {
-    padding-left: 0;
-    width: 28rem;
+    padding-left: 0.5rem;
+    width: 26rem;
   }
   .post .image {
-    width: 27rem;
+    width: 24rem;
     height: 20rem;
     margin-bottom: 1rem;
   }
@@ -389,7 +389,7 @@
   }
 
   .post .reactionbox .right .icon {
-    margin-right: 1rem;
+    margin-right: 2rem;
     &:hover {
       opacity: 0.3;
       letter-spacing: 1px;
@@ -405,7 +405,7 @@
   }
 
   .dashboardfeeds__header .button {
-    width: 15rem;
+    width: 12rem;
   }
 
   .leftbox {
@@ -427,20 +427,20 @@
 
   .post__box {
     width: 88%;
-    gap: 2rem;
+    gap: 1rem;
   }
 
   .post {
     padding-left: 1rem;
-    width: 27rem;
-  }
-
-  .post .image {
     width: 26rem;
   }
 
+  .post .image {
+    width: 23rem;
+  }
+
   .post .p {
-    font-size: 1rem;
+    font-size: 0.8rem;
   }
 
   .post .reactionbox .button {
@@ -448,6 +448,6 @@
   }
 
   .post .reactionbox .right .icon {
-    margin-right: 1.5rem;
+    margin-right: 1rem;
   }
 }
