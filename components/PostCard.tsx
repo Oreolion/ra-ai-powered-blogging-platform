@@ -13,6 +13,7 @@ import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import Delete from "./post-actions/Delete";
 import { Share } from "./post-actions/Share";
+import Saved from "./post-actions/Saved";
 // import { PostComments } from "./PostComments";
 // import { Tab, Tabs } from "./Tabs";
 
@@ -39,6 +40,7 @@ const PostCard = ({
     // @ts-ignore
     postId,
   });
+  const post = useQuery(api.posts.getAllPosts);
 
   const handleToggleCommentBox = () => {
     setToggleComment(!toggleComment);
@@ -53,9 +55,7 @@ const PostCard = ({
         <div className={styles.user__profile}>
           <Link href={`/profile/${user?.id}`} className={styles.user__image}>
             {!authorImageUrl ? (
-              <span
-                className={styles.span}
-              >
+              <span className={styles.span}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 448 512"
@@ -118,6 +118,7 @@ const PostCard = ({
             </div>
           </div>
           <div className={styles.right}>
+            <Saved post={post}></Saved>
             <Delete
               postId={postId}
               imageStorageId={imageStorageId}

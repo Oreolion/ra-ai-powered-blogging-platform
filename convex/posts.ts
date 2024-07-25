@@ -6,7 +6,7 @@ import { mutation, query } from "./_generated/server";
 // create post mutation
 export const createPost = mutation({
   args: {
-    audioStorageId: v.union(v.id("_storage"), v.null()),
+    audioStorageId: v.optional(v.union(v.id("_storage"), v.null())),
     postTitle: v.string(),
     postDescription: v.string(),
     // audioUrl: v.string(),
@@ -255,7 +255,75 @@ export const deletePost = mutation({
   args: {
     postId: v.id("posts"),
     imageStorageId: v.id("_storage"),
-    audioStorageId: v.id("_storage") | null,
+    audioStorageId: v.optional(v.union(v.id("_storage"), v.null())),
+  },
+  handler: async (ctx, args) => {
+    const post = await ctx.db.get(args.postId);
+
+    if (!post) {
+      throw new ConvexError("Post not found");
+    }
+
+    await ctx.storage.delete(args.imageStorageId);
+    await ctx.storage.delete(args.audioStorageId);
+    return await ctx.db.delete(args.postId);
+  },
+});
+
+// create saved posts for bookmarks
+export const createSavedPost = mutation({
+  args: {
+    audioStorageId: v.optional(v.union(v.id("_storage"), v.null())),
+    postTitle: v.string(),
+    postId: v.string(),
+    postDescription: v.string(),
+    // audioUrl: v.string(),
+    postContent: v.string(),
+    // imagePrompt: v.string(),
+    postCategory: v.string(),
+    views: v.number(),
+    likes: v.number(),
+    // audioDuration: v.number(),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+
+    if (!identity) {
+      throw new ConvexError("User not authenticated");
+    }
+
+    const user = await ctx.db
+      .query("users")
+      .filter((q) => q.eq(q.field("email"), identity.email))
+      .collect();
+
+    if (user.length === 0) {
+      throw new ConvexError("User not found");
+    }
+
+    return await ctx.db.insert("savedPosts", {
+      audioStorageId: args.audioStorageId,
+      user: user[0]._id,
+      postTitle: args.postTitle,
+      postDescription: args.postDescription,
+      postContent: args.postContent,
+      postCategory: args.postCategory,
+      views: args.views,
+      likes: args.likes,
+      author: user[0].name,
+      authorId: user[0].clerkId,
+      authorImageUrl: user[0].imageUrl,
+      savedAt: Date.now(),
+    });
+  },
+});
+
+// this mutation will delete the Saved or bookmarked posts.
+export const deleteSavedPost = mutation({
+  args: {
+    postId: v.id("posts"),
+    imageStorageId: v.id("_storage"),
+    audioStorageId: v.optional(v.union(v.null(), v.id("_storage"))),
   },
   handler: async (ctx, args) => {
     const post = await ctx.db.get(args.postId);
