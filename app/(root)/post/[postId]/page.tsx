@@ -122,9 +122,7 @@ const PostDetails = ({
             </div>
           </div>
           <div className={styles.right}>
-            <Saved post={post} 
-            audioStorageId={post?.audioStorageId}
-            ></Saved>
+            <Saved post={post} audioStorageId={post?.audioStorageId}></Saved>
             <Delete
               postId={post?._id}
               imageStorageId={post?.imageStorageId}

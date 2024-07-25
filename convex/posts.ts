@@ -318,6 +318,16 @@ export const createSavedPost = mutation({
   },
 });
 
+
+
+// get saved posts
+export const getAllSavedPosts = query({
+    handler: async (ctx) => {
+      return await ctx.db.query("savedPosts").order("desc").collect();
+    },
+  });
+
+
 // this mutation will delete the Saved or bookmarked posts.
 export const deleteSavedPost = mutation({
   args: {
