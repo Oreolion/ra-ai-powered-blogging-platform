@@ -100,7 +100,7 @@ const PostCard = ({
           <h2 className={styles.h2}> {title} </h2>
           <p className={styles.p}> {content} </p>
         </div>
-        <div className={styles.image}>
+        <div className={styles.postimage}>
           <Image src={imageUrl} alt="thumbnail" width={230} height={46} />
         </div>
 
@@ -118,7 +118,7 @@ const PostCard = ({
             </div>
           </div>
           <div className={styles.right}>
-            <Saved post={post}></Saved>
+            <Saved post={post} audioStorageId={audioStorageId}></Saved>
             <Delete
               postId={postId}
               imageStorageId={imageStorageId}
