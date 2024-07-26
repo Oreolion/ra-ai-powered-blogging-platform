@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState, Suspense } from "react";
+import React, { useEffect, useState  } from "react";
 import styles from "@/styles/homefeeds.module.css";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useQuery } from "convex/react";
@@ -31,7 +31,6 @@ const HomeFeeds = () => {
 
   return (
     <>
-     <Suspense fallback={<Loader />}>
       <SearchBar />
       <section className={styles.dashboard__feeds}>
         <div className={styles.dashboardfeeds__header}>
@@ -124,7 +123,6 @@ const HomeFeeds = () => {
           )}
         </div>
       </section>
-      </Suspense>
     </>
   );
 };
