@@ -264,8 +264,24 @@ export const deletePost = mutation({
       throw new ConvexError("Post not found");
     }
 
-    await ctx.storage.delete(args.imageStorageId);
-    await ctx.storage.delete(args.audioStorageId);
+    // Conditionally delete image and audio storage
+    if (args.imageStorageId) {
+      try {
+        await ctx.storage.delete(args.imageStorageId);
+      } catch (error) {
+        console.error(`Error deleting image storage: ${error.message}`);
+      }
+    }
+
+    if (args.audioStorageId) {
+      try {
+        await ctx.storage.delete(args.audioStorageId);
+      } catch (error) {
+        console.error(`Error deleting audio storage: ${error.message}`);
+      }
+    }
+
+    // Always delete the post itself
     return await ctx.db.delete(args.postId);
   },
 });
@@ -274,12 +290,14 @@ export const deletePost = mutation({
 export const createSavedPost = mutation({
   args: {
     audioStorageId: v.optional(v.union(v.id("_storage"), v.null())),
+    imageStorageId: v.optional(v.union(v.id("_storage"), v.null())),
     postTitle: v.string(),
     postId: v.string(),
     postDescription: v.string(),
     // audioUrl: v.string(),
+    imageUrl: v.string(),
     postContent: v.string(),
-    // imagePrompt: v.string(),
+    imagePrompt: v.optional(v.string()),
     postCategory: v.string(),
     views: v.number(),
     likes: v.number(),
@@ -303,8 +321,11 @@ export const createSavedPost = mutation({
 
     return await ctx.db.insert("savedPosts", {
       audioStorageId: args.audioStorageId,
+      imageStorageId: args.imageStorageId,
+      imagePrompt: args.imagePrompt,
       user: user[0]._id,
       postTitle: args.postTitle,
+      imageUrl: args.imageUrl,
       postDescription: args.postDescription,
       postContent: args.postContent,
       postCategory: args.postCategory,
@@ -318,22 +339,19 @@ export const createSavedPost = mutation({
   },
 });
 
-
-
 // get saved posts
 export const getAllSavedPosts = query({
-    handler: async (ctx) => {
-      return await ctx.db.query("savedPosts").order("desc").collect();
-    },
-  });
-
+  handler: async (ctx) => {
+    return await ctx.db.query("savedPosts").order("desc").collect();
+  },
+});
 
 // this mutation will delete the Saved or bookmarked posts.
 export const deleteSavedPost = mutation({
   args: {
     postId: v.id("posts"),
-    imageStorageId: v.id("_storage"),
     audioStorageId: v.optional(v.union(v.null(), v.id("_storage"))),
+    imageStorageId: v.optional(v.union(v.null(), v.id("_storage"))),
   },
   handler: async (ctx, args) => {
     const post = await ctx.db.get(args.postId);

@@ -4,6 +4,7 @@ import { useMutation } from "convex/react";
 import React from "react";
 import { MdOutlineDeleteOutline } from "react-icons/md";
 import { useToast } from "../ui/use-toast";
+import { useRouter } from "next/navigation";
 
 const Delete = ({
   postId,
@@ -17,6 +18,7 @@ const Delete = ({
   const { user } = useUser();
   const deletePost = useMutation(api.posts.deletePost);
   const { toast } = useToast();
+  const router = useRouter();
 
   const handleDelete = async () => {
     try {
@@ -31,12 +33,16 @@ const Delete = ({
         toast({
           title: "Post has been deleted",
         });
+
+        router.push("/dashboard");
       }
     } catch (error) {
       toast({
         title: "Error occurred while deleting Post",
         variant: "destructive",
       });
+      console.error(`Error deleting post: ${error.message}`);
+
     }
   };
 

@@ -154,7 +154,7 @@ export default function AddBlogPost() {
                     className="placeholder:text-gray-1"
                   />
                 </SelectTrigger>
-                <SelectContent className="text-16 border-none bg-black-1 font-bold text-white-1 focus:ring-orange-1">
+                <SelectContent className="text-16 border-none bg-slate-700 font-bold text-white-1 focus:ring-orange-1">
                   {postCategories.map((category) => {
                     return (
                       <SelectItem

@@ -51,7 +51,7 @@ export default defineSchema({
     postCategory: v.string(),
     postDescription: v.string(),
     audioUrl: v.optional(v.string()),
-    imageStorageId: v.optional(v.id("_storage")),
+    imageStorageId: v.optional(v.union(v.id("_storage"), v.null())),
     audioStorageId: v.optional(v.union(v.id("_storage"), v.null())),
     author: v.string(),
     authorId: v.string(),

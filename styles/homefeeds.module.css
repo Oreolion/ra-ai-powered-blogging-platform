@@ -165,11 +165,21 @@
 
 .post .image {
   width: 94%;
-  /* height: 22rem; */
+  margin-bottom: 1rem;
+}
+.post .postimage {
+  width: 94%;
+  height: 20rem;
   margin-bottom: 1rem;
 }
 
 .post .image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 1rem;
+}
+.post .postimage img {
   width: 100%;
   height: 100%;
   object-fit: cover;

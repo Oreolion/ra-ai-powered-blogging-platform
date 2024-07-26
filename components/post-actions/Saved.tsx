@@ -16,85 +16,73 @@ const Saved = ({
   post: PostProps;
   audioStorageId: string;
 }) => {
-  const [saveCount, setSaveCount] = useState(0);
   const [isSaved, setIsSaved] = useState(false);
-  const formattedNumber = useNumFormatter(saveCount);
+  const [saveCount, setSaveCount] = useState(0);
   const { user } = useUser();
   const router = useRouter();
   const { toast } = useToast();
-  const savedPost = useMutation(api.posts.createSavedPost);
-  const userId = useQuery(api.users.getUserById, {
-    clerkId: user?.id,
-  });
-  const allUsers = useQuery(api.users.getAllUsers);
-  const deleteSavedPost = useMutation(api.posts.deleteSavedPost);
+  const userId = useQuery(api.users.getUserById, { clerkId: user?.id });
+  const savePostMutation = useMutation(api.posts.createSavedPost);
+  const deleteSavedPostMutation = useMutation(api.posts.deleteSavedPost);
+  const savedPosts = useQuery(api.posts.getAllSavedPosts);
+
+  const formattedNumber = useNumFormatter(saveCount);
 
   useEffect(() => {
-    if (allUsers) {
-      setIsSaved(allUsers.some((savedPost: any) => savedPost._id === user?.id));
+    if (savedPosts && user) {
+      const postSaves = savedPosts.filter(
+        (savedPost: any) => savedPost.postId === post._id
+      );
+      const isPostSaved = postSaves.some(
+        (savedPost: any) => savedPost.userId === user.id
+      );
+      setIsSaved(isPostSaved);
+      setSaveCount(postSaves.length);
     }
-  }, [allUsers, user?.id]);
-
-  useEffect(() => {
-    console.log(savedPost);
-    setSaveCount(savedPost.length);
-  }, [savedPost]);
+  }, [savedPosts, post._id, user]);
 
   const handleSave = async () => {
+    if (!user) {
+      router.push("/sign-in");
+      return;
+    }
+
     try {
-      if (user) {
-        // const savedRef = doc(db, "users", currentUser.uid, "savedPost", id);
-        // const savesRef = doc(db, "posts", id, "saves", currentUser.uid);
-
-        setIsSaved(!isSaved);
-
-        setSaveCount((prevCount) => (isSaved ? prevCount - 1 : prevCount + 1));
-
-        if (isSaved) {
-          //   await deleteDoc(savedRef);
-          await deleteSavedPost({
-            postId: post._id,
-            imageStorageId: post.imageStorageId,
-            audioStorageId: post.audioStorageId!,
-          });
-
-          toast({
-            title: "Post has been removed from Bookmarks",
-          });
-
-          //   await deleteDoc(savesRef);
-        } else {
-          const saved = await savedPost({
-            postTitle: post.postTitle,
-            postDescription: post.postDescription,
-            postContent: post.postContent,
-            postCategory: post.postCategory,
-            postId: post._id,
-            audioUrl: post.audioUrl,
-            imageUrl: post.imageUrl,
-            views: post.views,
-            likes: post.likes,
-            audioStorageId: audioStorageId!,
-            audioDuration: post?.audioDuration,
-            imageStorageId: post.imageStorageId,
-          });
-          toast({
-            title: "Post Added to Bookmarks",
-          });
-          //   await setDoc(savesRef, {
-          //     userId: user?.id,
-          //   });
-        }
+      if (isSaved) {
+        await deleteSavedPostMutation({
+          postId: post._id,
+          imageStorageId: post.imageStorageId,
+          audioStorageId: post.audioStorageId!,
+        });
+        setIsSaved(false);
+        setSaveCount((prev) => prev - 1);
+        toast({ title: "Post has been removed from Bookmarks" });
       } else {
-        router.push("/sign-in");
+        await savePostMutation({
+          postTitle: post.postTitle,
+          postDescription: post.postDescription,
+          postContent: post.postContent,
+          postCategory: post.postCategory,
+          postId: post._id,
+          audioUrl: post.audioUrl,
+          imageUrl: post.imageUrl,
+          views: post.views,
+          likes: post.likes,
+          imagePrompt: post.imagePrompt,
+          audioStorageId: audioStorageId!,
+          audioDuration: post?.audioDuration,
+          imageStorageId: post.imageStorageId,
+        });
+        setIsSaved(true);
+        setSaveCount((prev) => prev + 1);
+        toast({ title: "Post Added to Bookmarks" });
       }
+      //   await savedPosts.refetch();
     } catch (error) {
       toast({
         title: "Error occurred while Saving Post",
         variant: "destructive",
       });
-      setIsSaved(!isSaved);
-      setSaveCount((prevCount) => (isSaved ? prevCount + 1 : prevCount - 1));
     }
   };
 
@@ -108,17 +96,17 @@ const Saved = ({
           {isSaved ? (
             <BsSave2Fill
               size={25}
-              className=" opacity-50 hover:opacity-100 cursor-pointer"
+              className="opacity-50 hover:opacity-100 cursor-pointer"
             />
           ) : (
             <BsSave2
               size={25}
-              className=" opacity-50 hover:opacity-100 cursor-pointer"
+              className="opacity-50 hover:opacity-100 cursor-pointer"
             />
           )}
         </div>
       ) : (
-        <HiSaveAs size={25} className=" opacity-80" />
+        <HiSaveAs size={25} className="opacity-80" />
       )}
       <span className="text-xl mt-[-1rem]">{formattedNumber}</span>
     </div>

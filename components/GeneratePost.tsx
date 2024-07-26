@@ -107,7 +107,7 @@ const GeneratePost = (props: GeneratePostProps) => {
           )}
         </Button>
       </div>
-      <p className="text-red-800 text-[.72rem] font-bold max-w-[35rem]">click button only to generate Post with AI after you have input your research prompt in the text area above</p>
+      <p className="text-green-200 text-[.72rem] font-bold max-w-[35rem]">click button only to generate Post with AI after you have input your research prompt in the text area above</p>
 
       {/* {props.audio && (
         <audio

@@ -17,6 +17,7 @@ import Delete from "@/components/post-actions/Delete";
 import { Share } from "@/components/post-actions/Share";
 import Saved from "@/components/post-actions/Saved";
 import Comment from "@/components/post-actions/Comment";
+import Link from "next/link";
 
 const PostDetails = ({
   params: { postId },
@@ -58,7 +59,7 @@ const PostDetails = ({
         // v-if="!isLoading"
       >
         <div className={styles.user__profile}>
-          <div className={styles.user__image}>
+          <Link href={`/profile/${user?.id}`} className={styles.user__image}>
             {!post?.authorImageUrl ? (
               <span className={styles.span}>
                 <svg
@@ -77,7 +78,7 @@ const PostDetails = ({
                 height={30}
               />
             )}
-          </div>
+          </Link>
           <div className={styles.user__info}>
             <div className="flex justify-between">
               <h3 className={styles.username}> {post?.author}</h3>
@@ -105,7 +106,7 @@ const PostDetails = ({
           <h2 className={styles.h2}> {post?.postTitle} </h2>
           <p className={styles.p}> {post?.postContent} </p>
         </div>
-        <div className={styles.image}>
+        <div className={styles.postimage}>
           <Image src={post?.imageUrl} alt="thumbnail" width={230} height={46} />
         </div>
 
