@@ -3,6 +3,19 @@ const nextConfig = {
     typescript: {
       ignoreBuildErrors: true,
     },
+    reactStrictMode: true,
+    swcMinify: true,
+    experimental: {
+      appDir: true,
+    },
+    async rewrites() {
+        return [
+          {
+            source: '/:path*',
+            destination: '/:path*',
+          },
+        ]
+      },
     images: {
       remotePatterns: [
         {

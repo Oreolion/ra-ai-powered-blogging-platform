@@ -15,9 +15,9 @@ const SearchBar = () => {
     try {
       if (debouncedValue) {
         console.log("Client: Debounced search value:", debouncedValue);
-        router.push(`/dashboard?search=${debouncedValue}`);
+        router.replace(`/dashboard?search=${debouncedValue}`);
       } else if (!debouncedValue && pathname === "/dashboard") {
-        router.push("/dashboard");
+        router.replace("/dashboard");
         setSearch("");
       }
     } catch (error: any) {
