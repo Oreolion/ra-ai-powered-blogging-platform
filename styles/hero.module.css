@@ -55,12 +55,26 @@
 .right__herosection {
   width: 50%;
   padding-top: 6rem;
+  position: relative;
+}
+.right__herosection .imgbox {
+  z-index: 11;
+  position: relative;
 }
 
 .right__herosection .imgbox .img {
-
   border-radius: 2rem;
- 
+}
+
+.right__herosection .box2 {
+  border-radius: 2rem;
+  position: absolute;
+  top: 25%;
+  right: -2%;
+  background-color: green;
+  height: 400px;
+  width: 570px;
+  z-index: 1;
 }
 
 @media (max-width: 767px) {
@@ -119,7 +133,7 @@
     font-size: 1.6rem;
     min-width: 32rem;
   }
-  
+
   .left__herosection .hero_btn {
     width: 17rem;
     margin: 0 7rem;
@@ -153,6 +167,12 @@
     margin: 0 4rem;
     margin: 0 auto;
   }
+
+  .right__herosection .box2 {
+    height: 300px;
+    width: 570px;
+  }
+  
 }
 
 @media (max-width: 320px) {

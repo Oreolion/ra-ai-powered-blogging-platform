@@ -15,10 +15,10 @@ const Navbar = () => {
       <div className={`${styles.logo} ${styles.link}`}>
         <Link href="/">
           <h3 className={styles.h3}>
-            THE <span>RA</span> BLOG
+            THE <span>RA</span> APP
           </h3>
           <p className={`${styles.p} text-[#e67e22]`}>
-            The <span className={styles.span}>Read Along</span> Blog
+            The <span className={styles.span}>Read Along</span> APP
           </p>
         </Link>
       </div>

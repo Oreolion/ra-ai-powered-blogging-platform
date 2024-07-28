@@ -4,8 +4,8 @@
   padding: 0.5rem;
   color: #e67e22;
   cursor: pointer;
-  height: 5rem;
-  max-width: 13rem;
+  height: 4rem;
+  max-width: 12rem;
 }
 
 .h3 {
@@ -25,11 +25,11 @@
   border-top-left-radius: 6px;
   border-bottom-right-radius: 6px;
   padding: 0.2rem;
+  margin-bottom: -1rem;
   font-weight: bold;
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
 }
-
 
 .logo .p {
   font-size: 0.7rem;
@@ -38,22 +38,24 @@
   text-align: center;
   white-space: nowrap;
   padding: 0.5rem;
-  background: rgba(05, 05, 05, 0.5);
+  background: rgba(05, 05, 05, 0.4);
+  width: 100%;
   border-top-right-radius: 1rem;
   border-bottom-left-radius: 1rem;
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
 }
-/* 
+
 .logo .p .span {
   background: rgba(05, 05, 05, 0.4);
   font-weight: bold;
+  color: #e67e22;
   border-radius: 0.4rem;
   letter-spacing: 0.2;
   padding: 0.2rem;
   font-size: 0.7rem;
   text-transform: uppercase;
-} */
+}
 
 .footer {
   background: rgba(295, 295, 295, 0.7);
@@ -71,11 +73,9 @@
   color: #fff;
 }
 
-
 .boxes {
-    display: flex;
+  display: flex;
 }
-
 
 .footer .h5 {
   font-size: 1.4rem;
@@ -88,7 +88,7 @@
 .footer .li {
   font-size: 1.1rem;
   font-weight: bold;
-  margin-bottom: .5rem;
+  margin-bottom: 0.5rem;
   white-space: nowrap;
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
@@ -101,16 +101,15 @@
 .footer .p {
   text-align: end;
   margin-right: 8rem;
-  margin-bottom: .3rem;
-  font-size: .8rem;
+  margin-bottom: 0.3rem;
+  font-size: 0.8rem;
   color: green;
 }
 
 @media (max-width: 768px) {
-
-    .footer {
-        height: 45rem;
-    }
+  .footer {
+    height: 45rem;
+  }
   .footer .logo {
     margin: 0 auto;
   }

@@ -29,13 +29,21 @@
   margin-bottom: 5rem;
 }
 
+.leftbox .imgbox {
+    border-radius: 50%;
+    height: 100px;
+    width: 100px;
+}
+
 .leftbox .imgbox:nth-child(2) {
   align-self: flex-end;
 }
 
 
-.img {
+.leftbox .img {
   border-radius: 50%;
+  height: 100%;
+  width:100%;
 }
 
 .rightbox {

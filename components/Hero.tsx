@@ -29,10 +29,11 @@ const Hero = () => {
             className={styles.img}
               src="/images/andrew-neel-cckf4TsHAuw-unsplash.jpg"
               alt="backgroundimage"
-              width={600}
-              height={600}
+              width={580}
+              height={580}
             />
           </div>
+          <div className={styles.box2}></div>
         </div>
       </div>
     </section>
