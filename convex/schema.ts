@@ -10,13 +10,7 @@ export default defineSchema({
     postDescription: v.string(),
     audioUrl: v.optional(v.string()),
     imageStorageId: v.optional(v.id("_storage")),
-    // audioStorageId: v.optional(v.union(v.id("_storage"), v.null())),
-    // audioStorageId: v.union(v.id("_storage"), v.null()),
-    // audioStorageId: v.any(),
-    // audioStorageId: v.optional(v.union(v.null(), v.id("_storage"))),
-    // audioStorageId: v.optional(v.any()),
     audioStorageId: v.optional(v.union(v.id("_storage"), v.null())),
-
     author: v.string(),
     authorId: v.string(),
     authorImageUrl: v.string(),
@@ -35,7 +29,7 @@ export default defineSchema({
     clerkId: v.string(),
     name: v.string(),
   }),
-  // ... your existing tables ...
+  // comment tables ...
   comments: defineTable({
     postId: v.id("posts"),
     userId: v.id("users"),
@@ -63,5 +57,4 @@ export default defineSchema({
     likes: v.number(),
     savedAt: v.number(),
   }),
-  //   .index("by_post", ["postId"])
 });

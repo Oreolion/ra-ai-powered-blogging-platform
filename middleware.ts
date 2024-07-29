@@ -1,12 +1,21 @@
 import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server';
+import { NextResponse } from 'next/server';
 
-const isPublicRoute = createRouteMatcher(['/sign-in(.*)', '/sign-up(.*)', '/']);
+const isPublicRoute = createRouteMatcher(['/sign-in(.*)', '/sign-up(.*)']);
+const isHomeRoute = createRouteMatcher(['/']);
 
 export default clerkMiddleware((auth, req) => {
-    if (!isPublicRoute(req))  auth().protect();
-    // Restrict admin route to users with specific role
-  //   if (isAdminRoute(req)) auth().protect({ role: 'org:admin' });
+  if (isHomeRoute(req)) {
+    const { userId } = auth();
+    if (userId) {
+      // User is logged in, redirect to dashboard
+      return NextResponse.redirect(new URL('/dashboard', req.url));
+    }
+  }
 
+  if (!isPublicRoute(req) && !isHomeRoute(req)) {
+    auth().protect();
+  }
 });
 
 export const config = {

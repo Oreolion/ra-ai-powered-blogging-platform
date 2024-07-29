@@ -25,6 +25,7 @@ export const PostComments = ({ postId }: { postId: string }) => {
   const { toast } = useToast();
   const addComment = useMutation(api.posts.createComment);
   const postComments = useQuery(api.posts.getComments, { postId });
+  const userId = useQuery(api.users.getUserById, { clerkId: user?.id });
 
   useEffect(() => {
     setComments(postComments);
@@ -117,10 +118,10 @@ export const PostComments = ({ postId }: { postId: string }) => {
                   </button>
                 )}
               </p>
-              {user && user?.id === comment._id && (
-                <div className="">
+              {user && userId?._id === comment.userId && (
+                <div className="flex gap-[1rem]">
                   <MdModeEdit
-                    size={13}
+                    size={25}
                     onClick={() => {
                       setIsEdit(true);
                       setEditComment(comment.content);
@@ -128,7 +129,7 @@ export const PostComments = ({ postId }: { postId: string }) => {
                     className="opacity-50 hover:opacity-100 cursor-pointer"
                   />
                   <MdOutlineDelete
-                    size={13}
+                    size={25}
                     onClick={() => removeComment(comment.userId)}
                     className="opacity-50 hover:opacity-70 cursor-pointer hover:fill-[red]"
                   />
@@ -200,7 +201,7 @@ export const PostComments = ({ postId }: { postId: string }) => {
             value={editComment}
             placeholder="What are your thoughts?"
             onChange={(e) => setEditComment(e.target.value)}
-            className="border-gel-background border px-6 py-4"
+            className={styles.textarea}
           ></textarea>
           <div className="mt-5 flex justify-start gap-4">
             <button
@@ -212,7 +213,7 @@ export const PostComments = ({ postId }: { postId: string }) => {
             </button>
             <button
               type="button"
-              onClick={() => handleEdit(comment.id)}
+              onClick={() => handleEdit(comment)}
               className="button button-action solid-primary !p-3 !text-xs opacity-70 w-[120px]"
             >
               {!isLoading ? (
