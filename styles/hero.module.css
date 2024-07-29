@@ -121,27 +121,35 @@
   .left__herosection {
     margin: 0rem;
     text-align: center;
-    padding-left: 2rem;
+    padding: 2rem;
   }
 
   .left__herosection .h1 {
-    min-width: 34rem;
-    font-size: 2.1rem;
+    min-width: 28rem;
+    font-size: 2rem;
     margin-left: 0rem;
   }
 
   .left__herosection .h3 {
-    font-size: 1.6rem;
-    min-width: 32rem;
+    font-size: 1.55rem;
+    min-width: 30rem;
+    padding: 0 1rem;
   }
 
   .left__herosection .hero_btn {
-    width: 17rem;
-    margin: 0 7rem;
+    width: 14rem;
+    margin: 0 8rem;
   }
 
   .right__herosection {
     margin-right: 0rem;
+  }
+
+  .right__herosection .box2 {
+    top: 25%;
+    right: 0%;
+    height: 360px;
+    width: 200px;
   }
 }
 
@@ -149,20 +157,20 @@
   .left__herosection {
     margin: 0 1rem;
     text-align: center;
-    padding-left: 0rem;
-    min-width: 36rem;
+    padding: 0 2rem;
+    min-width: 30rem;
   }
 
   .left__herosection .h1 {
-    font-size: 1.7rem;
+    font-size: 1.6rem;
     margin: 0 auto;
     margin-bottom: 2rem;
+    min-width: 26rem;
   }
   .left__herosection .h3 {
-    min-width: 16rem;
+    min-width: 19rem;
     color: #000;
-    width: 28rem;
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     margin: 0 auto;
     margin-bottom: 3rem;
   }
@@ -170,24 +178,43 @@
   .left__herosection .hero_btn {
     width: 14rem;
     margin: 0 4rem;
-    margin: 0 auto;
+  }
+
+  .right__herosection {
+    margin-left: 5rem;
   }
 
   .right__herosection .box2 {
     height: 300px;
     width: 570px;
   }
-  
 }
 
 @media (max-width: 320px) {
   .left__herosection {
-    padding-top: 10rem;
-    min-width: 26rem;
+    padding-top: 3rem;
+    min-width: 27rem;
   }
 
   .left__herosection .h1 {
-    min-width: 26rem;
-    width: 28rem;
+    min-width: 22rem;
+    font-size: 1.5rem;
+    margin: 0 2rem;
+  }
+  .left__herosection .h3 {
+    font-size: 1.3rem;
+    min-width: 20rem;
+    margin: 0 3rem;
+  }
+
+  .left__herosection .hero_btn {
+    margin: 0 5rem;
+  }
+
+  .right__herosection .box2 {
+    top: 30%;
+    right: 0%;
+    height: 240px;
+    width: 200px;
   }
 }

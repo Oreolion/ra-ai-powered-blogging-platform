@@ -30,20 +30,19 @@
 }
 
 .leftbox .imgbox {
-    border-radius: 50%;
-    width: 80px;
-    height: 80px;
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
 }
 
 .leftbox .imgbox:nth-child(2) {
   align-self: flex-end;
 }
 
-
 .leftbox .img {
   border-radius: 50%;
   height: 100%;
-  width:100%;
+  width: 100%;
 }
 
 .rightbox {
@@ -62,7 +61,7 @@
 }
 
 .rightbox .h1 {
-  font-size: 1.6rem;
+  font-size: 2.3rem;
   max-width: 51rem;
   margin-bottom: 2rem;
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
@@ -86,10 +85,44 @@
     flex-direction: column;
     gap: 3rem;
   }
-}
-@media (max-width: 320px) {
 
   .rightbox .h1 {
     font-size: 2rem;
+    max-width: 30rem;
+    margin-bottom: 2rem;
+  }
+  .rightbox .p {
+    font-size: 1.6rem;
+    margin-bottom: 2rem;
+    max-width: 30rem;
+  }
+}
+@media (max-width: 480px) {
+  .rightbox {
+    padding: 3rem 4rem;
+  }
+
+  .rightbox .h1 {
+    font-size: 1.6rem;
+    max-width: 26rem;
+  }
+
+  .rightbox .p {
+    font-size: 1.3rem;
+    max-width: 26rem;
+  }
+}
+@media (max-width: 320px) {
+  .rightbox {
+    padding: 2rem 6rem;
+  }
+  .rightbox .h1 {
+    font-size: 1.4rem;
+    max-width: 21rem;
+  }
+
+  .rightbox .p {
+    max-width: 21rem;
+    font-size: 1rem;
   }
 }

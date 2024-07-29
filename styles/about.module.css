@@ -47,12 +47,18 @@
 
   .p {
     font-size: 1.3rem;
+    padding: 0 1rem;
   }
 }
 
 @media (max-width: 480px) {
   .section {
     padding-top: 2rem;
+    height: 42rem;
+  }
+
+  .inner__box .leftbox {
+    padding: 1.5rem;
   }
   .h1 {
     margin-bottom: 2rem;
@@ -64,12 +70,22 @@
 @media (max-width: 320px) {
   .section {
     padding-top: 2rem;
+    height: 36rem;
   }
+
+  .inner__box .leftbox {
+    padding: 2.5rem;
+  }
+
   .h1 {
-    font-size: 2rem;
+    font-size: 1.6rem;
     margin-bottom: 2rem;
+    max-width: 21rem;
+    padding: 0 1rem;
   }
   .p {
-    font-size: 1.4rem;
+    font-size: 1.1rem;
+    max-width: 23rem;
+    padding: 0 2rem;
   }
 }

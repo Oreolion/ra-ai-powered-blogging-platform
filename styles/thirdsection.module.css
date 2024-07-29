@@ -1,6 +1,6 @@
 .section {
-  margin-bottom: 3rem;
-  padding-bottom: 3rem;
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
 }
 .post__box {
   display: flex;
@@ -51,7 +51,7 @@
 .post__box .h2 {
   font-size: 1.6rem;
   font-weight: bold;
-  margin-bottom: .5rem;
+  margin-bottom: 0.5rem;
   color: #ccc;
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
@@ -96,5 +96,41 @@
   .post__box .header .h1 {
     font-size: 2rem;
   }
-  
+
+  .post__box .p {
+    max-width: 22rem;
+    margin: 0 auto;
+  }
+
+  .post__box .h1 + .p {
+    max-width: 23rem;
+    padding: 0 1rem;
+  }
+}
+@media (max-width: 320px) {
+  .section {
+    margin-bottom: 2rem;
+    padding-bottom: 0;
+  }
+
+  .posts {
+    gap: 2rem;
+  }
+
+  .post__box .header .h1 {
+    font-size: 1.6rem;
+    max-width: 20rem;
+    padding: 0 1rem;
+    margin: 0 auto;
+  }
+
+  .post__box .p {
+    max-width: 16rem;
+    padding: 0 1rem;
+  }
+
+  .post__box .h1 + .p {
+    max-width: 21rem;
+    padding: 0 1rem;
+  }
 }
