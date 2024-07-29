@@ -31,8 +31,8 @@
 
 .leftbox .imgbox {
     border-radius: 50%;
-    height: 100px;
-    width: 100px;
+    width: 80px;
+    height: 80px;
 }
 
 .leftbox .imgbox:nth-child(2) {

@@ -44,6 +44,7 @@
   border-bottom-left-radius: 1rem;
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
+  color: #e67e22;
 }
 
 .logo .p .span {
@@ -98,7 +99,7 @@
   }
 }
 
-.footer .p {
+.footer .p1 {
   text-align: end;
   margin-right: 8rem;
   margin-bottom: 0.3rem;

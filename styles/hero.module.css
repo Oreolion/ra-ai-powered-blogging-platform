@@ -103,6 +103,7 @@
   .right__herosection {
     padding-top: 1rem;
   }
+
   .left__herosection .hero_btn {
     width: 12rem;
     margin: 0 6rem;
@@ -138,6 +139,10 @@
     width: 17rem;
     margin: 0 7rem;
   }
+
+  .right__herosection {
+    margin-right: 0rem;
+  }
 }
 
 @media (max-width: 480px) {
@@ -163,7 +168,7 @@
   }
 
   .left__herosection .hero_btn {
-    width: 17rem;
+    width: 14rem;
     margin: 0 4rem;
     margin: 0 auto;
   }

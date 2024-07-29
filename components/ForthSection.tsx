@@ -12,8 +12,8 @@ const ForthSection = () => {
               className={styles.img}
               src="/images/pexels-justin-shaifer-1222271.jpg"
               alt="img"
-              width={100}
-              height={100}
+              width={80}
+              height={80}
             />
           </div>
           <div className={styles.imgbox}>
@@ -21,8 +21,8 @@ const ForthSection = () => {
               className={styles.img}
               src="/images/pexels-andrea-piacquadio-762020.jpg"
               alt="img"
-              width={100}
-              height={100}
+              width={80}
+              height={80}
             />
           </div>
           <div className={styles.imgbox}>
@@ -30,8 +30,8 @@ const ForthSection = () => {
               className={styles.img}
               src="/images/pexels-daniel-xavier-1239291.jpg"
               alt="img"
-              width={100}
-              height={100}
+              width={80}
+              height={80}
             />
           </div>
         </div>
