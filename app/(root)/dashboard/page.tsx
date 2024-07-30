@@ -1,11 +1,11 @@
 import React, { Suspense } from "react";
 import HomeFeeds from "@/components/HomeFeeds";
-import { Loader } from "lucide-react";
+import LoaderSpinner from "@/components/LoaderSpinner";
 
 const Page = () => {
   return (
     <>
-      <Suspense fallback={<Loader />}>
+      <Suspense fallback={<LoaderSpinner />}>
         <HomeFeeds></HomeFeeds>
       </Suspense>
     </>

@@ -36,7 +36,7 @@ const Delete = ({
 
         router.push("/dashboard");
       }
-    } catch (error) {
+    } catch (error: any) {
       toast({
         title: "Error occurred while deleting Post",
         variant: "destructive",

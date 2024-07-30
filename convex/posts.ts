@@ -56,6 +56,7 @@ export const createPost = mutation({
   },
 });
 
+// create comment mutation
 export const createComment = mutation({
   args: {
     postId: v.id("posts"),
@@ -95,6 +96,23 @@ export const getComments = query({
       .withIndex("by_post", (q) => q.eq("postId", args.postId))
       .order("desc")
       .collect();
+  },
+});
+
+// This query deletes comment on post
+export const deleteComment = mutation({
+  args: {
+    postId: v.id("posts"),
+  },
+  handler: async (ctx, args) => {
+    const comment = await ctx.db.get(args.postId);
+
+    if (!comment) {
+      throw new ConvexError("Comment not found");
+    }
+
+    // delete the comment
+    return await ctx.db.delete(args.postId);
   },
 });
 
