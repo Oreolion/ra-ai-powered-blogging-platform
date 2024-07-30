@@ -27,11 +27,13 @@ export interface PostProps {
 
 export interface PostCommentType {
   content: string;
+  newContent: string;
   _id: string;
   _creationTime: number;
   creationAt: number;
   postId: string;
   userId: string;
+  commentId: string;
 }
 
 export type PostCommentsArrayType = PostCommentType[];

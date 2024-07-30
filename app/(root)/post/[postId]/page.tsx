@@ -119,7 +119,7 @@ const PostDetails = ({
                 width={30}
                 height={30}
               />
-              <span className={styles.span}>{post?.views} views</span>
+              <span className={styles.span}>{post?.views} </span>
             </div>
           </div>
           <div className={styles.right}>

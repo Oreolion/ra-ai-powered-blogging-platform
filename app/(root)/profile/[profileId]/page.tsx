@@ -1,7 +1,6 @@
 "use client";
 
 import { useQuery } from "convex/react";
-
 import EmptyStates from "@/components/EmptyStates";
 import LoaderSpinner from "@/components/LoaderSpinner";
 import HomeCard from "@/components/HomeCard";
@@ -31,9 +30,9 @@ const ProfilePage = ({
       </h1>
       <div className="mt-6 flex flex-col gap-6 max-md:items-center md:flex-row">
         <ProfileCard
-          postData={postsData!}
-          imageUrl={user?.imageUrl!}
-          userFirstName={user?.name!}
+          postData={postsData}
+          imageUrl={user?.imageUrl}
+          userFirstName={user?.name}
         />
       </div>
       <section className="mt-9 flex flex-col gap-5">

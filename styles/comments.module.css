@@ -12,8 +12,12 @@
 }
 
 .comment__box .user__profile {
-  border: 1px solid red;
   padding: 1px;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+
 }
 
 .comment__box .textbox {

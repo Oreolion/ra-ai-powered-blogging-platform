@@ -87,6 +87,38 @@ export const createComment = mutation({
   },
 });
 
+// This mutation edits an existing comment
+export const editComment = mutation({
+  args: {
+    _id: v.id("comments"),
+    newContent: v.string(),
+    userId: v.id("users"),
+  },
+  handler: async (ctx, args) => {
+    const { _id, newContent, userId } = args;
+
+    // Fetch the existing comment
+    const existingComment = await ctx.db.get(_id);
+
+    if (!existingComment) {
+      throw new Error("Comment not found");
+    }
+
+    // Check if the user is allowed to edit this comment
+    if (existingComment.authorId !== _id) {
+      throw new Error("User not authorized to edit this comment");
+    }
+
+    // Update the comment
+    const updatedComment = await ctx.db.patch(_id, {
+      content: newContent,
+      editedAt: new Date().toISOString(),
+    });
+
+    return updatedComment;
+  },
+});
+
 // this query will get all the comments.
 export const getComments = query({
   args: { postId: v.optional(v.id("posts")) },
@@ -102,17 +134,17 @@ export const getComments = query({
 // This query deletes comment on post
 export const deleteComment = mutation({
   args: {
-    postId: v.id("posts"),
+    _id: v.optional(v.id("comments")),
   },
   handler: async (ctx, args) => {
-    const comment = await ctx.db.get(args.postId);
+    const comment = await ctx.db.get(args._id);
 
     if (!comment) {
       throw new ConvexError("Comment not found");
     }
 
     // delete the comment
-    return await ctx.db.delete(args.postId);
+    return await ctx.db.delete(args._id);
   },
 });
 
