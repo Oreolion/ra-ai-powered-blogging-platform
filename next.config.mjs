@@ -5,14 +5,6 @@ const nextConfig = {
     },
     reactStrictMode: true,
     swcMinify: true,
-    async rewrites() {
-        return [
-          {
-            source: '/:path*',
-            destination: '/:path*',
-          },
-        ]
-      },
     images: {
       remotePatterns: [
         {
