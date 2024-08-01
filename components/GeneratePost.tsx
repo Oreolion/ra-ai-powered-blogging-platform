@@ -22,7 +22,7 @@ const useGeneratePost = ({
   // @ts-ignore
 
   const generateUploadUrl = useMutation(api.file.generateUploadUrl);
-    const { startUpload } = useUploadFiles(generateUploadUrl);
+  const { startUpload } = useUploadFiles(generateUploadUrl);
 
   const getPostAudio = useAction(api.openai.generateAudioAction);
 
@@ -62,7 +62,7 @@ const useGeneratePost = ({
       console.log(error.message);
       toast({
         title: "Error creating a Post, please try again",
-        variant: "destructive"
+        variant: "destructive",
       });
       setIsGenerating(false);
     }
@@ -91,7 +91,6 @@ const GeneratePost = (props: GeneratePostProps) => {
         ></Textarea>
       </div>
       <div className="mt-5 w-full max-w-[200px]">
-
         <Button
           type="submit"
           className="text-16  bg-orange-1 py-4 font-bold text-white-1 hover:bg-black-1"
@@ -107,7 +106,10 @@ const GeneratePost = (props: GeneratePostProps) => {
           )}
         </Button>
       </div>
-      <p className="text-green-200 text-[.72rem] font-bold max-w-[35rem]">click button only to generate Post with AI after you have input your research prompt in the text area above</p>
+      <p className="text-green-200 text-[.72rem] font-bold max-w-[35rem]">
+        click button only to generate Post with AI after you have input your
+        research prompt in the DESCRIPTION field above above
+      </p>
 
       {/* {props.audio && (
         <audio

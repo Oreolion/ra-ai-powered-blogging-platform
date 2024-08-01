@@ -94,7 +94,7 @@ const GenerateThumbnail = ({
           type="button"
           //   variant="plain"
           className={cn("w-[16rem] p-2 h-7 text-[.6rem]", {
-            "bg-black-6 hover:bg-black-9": isAiThumbnail,
+            "bg-black-6 hover:bg-black-9 bg-slate-400": isAiThumbnail,
           })}
         >
           Use AI to generate Thumbnail
@@ -104,7 +104,7 @@ const GenerateThumbnail = ({
           type="button"
           //   variant="plain"
           className={cn("w-[18rem] p-2 h-7 text-[.6rem]", {
-            "bg-black-6 hover:bg-black-9": !isAiThumbnail,
+            "bg-black-6 hover:bg-black-9 bg-slate-400": !isAiThumbnail,
           })}
         >
           Upload custom image

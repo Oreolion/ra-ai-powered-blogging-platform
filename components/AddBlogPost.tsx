@@ -79,7 +79,7 @@ export default function AddBlogPost() {
         throw new Error("Please Create Post and Add Thumbnail");
       }
 
-      const post = await createPost({
+       await createPost({
         postTitle: data.postTitle,
         postDescription: data.postDescription,
         postContent,
@@ -95,7 +95,6 @@ export default function AddBlogPost() {
       });
       toast({
         title: "Post Created Successfully",
-        // variant: "success",
       });
       setIsSubmitting(false);
       router.push("/dashboard");
@@ -135,7 +134,7 @@ export default function AddBlogPost() {
                     />
                   </FormControl>
 
-                  <FormMessage className="text-white-1" />
+                  <FormMessage className="text-red-300" />
                 </FormItem>
               )}
             />
@@ -192,7 +191,7 @@ export default function AddBlogPost() {
                     />
                   </FormControl>
 
-                  <FormMessage className="text-white-1" />
+                  <FormMessage className="text-red-300" />
                 </FormItem>
               )}
             />

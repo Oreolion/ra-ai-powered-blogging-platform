@@ -95,7 +95,7 @@
   width: 50rem;
   border-radius: 1rem;
   padding: 2rem;
-  line-height: 1.1;
+  line-height: 1;
   margin-bottom: 4rem;
   cursor: pointer;
 }
@@ -201,6 +201,11 @@
   text-transform: capitalize;
 }
 
+.post .contentbox .p,
+.postdetails .contentbox .p {
+  font-size: 1rem;
+}
+
 .post a,
 .p1 {
   display: flex;
@@ -284,8 +289,6 @@
     min-width: 27rem;
     width: 33rem;
   }
-
- 
 
   .post .h2 {
     font-size: 1.4rem;
@@ -374,11 +377,10 @@
   .post .contentbox {
     flex-direction: column;
     gap: 2rem;
-    height: 28rem;
   }
 
   .post .contentbox .p {
-    height: 15rem;
+    font-size: 0.8rem;
   }
 
   .post .contentbox img {

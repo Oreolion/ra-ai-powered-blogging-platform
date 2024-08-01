@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import styles from "@/styles/homefeeds.module.css";
-// import { api } from "@/convex/_generated/api";
-// import { useQuery } from "convex/react";
 import { PostCardProps } from "@/types";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -112,7 +110,7 @@ const HomeCard = ({
             <div className={styles.user}>
             <Image src="/images/icons8-views-64.png" alt="views" width={30} height={30} />
 
-              <span className={styles.span}>{views} views</span>
+              <span className={styles.span}>{views}</span>
             </div>
           </div>
           <div className={styles.right}>
