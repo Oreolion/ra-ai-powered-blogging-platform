@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import PostCard from "@/components/PostCard";
+import HomeCard from "@/components/HomeCard";
 import EmptyStates from "@/components/EmptyStates";
 import LoaderSpinner from "@/components/LoaderSpinner";
 import { useQuery } from "convex/react";
@@ -28,7 +28,7 @@ const SimilarPostByCategory = ({
         <div className="">
           {filteredPosts?.map(
             ({
-              postId,
+              _id: postId,
               views,
               likes,
               postCategory,
@@ -41,7 +41,7 @@ const SimilarPostByCategory = ({
               _creationTime,
             }) => {
               return (
-                <PostCard
+                <HomeCard
                   key={postId}
                   imageUrl={imageUrl!}
                   title={postTitle!}

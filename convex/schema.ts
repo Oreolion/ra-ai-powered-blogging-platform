@@ -42,6 +42,8 @@ export default defineSchema({
   // bookmarks tables for schema ...
   savedPosts: defineTable({
     user: v.id("users"),
+    userId: v.optional(v.id("users")),
+    postId:v.optional(v.id("posts")),
     postTitle: v.string(),
     postContent: v.string(),
     postCategory: v.string(),

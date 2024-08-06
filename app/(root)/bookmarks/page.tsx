@@ -7,6 +7,7 @@ import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import HomeCard from "@/components/HomeCard";
 import SearchBar from "@/components/SearchBar";
+import { useEffect } from "react";
 
 const SavedPosts = () => {
   const { user } = useUser();
@@ -14,6 +15,10 @@ const SavedPosts = () => {
   const getUserById = useQuery(api.users.getUserById, {
     clerkId: user?.id,
   });
+
+  useEffect(() => {
+    console.log(allSavedPosts);
+  }, [allSavedPosts]);
 
   // Handle loading state
   if (allSavedPosts === undefined || getUserById === undefined) {
@@ -31,11 +36,14 @@ const SavedPosts = () => {
       {user?.id === getUserById?.clerkId ? (
         <div className="flex flex-col gap-10">
           {allSavedPosts.length === 0 ? (
-            <p className="text-center text-gel-gray">You have no saved posts</p>
+            <p className="text-center text-gel-gray mt-[3rem] text-2xl">
+              You have no saved posts
+            </p>
           ) : (
             <div className={styles.post__box}>
               {allSavedPosts.map(
                 ({
+                  _id: savedPostId,
                   postId,
                   views,
                   likes,
@@ -47,10 +55,12 @@ const SavedPosts = () => {
                   imageUrl,
                   author,
                   _creationTime,
+                  imageStorageId,
+                  audioStorageId,
                 }) => {
                   return (
                     <HomeCard
-                      key={postId}
+                      key={savedPostId}
                       imageUrl={imageUrl!}
                       title={postTitle!}
                       description={postDescription}
@@ -62,6 +72,8 @@ const SavedPosts = () => {
                       author={author}
                       authorImageUrl={authorImageUrl}
                       _creationTime={_creationTime}
+                      imageStorageId={imageStorageId}
+                      audioStorageId={audioStorageId}
                     />
                   );
                 }

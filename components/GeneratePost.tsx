@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { GeneratePostProps } from "@/types";
 import { Label } from "./ui/label";
-import { Textarea } from "./ui/textarea";
+// import { Textarea } from "./ui/textarea";
 import { Loader } from "lucide-react";
 import { Button } from "./ui/button";
 import { useAction, useMutation } from "convex/react";
@@ -9,6 +9,7 @@ import { api } from "@/convex/_generated/api";
 import { v4 as uuidv4 } from "uuid";
 import { useUploadFiles } from "@xixixao/uploadstuff/react";
 import { useToast } from "@/components/ui/use-toast";
+import MarkdownEditor from "@uiw/react-markdown-editor";
 
 const useGeneratePost = ({
   setAudio,
@@ -76,19 +77,29 @@ const useGeneratePost = ({
 
 const GeneratePost = (props: GeneratePostProps) => {
   const { isGenerating, generatePost } = useGeneratePost(props);
+  const [markdown, setMarkdown] = useState(props.postContent);
+
   return (
     <div>
       <div className="flex flex-col gap-2.5">
         <Label className="text-16 font-bold text-white-1">
           Write Your Posts
         </Label>
-        <Textarea
+        <MarkdownEditor
+          value={markdown}
+          height="200px"
+          onChange={(value) => {
+            setMarkdown(value);
+            props.setPostContent(value);
+          }}
+        />
+        {/* <Textarea
           className="input-class font-light focus-visible:ring-offset-orange-1"
           placeholder="Write your Post here..."
           rows={5}
           value={props.postContent}
           onChange={(e) => props.setPostContent(e.target.value)}
-        ></Textarea>
+        ></Textarea> */}
       </div>
       <div className="mt-5 w-full max-w-[200px]">
         <Button

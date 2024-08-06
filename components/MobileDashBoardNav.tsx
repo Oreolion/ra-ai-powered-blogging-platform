@@ -2,7 +2,7 @@
 // import Image from "next/image";
 import Link from "next/link";
 import { SignedIn, UserButton, useUser, useClerk } from "@clerk/nextjs";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import styles from "@/styles/mobiledashboardNav.module.css";
 import { usePathname, useRouter } from "next/navigation";
 import { postCategory } from "@/types";
@@ -15,6 +15,7 @@ const MobileDashBoardNav = () => {
   const { signOut } = useClerk();
   const { user } = useUser();
   const pathname = usePathname();
+  const myRef = useRef(null);
 
   const router = useRouter();
   function toggleMenu() {
@@ -23,6 +24,11 @@ const MobileDashBoardNav = () => {
   function toggleDropDown() {
     setDropDown(!dropDown);
   }
+
+  window.onscroll = () => {
+    myRef?.current?.classList.remove("active");
+    setToggle(false);
+  };
 
   const postCategories: postCategory[] = [
     "Technology",
@@ -44,7 +50,10 @@ const MobileDashBoardNav = () => {
       {/*  mobile dashboard navbar  */}
       {toggle && (
         <>
-          <nav className={`${styles.dashboard__nav} ${styles.mobile}`}>
+          <nav
+            className={`${styles.dashboard__nav} ${styles.mobile}`}
+            ref={myRef}
+          >
             <div className={`${styles.logo} ${styles.link}`}>
               <h3 className={styles.h3}>
                 THE <span className={styles.span}>RA</span> APP

@@ -269,14 +269,11 @@ export const updatePostLikes = mutation({
   },
   handler: async (ctx, args) => {
     const post = await ctx.db.get(args.postId);
-    console.log(post);
 
     if (!post) {
       throw new ConvexError("Post not found");
     }
-
     const newLikes = args.increment ? post.likes + 1 : post.likes - 1;
-
     return await ctx.db.patch(args.postId, {
       likes: newLikes,
     });
@@ -391,13 +388,35 @@ export const createSavedPost = mutation({
 });
 
 // get saved posts
+
 export const getAllSavedPosts = query({
   handler: async (ctx) => {
     return await ctx.db.query("savedPosts").order("desc").collect();
   },
 });
 
+// export const getAllSavedPosts = query(async ({ db, auth }) => {
+//   const identity = await auth.getUserIdentity();
+//   if (!identity) {
+//     throw new Error("Unauthenticated call to mutation");
+//   }
+//   const savedPosts = await db.query("savedPosts")
+//     .filter((q) => q.eq(q.field("userId"), identity.subject))
+//     .collect();
+
+// Fetch the full post data for each saved post
+//   const fullPosts = await Promise.all(
+//     savedPosts.map(async (savedPost) => {
+//       const post = await db.get(savedPost.postId);
+//       return { ...post, savedPostId: savedPost._id };
+//     })
+//   );
+
+//   return fullPosts;
+// });
+
 // this mutation will delete the Saved or bookmarked posts.
+
 export const deleteSavedPost = mutation({
   args: {
     postId: v.id("posts"),
