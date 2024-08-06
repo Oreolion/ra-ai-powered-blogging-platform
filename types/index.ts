@@ -34,6 +34,7 @@ export interface PostCommentType {
   postId: string;
   userId: string;
   commentId: string;
+  commentUserImage: string;
 }
 
 export type PostCommentsArrayType = PostCommentType[];

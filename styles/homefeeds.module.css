@@ -154,7 +154,7 @@
 .post .contentbox {
   display: flex;
   gap: 3rem;
-  height: 18rem;
+  height: 16rem;
 }
 
 .post .contentbox > * {

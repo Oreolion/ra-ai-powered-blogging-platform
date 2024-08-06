@@ -93,11 +93,18 @@ export const PostComments = ({ postId }: { postId: string }) => {
     try {
       // Add the mutation to update the comment in the database
       if (user && user.id) {
+        console.log("userId:", user.id); // Log the user ID value
+        // await editCommentMutation({
+        //     _id,
+        //     newContent,
+        //     userId: user.id  as Id<"users">,
+        // });
+        
         await editCommentMutation({
             _id,
             newContent,
-            userId: user.id  as Id<"users">,
-        });
+            userId: user.id,
+          });
       }
       setEditComment("");
       setIsEdit(false);
@@ -123,9 +130,9 @@ export const PostComments = ({ postId }: { postId: string }) => {
               {comments.map((comment, i) => (
                 <li className={styles.comment__item} key={i}>
                   <div className={styles.user__profile}>
-                    {userId?.imageUrl ? (
+                    {comment.commentUserImage ? (
                       <Image
-                        src={userId?.imageUrl}
+                        src={comment.commentUserImage}
                         alt="userpicture"
                         width={30}
                         height={30}

@@ -33,6 +33,7 @@ export default defineSchema({
   comments: defineTable({
     postId: v.id("posts"),
     userId: v.id("users"),
+    commentUserImage: v.optional(v.string()),
     commentId: v.optional(v.id("comment")),
     content: v.string(),
     createdAt: v.number(),
