@@ -2,7 +2,7 @@
 // import Image from "next/image";
 import Link from "next/link";
 import { SignedIn, UserButton, useUser, useClerk } from "@clerk/nextjs";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "@/styles/mobiledashboardNav.module.css";
 import { usePathname, useRouter } from "next/navigation";
 import { postCategory } from "@/types";
@@ -25,11 +25,19 @@ const MobileDashBoardNav = () => {
     setDropDown(!dropDown);
   }
 
-  window.onscroll = () => {
-    myRef?.current?.classList.remove("active");
-    setToggle(false);
-  };
+  useEffect(() => {
+    const handleScroll = () => {
+      // @ts-ignore
+      myRef?.current?.classList.remove("active");
+      setToggle(false);
+    };
 
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
   const postCategories: postCategory[] = [
     "Technology",
     "Metaphysics & Esoterics",
