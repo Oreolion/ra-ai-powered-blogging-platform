@@ -1,12 +1,12 @@
-import AddBlogPost from "@/components/AddBlogPost";
-import React from "react";
+import dynamic from 'next/dynamic'
 
-const page = () => {
+const AddBlogPost = dynamic(() => import('@/components/AddBlogPost'), { ssr: false })
+
+export default function CreatePostPage() {
   return (
-    <>
-      <AddBlogPost></AddBlogPost>
-    </>
-  );
-};
-
-export default page;
+    <div>
+      <h1>Create a New Post</h1>
+      <AddBlogPost />
+    </div>
+  )
+}

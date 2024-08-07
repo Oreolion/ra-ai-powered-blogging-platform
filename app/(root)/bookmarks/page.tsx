@@ -1,6 +1,5 @@
 "use client";
 import styles from "@/styles/homefeeds.module.css";
-
 import LoaderSpinner from "@/components/LoaderSpinner";
 import { useUser } from "@clerk/nextjs";
 import { useQuery } from "convex/react";
