@@ -147,7 +147,7 @@ export const PostComments = ({ postId }: { postId: string }) => {
                         </svg>
                       </span>
                     )}
-                    <p className={styles.username}>{user?.firstName}</p>
+                    <p className={styles.username}>{comment.username}</p>
                   </div>
                   <p className="text-xl text-[#d1d5db;]">
                     {more ? comment.content : comment.content.substring(0, 100)}

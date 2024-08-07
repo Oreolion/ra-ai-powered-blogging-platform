@@ -81,6 +81,7 @@ export const createComment = mutation({
     return await ctx.db.insert("comments", {
       postId: args.postId,
       userId: user._id,
+      username: user.name,
       commentUserImage: user.imageUrl,
       content: args.content,
       createdAt: Date.now(),

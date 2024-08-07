@@ -33,6 +33,7 @@ export interface PostCommentType {
   creationAt: number;
   postId: string;
   userId: string;
+  username: string,
   commentId: string;
   commentUserImage: string;
 }

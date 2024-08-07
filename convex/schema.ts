@@ -36,6 +36,7 @@ export default defineSchema({
     commentUserImage: v.optional(v.string()),
     commentId: v.optional(v.id("comment")),
     content: v.string(),
+    username: v.optional(v.string()),
     createdAt: v.number(),
   }).index("by_post", ["postId"]),
 
