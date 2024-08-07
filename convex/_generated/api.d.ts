@@ -16,6 +16,7 @@ import type {
 } from "convex/server";
 import type * as file from "../file.js";
 import type * as http from "../http.js";
+import type * as openai from "../openai.js";
 import type * as posts from "../posts.js";
 import type * as tasks from "../tasks.js";
 import type * as users from "../users.js";
@@ -31,6 +32,7 @@ import type * as users from "../users.js";
 declare const fullApi: ApiFromModules<{
   file: typeof file;
   http: typeof http;
+  openai: typeof openai;
   posts: typeof posts;
   tasks: typeof tasks;
   users: typeof users;

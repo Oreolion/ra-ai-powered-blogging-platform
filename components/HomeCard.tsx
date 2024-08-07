@@ -70,13 +70,13 @@ const HomeCard = ({
               <Image
                 src={authorImageUrl}
                 alt="userpicture"
-                width={30}
-                height={30}
+                width={25}
+                height={25}
               />
             )}
           </Link>
           <div className={styles.user__info}>
-            <div className="flex justify-between">
+            <div className="flex gap-[7rem]">
               <h3 className={styles.username}>{author}</h3>
               <p className={styles.p1}>
                 <svg
