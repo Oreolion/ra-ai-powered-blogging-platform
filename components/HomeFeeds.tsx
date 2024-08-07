@@ -7,7 +7,11 @@ import { api } from "@/convex/_generated/api";
 import Loader from "./Loader";
 import HomeCard from "./HomeCard";
 import EmptyStates from "@/components/EmptyStates";
-import SearchBar from "./SearchBar";
+// import SearchBar from "./SearchBar";
+import dynamic from 'next/dynamic'
+
+const SearchBar = dynamic(()=> import('@/components/SearchBar'), { ssr: false })
+
 
 const HomeFeeds = () => {
   const [isLoading, setIsLoading] = useState(true);

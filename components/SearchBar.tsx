@@ -14,10 +14,10 @@ const SearchBar = () => {
   useEffect(() => {
     try {
       if (debouncedValue) {
-        console.log("Client: Debounced search value:", debouncedValue);
-        router.replace(`/dashboard?search=${debouncedValue}`);
+        // console.log("Client: Debounced search value:", debouncedValue);
+        router.push(`/dashboard?search=${debouncedValue}`);
       } else if (!debouncedValue && pathname === "/dashboard") {
-        router.replace("/dashboard");
+        router.push("/dashboard");
         setSearch("");
       }
     } catch (error: any) {
@@ -27,7 +27,7 @@ const SearchBar = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
-    console.log(search);
+    // console.log(search);
   };
 
   return (
