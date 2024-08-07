@@ -1,33 +1,28 @@
 "use client";
 import styles from "@/styles/mobiledashboardNav.module.css";
 import React, { useEffect, useState } from "react";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useDebounce } from "@/lib/useDebounce";
 
 const SearchBar = () => {
-  const [search, setSearch] = useState("");
   const router = useRouter();
   const pathname = usePathname();
-
+  const searchParams = useSearchParams();
+  const [search, setSearch] = useState(searchParams.get('search') || "");
   const debouncedValue = useDebounce(search, 300);
 
   useEffect(() => {
-    try {
-      if (debouncedValue) {
-        // console.log("Client: Debounced search value:", debouncedValue);
-        router.push(`/dashboard?search=${debouncedValue}`);
-      } else if (!debouncedValue && pathname === "/dashboard") {
-        router.push("/dashboard");
-        setSearch("");
-      }
-    } catch (error: any) {
-      console.error(error.message);
+    if (debouncedValue) {
+      const params = new URLSearchParams(searchParams);
+      params.set('search', debouncedValue);
+      router.push(`${pathname}?${params.toString()}`);
+    } else if (!debouncedValue && pathname === "/dashboard") {
+      router.push("/dashboard");
     }
-  }, [debouncedValue, pathname, router]);
+  }, [debouncedValue, pathname, router, searchParams]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
-    // console.log(search);
   };
 
   return (
@@ -47,7 +42,6 @@ const SearchBar = () => {
         placeholder="search and Read Along..."
         value={search}
         onChange={handleChange}
-        onLoad={() => setSearch("")}
       />
     </div>
   );
