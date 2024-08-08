@@ -198,10 +198,9 @@ export default function AddBlogPost() {
           </div>
           <div className="flex flex-col pt-10">
             <GeneratePost
-              setAudioStorageId={setAudioStorageId}
+            //   postDescription={postDescription}
               setAudio={setAudioUrl}
               postCategory={postCategories}
-              audio={audioUrl}
               postContent={postContent}
               setPostContent={setPostContent}
             //   setAudioDuration={setAudioDuration}
