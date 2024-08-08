@@ -76,7 +76,7 @@ const HomeCard = ({
             )}
           </Link>
           <div className={styles.user__info}>
-            <div className="flex gap-[7rem]">
+            <div className="flex justify-between">
               <h3 className={styles.username}>{author}</h3>
               <p className={styles.p1}>
                 <svg

@@ -25,11 +25,11 @@ const GenerateThumbnail = ({
   const { toast } = useToast();
 
   const imageRef = useRef<HTMLInputElement>(null);
-    const generateUploadUrl = useMutation(api.file.generateUploadUrl);
-    const { startUpload } = useUploadFiles(generateUploadUrl);
-    const getImageUrl = useMutation(api.posts.getUrl);
+  const generateUploadUrl = useMutation(api.file.generateUploadUrl);
+  const { startUpload } = useUploadFiles(generateUploadUrl);
+  const getImageUrl = useMutation(api.posts.getUrl);
 
-    const handleGenerateThumbnail = useAction(api.openai.generateThumbnailAction);
+  const handleGenerateThumbnail = useAction(api.openai.generateThumbnailAction);
 
   const handleImage = async (blob: Blob, fileName: string) => {
     setIsImageLoading(true);
@@ -37,11 +37,11 @@ const GenerateThumbnail = ({
     try {
       const file = new File([blob], fileName, { type: "image/png" });
 
-        const uploaded = await startUpload([file]);
+      const uploaded = await startUpload([file]);
       const storageId = (uploaded[0].response as any).storageId;
       setImageStorageId(storageId);
 
-        const imageUrl = await getImageUrl({ storageId });
+      const imageUrl = await getImageUrl({ storageId });
       setImage(imageUrl!);
       setIsImageLoading(false);
       toast({ title: "Thumbnail generated successfully" });
@@ -54,20 +54,27 @@ const GenerateThumbnail = ({
     }
   };
   const generateImage = async () => {
+    setIsImageLoading(true);
     try {
       const response = await handleGenerateThumbnail({
         prompt: imagePrompt,
       });
 
+      if (!response)
+        throw new Error("Invalid response from thumbnail generation");
+
       const blob = new Blob([response], { type: "image/png" });
 
-        handleImage(blob, `thumbnail-${uuidv4()}`);
-    } catch (error) {
-      console.log(error);
+      handleImage(blob, `thumbnail-${uuidv4()}`);
+    } catch (error: any) {
+      console.error("Error generating thumbnail:", error);
       toast({
         title: "Error Generating Thumbnail",
+        description: error.message,
         variant: "destructive",
       });
+    } finally {
+      setIsImageLoading(false);
     }
   };
   const uploadImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
