@@ -33,7 +33,7 @@ export interface PostCommentType {
   creationAt: number;
   postId: string;
   userId: string;
-  username: string,
+  username: string;
   commentId: string;
   commentUserImage: string;
 }
@@ -57,13 +57,13 @@ export type postCategory =
 
 export interface GeneratePostProps {
   postCategory: postCategory;
-//   setAudio: Dispatch<SetStateAction<string>>;
-//   audio: string;
-  postDescription: string;
-//   setAudioStorageId: Dispatch<SetStateAction<Id<"_storage"> | null>>;
+  //   setAudio: Dispatch<SetStateAction<string>>;
+  //   audio: string;
+  //   setAudioStorageId: Dispatch<SetStateAction<Id<"_storage"> | null>>;
   postContent: string;
   setPostContent: Dispatch<SetStateAction<string>>;
-//   setAudioDuration: Dispatch<SetStateAction<number>>;
+  prompt: string;
+  setPrompt: Dispatch<SetStateAction<string>>;
 }
 
 export interface EmptyStateProps {

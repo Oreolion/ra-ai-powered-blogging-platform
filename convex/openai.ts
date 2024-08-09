@@ -1,12 +1,10 @@
 import { action } from "./_generated/server";
-// @ts-ignore
-// import { SpeechCreateParams } from "openai/resources/audio/speech.mjs";
 import { v } from "convex/values";
 // import { Buffer } from 'buffer';
 import OpenAI from "openai";
 import { ChatOpenAI } from "@langchain/openai";
 import { PromptTemplate } from "@langchain/core/prompts";
-import { HttpResponseOutputParser } from "langchain/output_parsers";
+import { StringOutputParser } from "@langchain/core/output_parsers";
 
 export const dynamic = "force-dynamic";
 
@@ -15,45 +13,40 @@ const openai = new OpenAI({
 });
 
 export const generatePostAction = action({
-    args: { prompt: v.string() },
-    handler: async (ctx, { prompt }) => {
-      try {
-        const TEMPLATE = `You are a witty, creative writer. Generate a blog post in a markdown format based on the following prompt:
+  args: { prompt: v.string() },
+  handler: async (ctx, { prompt }) => {
+    try {
+      const TEMPLATE = `You are a witty, creative writer. Generate a blog post in a markdown format based on the following prompt:
   
   Prompt: {prompt}
   
   Blog Post:`;
-        const formattedPrompt = TEMPLATE.replace("{prompt}", prompt);
-  
-        const model = new ChatOpenAI({
-          apiKey: process.env.OPENAI_API_KEY,
-          model: "gpt-3.5-turbo",
-          temperature: 0.2,
-        });
-  
-        const parser = new HttpResponseOutputParser();
 
-        // @ts-ignore
-        const chain = new PromptTemplate({ template: formattedPrompt })
-          .pipe(model)
-          .pipe(parser);
-  
-        const response = await chain.stream({
-          input: formattedPrompt,
-        });
+      const model = new ChatOpenAI({
+        apiKey: process.env.OPENAI_API_KEY,
+        model: "gpt-3.5-turbo",
+        temperature: 0.2,
+      });
 
-  
-        // Extract the generated content from the response
-        const generatedContent = response;
-        console.log(generatedContent)
-  
-        return generatedContent;
-      } catch (e: any) {
-        console.error("Error generating post:", e);
-        throw new Error("Failed to generate post");
-      }
-    },
-  });
+      const parser = new StringOutputParser();
+
+      const promptTemplate = PromptTemplate.fromTemplate(TEMPLATE);
+      const chain = promptTemplate.pipe(model).pipe(parser);
+
+      const response = await chain.invoke({
+        prompt: prompt,
+      });
+
+      // Extract the generated content from the response
+      const generatedContent = response;
+
+      return generatedContent;
+    } catch (e: any) {
+      console.error("Error generating post:", e);
+      throw new Error("Failed to generate post");
+    }
+  },
+});
 
 export const generateThumbnailAction = action({
   args: { prompt: v.string() },
