@@ -167,7 +167,7 @@
 }
 .post .postimage {
   width: 94%;
-  height: 20rem;
+  height: 16rem;
   margin-bottom: 1rem;
 }
 
@@ -185,7 +185,7 @@
 }
 
 .post .h2 {
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   font-weight: bold;
   margin-bottom: 1rem;
   max-width: 90%;
@@ -193,8 +193,8 @@
 }
 
 .post .p {
-  font-size: 1.2rem;
-  margin-bottom: 2rem;
+  font-size: 1rem;
+  margin-bottom: 1rem;
   letter-spacing: 0.5px;
   color: aliceblue;
   max-width: 90%;

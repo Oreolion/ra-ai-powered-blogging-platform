@@ -19,6 +19,7 @@ import type * as http from "../http.js";
 import type * as openai from "../openai.js";
 import type * as posts from "../posts.js";
 import type * as tasks from "../tasks.js";
+import type * as userCallsCount from "../userCallsCount.js";
 import type * as users from "../users.js";
 
 /**
@@ -35,6 +36,7 @@ declare const fullApi: ApiFromModules<{
   openai: typeof openai;
   posts: typeof posts;
   tasks: typeof tasks;
+  userCallsCount: typeof userCallsCount;
   users: typeof users;
 }>;
 export declare const api: FilterApi<

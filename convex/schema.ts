@@ -40,11 +40,17 @@ export default defineSchema({
     createdAt: v.number(),
   }).index("by_post", ["postId"]),
 
+  // user open ai call count table...
+  userCallCounts: defineTable({
+    userId: v.string(),
+    count: v.number(),
+  }).index("by_userId", ["userId"]),
+
   // bookmarks tables for schema ...
   savedPosts: defineTable({
     user: v.id("users"),
     userId: v.optional(v.id("users")),
-    postId:v.optional(v.id("posts")),
+    postId: v.optional(v.id("posts")),
     postTitle: v.string(),
     postContent: v.string(),
     postCategory: v.string(),

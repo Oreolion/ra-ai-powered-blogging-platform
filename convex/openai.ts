@@ -1,10 +1,12 @@
 import { action } from "./_generated/server";
 import { v } from "convex/values";
+import { RateLimitError } from "../lib/limitError";
 // import { Buffer } from 'buffer';
 import OpenAI from "openai";
 import { ChatOpenAI } from "@langchain/openai";
 import { PromptTemplate } from "@langchain/core/prompts";
 import { StringOutputParser } from "@langchain/core/output_parsers";
+import { api } from "./_generated/api";
 
 export const dynamic = "force-dynamic";
 
@@ -15,8 +17,28 @@ const openai = new OpenAI({
 export const generatePostAction = action({
   args: { prompt: v.string() },
   handler: async (ctx, { prompt }) => {
+    // Get the user's ID from the context
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      throw new Error("Unauthenticated");
+    }
+    const userId = identity.subject;
+    // Check if the user has exceeded their limit
+    const userCallCount = await ctx.runQuery(
+      api.userCallsCount.getUserCallCount,
+      {
+        userId: userId,
+      }
+    );
+
+    if (userCallCount >= 4) {
+      throw new RateLimitError(
+        "You have exceeded the maximum number of calls to this function."
+      );
+    }
+
     try {
-      const TEMPLATE = `You are a witty, creative writer. Generate a blog post in a markdown format based on the following prompt:
+      const TEMPLATE = `You are a witty, creative writer. Generate a blog post in a markdown format based on the following prompt, remember to always add paragrapgh and jump to the next line when needed. e.g at the end of every paragraph:
   
   Prompt: {prompt}
   
@@ -37,10 +59,12 @@ export const generatePostAction = action({
         prompt: prompt,
       });
 
-      // Extract the generated content from the response
-      const generatedContent = response;
+      // Increment the user's call count
+      await ctx.runMutation(api.userCallsCount.incrementUserCallCount, {
+        userId,
+      });
 
-      return generatedContent;
+      return response;
     } catch (e: any) {
       console.error("Error generating post:", e);
       throw new Error("Failed to generate post");
@@ -50,21 +74,49 @@ export const generatePostAction = action({
 
 export const generateThumbnailAction = action({
   args: { prompt: v.string() },
-  handler: async (_, { prompt }) => {
-    // do something with `args.a` and `args.b`
+  handler: async (ctx, { prompt }) => {
+    // Get the user's ID from the context
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      throw new Error("Unauthenticated");
+    }
+    const userId = identity.subject;
+    // Check if the user has exceeded their limit
+    const userCallCount = await ctx.runQuery(
+      api.userCallsCount.getUserCallCount,
+      {
+        userId: userId,
+      }
+    );
 
-    const response = await openai.images.generate({
-      model: "dall-e-3",
-      prompt,
-      size: "1024x1024",
-      quality: "standard",
-      n: 1,
-    });
-    const url = response.data[0].url;
-    if (!url) throw new Error("Error generating thumbnail");
-    const imageResponse = await fetch(url);
-    const buffer = imageResponse.arrayBuffer();
+    if (userCallCount >= 4) {
+      throw new RateLimitError(
+        "You have exceeded the maximum number of calls to this function."
+      );
+    }
+    try {
+      const response = await openai.images.generate({
+        model: "dall-e-3",
+        prompt,
+        size: "1024x1024",
+        quality: "standard",
+        n: 1,
+      });
 
-    return buffer;
+      const url = response.data[0].url;
+      if (!url) throw new Error("Error generating thumbnail");
+
+      const imageResponse = await fetch(url);
+      const buffer = await imageResponse.arrayBuffer();
+
+      await ctx.runMutation(api.userCallsCount.incrementUserCallCount, {
+        userId,
+      });
+
+      return buffer;
+    } catch (e: any) {
+      console.error("Error generating thumbnail:", e);
+      throw new Error("Failed to generate thumbnail");
+    }
   },
 });
