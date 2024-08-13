@@ -111,7 +111,7 @@ const HomeCard = ({
             )}
           </p>
           <div className={styles.image}>
-            <Image src={imageUrl} alt="thumbnail" width={230} height={20} />
+            <Image src={imageUrl} alt="thumbnail" width={230} height={18} />
           </div>
         </div>
 
