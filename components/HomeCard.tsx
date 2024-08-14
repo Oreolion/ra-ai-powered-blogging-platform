@@ -70,8 +70,8 @@ const HomeCard = ({
               <Image
                 src={authorImageUrl}
                 alt="userpicture"
-                width={25}
-                height={25}
+                width={23}
+                height={23}
               />
             )}
           </Link>
@@ -93,7 +93,7 @@ const HomeCard = ({
             <div className="flex flex-col">
               <p className={styles.userrole}>{category}</p>
 
-              <p className={styles.p}> {description} </p>
+              <p className={styles.desc}> {description} </p>
             </div>
           </div>
         </div>

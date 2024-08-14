@@ -111,8 +111,8 @@
 }
 
 .user__image {
-  width: 5rem;
-  height: 5rem;
+  width: 4.5rem;
+  height: 4.5rem;
   border-radius: 50%;
   background-color: #000;
   display: flex;
@@ -192,18 +192,21 @@
   text-transform: uppercase;
 }
 
-.post .p {
-  font-size: 1rem;
+.post .desc {
+  font-size: 1.2rem;
   margin-bottom: 1rem;
   letter-spacing: 0.5px;
   color: aliceblue;
-  max-width: 90%;
+  max-width: 23rem;
   text-transform: capitalize;
 }
 
-.post .contentbox .p,
-.postdetails .contentbox .p {
+.post .contentbox .p {
   font-size: 1rem;
+}
+
+.postdetails .p {
+    margin-bottom: 2rem;
 }
 
 .post a,

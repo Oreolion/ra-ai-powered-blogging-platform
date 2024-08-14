@@ -39,6 +39,9 @@
   padding: 0.2rem;
   font-size: 0.8rem;
 }
+
+
+/*add ease in and out transition for navbar when toggled*/
 .dashboard__nav {
   position: fixed;
   top: 0;
@@ -52,6 +55,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  transition: ease-in-out 0.5s;
+  will-change: transform, opacity;
   z-index: 1111;
   overflow-y: scroll;
 }
@@ -67,6 +72,8 @@
 
 .mobile {
   display: none;
+  transition: ease-in-out 0.5s;
+  will-change: transform, opacity;
 }
 
 .dashboard__navlists .active_link {

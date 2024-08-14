@@ -105,7 +105,7 @@ const PostDetails = ({
             <div className="flex flex-col">
               <p className={styles.userrole}>{post?.postCategory}</p>
 
-              <p className={styles.p}> {post?.postDescription} </p>
+              <p className={styles.desc}> {post?.postDescription} </p>
             </div>
           </div>
         </div>
