@@ -102,7 +102,7 @@ const PostCard = ({
 
         <div className={styles.postheader}>
           <h2 className={styles.h2}> {title} </h2>
-          <p className={styles.p}> {content} </p>
+          <p className={`${styles.p} prose prose-li:marker:text-green-500 prose-img:rounded-lg prose-headings:underline prose-a:text-blue-600 lg:prose-xl`}> {content} </p>
         </div>
         <div className={styles.postimage}>
           <Image src={imageUrl} alt="thumbnail" width={230} height={46} />

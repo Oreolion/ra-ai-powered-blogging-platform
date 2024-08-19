@@ -112,7 +112,7 @@ const PostDetails = ({
 
         <div className={styles.postheader}>
           <h2 className={styles.h2}> {post?.postTitle} </h2>
-          <p className={styles.p}> {post?.postContent} </p>
+          <p className={`${styles.p} prose prose-li:marker:text-green-500 prose-img:rounded-lg prose-headings:underline prose-a:text-blue-600 lg:prose-xl`}> {post?.postContent} </p>
         </div>
         <div className={styles.postimage}>
           <Image src={post?.imageUrl} alt="thumbnail" width={230} height={46} />
