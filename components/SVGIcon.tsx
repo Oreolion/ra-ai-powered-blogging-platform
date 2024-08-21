@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "@/styles/dashboardNav.module.css";
+import styles from "../styles/dashboardnav.module.css";
 
 const SVGIcon = ({ svgString }: { svgString: string }) => {
   return (
@@ -10,9 +10,5 @@ const SVGIcon = ({ svgString }: { svgString: string }) => {
     />
   );
 };
-
-
-
-
 
 export default SVGIcon;
