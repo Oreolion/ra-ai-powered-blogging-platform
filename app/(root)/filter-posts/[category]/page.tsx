@@ -22,7 +22,7 @@ const SimilarPostByCategory = ({
   if (!filteredPosts) return <LoaderSpinner />;
 
   return (
-    <section className=" flex flex-col gap-5 ml-[18rem] mt-[9rem] max-md:ml-[0]">
+    <section className=" flex flex-col gap-5 ml-[14.5rem] mt-[9rem] max-md:ml-[0]">
       <h1 className="text-[1.8rem] font-bold text-white-1">Similar Posts</h1>
       {filteredPosts && filteredPosts.length > 0 ? (
         <div className="">
@@ -38,7 +38,7 @@ const SimilarPostByCategory = ({
               authorImageUrl,
               imageUrl,
               author,
-              _creationTime,
+              _creationTime
             }) => {
               return (
                 <HomeCard

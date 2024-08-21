@@ -1,5 +1,4 @@
 "use client";
-
 import { useQuery } from "convex/react";
 import EmptyStates from "@/components/EmptyStates";
 import LoaderSpinner from "@/components/LoaderSpinner";
@@ -24,7 +23,7 @@ const ProfilePage = ({
   if (!user || !postsData) return <LoaderSpinner />;
 
   return (
-    <section className="mt-9 flex flex-col ml-[17rem] max-md:ml-[0]">
+    <section className="mt-9 flex flex-col ml-[12rem] max-md:ml-[0]">
       <h1 className="text-20 font-bold text-white-1 max-md:text-center">
         Your Profile
       </h1>

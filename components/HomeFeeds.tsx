@@ -13,6 +13,7 @@ const SearchBar = dynamic(() => import('@/components/SearchBar'), { ssr: false }
 
 const HomeFeeds = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const [showNav, setShowNav] = useState(true);
   const router = useRouter();
   const searchParams = useSearchParams();
   const search = searchParams.get("search") || "";
@@ -25,6 +26,7 @@ const HomeFeeds = () => {
       setIsLoading(false);
     }
   }, [posts, searchData]);
+
 
   const handleTogglePostInput = () => {
     router.push("/create-post");

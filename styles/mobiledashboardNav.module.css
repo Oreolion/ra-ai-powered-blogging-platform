@@ -41,13 +41,12 @@
 }
 
 
-/*add ease in and out transition for navbar when toggled*/
 .dashboard__nav {
   position: fixed;
   top: 0;
   left: 0;
   padding: 0.8rem 2rem;
-  width: 18rem;
+  width: 16rem;
   height: 100vh;
   background: rgba(0, 0, 05, 0.8);
   color: #ccc;
@@ -55,8 +54,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  transition: ease-in-out 0.5s;
-  will-change: transform, opacity;
+  transition-duration: 0.5s;
+  transition-timing-function: ease-in-out;
   z-index: 1111;
   overflow-y: scroll;
 }

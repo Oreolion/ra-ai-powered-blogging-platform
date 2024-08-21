@@ -3,12 +3,28 @@
   margin-right: auto;
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
+    margin: 1rem 0;
+    margin-bottom: 1.1rem;
+    cursor: pointer;
+}
+
+.otherlogo {
+  color: #e67e22;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  position: fixed;
+  top: 4%;
+  left: 5%;
+  z-index: 1111;
+  margin: 1rem 0;
+  margin-bottom: 1.1rem;
+  cursor: pointer;
 }
 
 .h3 {
   line-height: 1;
   letter-spacing: 0.7;
-  font-size: 0.8rem;
+  font-size: 1rem;
   font-weight: bold;
   text-align: center;
 }
@@ -17,7 +33,7 @@
   font-weight: bold;
 }
 
-.h3 .span {
+.h3 .span,.otherlogo .h3 .span {
   color: #ccc;
   background-color: #e67e22;
   border-top-left-radius: 6px;
@@ -41,8 +57,9 @@
   fill: #e67e22;
 }
 
-.logo .p {
-  font-size: 0.6rem;
+.logo .p,
+.otherlogo .p {
+  font-size: 0.8rem;
   font-weight: bold;
   letter-spacing: 1px;
   padding: 0.5rem;
@@ -50,22 +67,25 @@
   background: rgba(255, 255, 255, 0.2);
   border-top-right-radius: 1rem;
   border-bottom-left-radius: 1rem;
+  white-space: nowrap;
+
 }
 
-.logo .p .span {
+.logo .p .span,
+.otherlogo .p .span {
   background: rgba(355, 355, 355, 0.3);
   background-color: green;
   font-weight: bold;
   border-radius: 0.4rem;
   padding: 0.2rem;
-  font-size: 0.6rem;
+  font-size: 0.8rem;
 }
 .dashboard__nav {
   position: fixed;
   top: 0;
   left: 0;
   padding: 0.7rem 2rem;
-  width: 18rem;
+  width: 16rem;
   height: 100vh;
   background: rgba(0, 0, 05, 0.8);
   color: #ccc;
@@ -73,13 +93,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  z-index: 11111;
+  z-index: 1111;
   overflow-y: scroll;
-}
-
-.logo {
-  margin: 1rem 0;
-  margin-bottom: 1.1rem;
+  overflow-x: hidden;
+  transition-duration: 0.5s;
+  transition-timing-function: ease-in-out;
 }
 
 .mobile {
@@ -128,7 +146,10 @@
   font-weight: bold;
   margin-bottom: 0.8rem;
   border-bottom: 4px solid #e67e22;
-  /* display: flex; */
+}
+
+.collapseblock .spanheader{
+    border: none;
 }
 
 .spanheader .h5 {
@@ -145,9 +166,128 @@
   }
 }
 
+
+
+.show_nav {
+  position: fixed;
+  left: 20%;
+  bottom: 5%;
+  z-index: 11111;
+  cursor: ponter;
+}
+
+.close_btn {
+  cursor: pointer;
+  border-top-left-radius: 2rem;
+  border-bottom-left-radius: 2rem;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  padding: 0.5rem;
+  font-size: 1.3rem;
+  position: absolute;
+  top: 50%;
+  z-index: 11111;
+  right: 79.6%;
+  position: fixed;
+  background-color: rgb(80, 83, 80);
+  color: #e67e22;
+  border: none;
+  transition-duration: 0.5s;
+  transition-timing-function: ease-in-out;
+
+}
+
+.onclose_btn {
+  cursor: pointer;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-right-radius: 2rem;
+  border-bottom-right-radius: 2rem;
+  padding: 0.5rem;
+  font-size: 1.3rem;
+  position: absolute;
+  top: 50%;
+  z-index: 11111;
+  right: 92.2%;
+  position: fixed;
+  background-color: rgb(80, 83, 80);
+  color: #e67e22;
+  border: none;
+  transition-duration: 0.5s;
+  transition-timing-function: ease-in-out;
+
+}
+
+.collapseblock {
+  padding-top: 3rem;
+  width: 4rem;
+  background-color: #000;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  padding-top: 7.5rem;
+  padding-left: 1rem;
+}
+
+.collapseblock .collapse__svg {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    fill: #e67e22;
+    border-radius: 50%;
+    background-color: #fff;
+    padding: 0.2rem;
+    height: 2rem;
+    width: 2rem;
+    cursor: pointer;
+    
+}
+
+.collapseblock .collapse__svg .svg {
+    border-radius: 50%;
+    &:hover {
+        opacity: .3;
+    }
+}
+
+
+.hide {
+  display: none;
+}
+
+.collapseblock .logo {
+  display: none;
+}
+
+.collapseblock .h5 {
+  display: none;
+}
+.collapseblock .li {
+  display: none;
+}
+.collapseblock .spanheader .svg {
+  display: none;
+}
+.collapseblock .linktext {
+  display: none;
+}
+.collapseblock .li:last-child {
+  display: none;
+}
 @media (max-width: 767px) {
   .mobile {
     display: flex;
+  }
+
+  .otherlogo {
+    display: none;
+  }
+
+  .onclose_btn,
+  .close_btn,
+  .collapseblock {
+    display: none;
   }
 
   .dashboard__nav {

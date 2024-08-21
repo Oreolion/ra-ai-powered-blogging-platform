@@ -62,7 +62,7 @@ const PostDetails = ({
   };
 
   return (
-    <section className="ml-[18rem] mt-[9rem] max-md:ml-[0]">
+    <section className="ml-[14.5rem] mt-[9rem] max-md:ml-[0]">
       <article
         className={`${styles.post} ${styles.postdetails}`}
       >
