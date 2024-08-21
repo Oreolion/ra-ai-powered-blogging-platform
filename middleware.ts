@@ -6,8 +6,8 @@ const isHomeRoute = createRouteMatcher(['/']);
 
 export default clerkMiddleware((auth, req) => {
   if (isHomeRoute(req)) {
-    const { userId } = auth();
-    if (userId) {
+    const { userId } = auth();    
+    if (userId && req.url !== '/dashboard') {
       // User is logged in, redirect to dashboard
       return NextResponse.redirect(new URL('/dashboard', req.url));
     }
