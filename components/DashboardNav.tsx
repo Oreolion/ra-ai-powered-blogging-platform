@@ -3,7 +3,7 @@ import Link from "next/link";
 import React, { useState } from "react";
 import styles from "@/styles/dashboardnav.module.css";
 import { SignedIn, useUser, useClerk } from "@clerk/nextjs";
-import {  useRouter } from "next/router";
+import { usePathname, useRouter } from "next/navigation";
 import { postCategory } from "@/types";
 import { navbarLinks } from "@/constants";
 import SVGIcon from "@/components/SVGIcon";
@@ -13,7 +13,7 @@ const DashboardNav = () => {
   const { signOut } = useClerk();
   const { user } = useUser();
   const router = useRouter();
-  const pathname = router.pathname; 
+  const pathname = usePathname();
 
   const postCategories: postCategory[] = [
     "Technology",
@@ -103,8 +103,8 @@ const DashboardNav = () => {
           <li className={styles.li} key="Homefeeds">
             <Link
               href="/dashboard"
-              className={`${styles.link} ${pathname === "/dashboard" ? styles.active_link : ""}`}
-              >
+              className={`${styles.link} ${isLinkActive("/dashboard") ? styles.active_link : ""}`}
+            >
               <SVGIcon
                 svgString={`<svg className="${styles.svg}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
               <title>HomeFeeds</title>
@@ -117,8 +117,8 @@ const DashboardNav = () => {
           <li className={styles.li} key="Create Post">
             <Link
               href="/create-post"
-              className={`${styles.link} ${pathname === "/create-post" ? styles.active_link : ""}`}
-              >
+              className={`${styles.link} ${isLinkActive("/create-post") ? styles.active_link : ""}`}
+            >
               <SVGIcon
                 svgString={`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
               <title>Create Post</title>
@@ -131,8 +131,8 @@ const DashboardNav = () => {
           <li className={styles.li} key="Bookmarks">
             <Link
               href="/bookmarks"
-              className={`${styles.link} ${pathname === "/bookmarks" ? styles.active_link : ""}`}
-              >
+              className={`${styles.link} ${isLinkActive("/bookmarks") ? styles.active_link : ""}`}
+            >
               <SVGIcon
                 svgString={`<svg className="${styles.svg}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
               <title>Bookmarks</title>
