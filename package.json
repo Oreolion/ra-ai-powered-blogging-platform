@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@clerk/nextjs": "^5.1.6",
+    "@clerk/nextjs": "^5.3.2",
     "@hookform/resolvers": "^3.9.0",
     "@langchain/core": "^0.2.21",
     "@radix-ui/react-label": "^2.1.0",
