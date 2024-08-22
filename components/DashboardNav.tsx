@@ -133,7 +133,7 @@ const DashboardNav = () => {
           <li className={styles.li}>
           <div>
               <Link
-                href=""
+                href="/create-post"
                 className={`${styles.link} ${isLinkActive(`/create-post`) ? styles.active_link : ""}`}
               >
                 <svg
@@ -152,7 +152,7 @@ const DashboardNav = () => {
           <li className={styles.li}>
           <div>
               <Link
-                href=""
+                href="/bookmarks"
                 className={`${styles.link} ${isLinkActive(`/bookmarks`) ? styles.active_link : ""}`}
               >
               <svg
