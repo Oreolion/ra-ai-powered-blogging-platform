@@ -3,19 +3,36 @@ import { NextResponse } from 'next/server';
 
 const isPublicRoute = createRouteMatcher(['/sign-in(.*)', '/sign-up(.*)']);
 const isHomeRoute = createRouteMatcher(['/']);
+const isDashboardRoute = createRouteMatcher(['/dashboard(.*)']);
 
 export default clerkMiddleware((auth, req) => {
-  if (isHomeRoute(req)) {
-    const { userId } = auth();    
-    if (userId && req.url !== '/dashboard') {
-      // User is logged in, redirect to dashboard
-      return NextResponse.redirect(new URL('/dashboard', req.url));
-    }
+  const { userId } = auth();
+  const { pathname } = new URL(req.url);
+
+  if (isPublicRoute(req)) {
+    return NextResponse.next();
   }
 
-  if (!isPublicRoute(req) && !isHomeRoute(req)) {
-    auth().protect();
+  if (isHomeRoute(req)) {
+    if (userId) {
+      return NextResponse.redirect(new URL('/dashboard', req.url));
+    }
+    return NextResponse.next();
   }
+
+  if (isDashboardRoute(req)) {
+    if (!userId) {
+      return NextResponse.redirect(new URL('/sign-in', req.url));
+    }
+    return NextResponse.next();
+  }
+
+  // For all other routes, protect access
+  if (!userId) {
+    return NextResponse.redirect(new URL('/sign-in', req.url));
+  }
+
+  return NextResponse.next();
 });
 
 export const config = {
