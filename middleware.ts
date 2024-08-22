@@ -8,6 +8,8 @@ const isDashboardRoute = createRouteMatcher(['/dashboard(.*)']);
 export default clerkMiddleware((auth, req) => {
   const { userId } = auth();
   const { pathname } = new URL(req.url);
+  console.log('Current route:', req.url);
+  console.log('pathname:', pathname)
 
   if (isPublicRoute(req)) {
     return NextResponse.next();
@@ -15,7 +17,9 @@ export default clerkMiddleware((auth, req) => {
 
   if (isHomeRoute(req)) {
     if (userId) {
-      return NextResponse.redirect(new URL('/dashboard', req.url));
+    //   return NextResponse.redirect(new URL('/dashboard', req.url));
+    return NextResponse.next();
+
     }
     return NextResponse.next();
   }
@@ -31,6 +35,8 @@ export default clerkMiddleware((auth, req) => {
   if (!userId) {
     return NextResponse.redirect(new URL('/sign-in', req.url));
   }
+
+  console.log('Current route:', req.url);
 
   return NextResponse.next();
 });
