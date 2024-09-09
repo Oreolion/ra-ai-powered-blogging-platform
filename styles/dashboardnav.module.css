@@ -233,6 +233,7 @@
 .collapseblock .collapse__svg {
     display: flex;
     flex-direction: column;
+    margin-top: 3rem;
     gap: 2rem;
     fill: #e67e22;
     border-radius: 50%;
