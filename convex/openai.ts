@@ -46,7 +46,7 @@ export const generatePostAction = action({
 
       const model = new ChatOpenAI({
         apiKey: process.env.OPENAI_API_KEY,
-        model: "gpt-3.5-turbo",
+        model: "gpt-40-2024-08-06",
         temperature: 0.2,
       });
 
