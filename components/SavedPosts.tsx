@@ -6,7 +6,6 @@ import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import HomeCard from "@/components/HomeCard";
 import SearchBar from "@/components/SearchBar";
-import { useEffect } from "react";
 
 export default function SavedPost  ()  {
   const { user } = useUser();
@@ -15,9 +14,6 @@ export default function SavedPost  ()  {
     clerkId: user?.id,
   });
 
-  useEffect(() => {
-    console.log(allSavedPosts);
-  }, [allSavedPosts]);
 
   // Handle loading state
   if (allSavedPosts === undefined || getUserById === undefined) {

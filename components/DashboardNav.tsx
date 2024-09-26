@@ -100,9 +100,6 @@ const DashboardNav = ({
             </p>
           </Link>
         </div>
-        {/* <div className={styles.user}>
-          <div className={styles.user__info}></div>
-        </div> */}
 
         <ul className={styles.dashboard__navlists}>
           <h5 className={styles.h5}>Overview</h5>
@@ -112,15 +109,21 @@ const DashboardNav = ({
               href="/dashboard"
               className={`${styles.link} ${isLinkActive("/dashboard") ? styles.active_link : ""}`}
             >
+                 <Image
+                src="/icons/discover.svg"
+                alt="i"
+                height={20}
+                width={20}
+              ></Image>
               <p className={styles.linktext}>Homefeeds</p>
             </Link>
           </li>
-          <li className={styles.li} key="Create Post">
+          <li className={styles.li} key="Create-post">
             <Link
               href="/create-post"
               className={`${styles.link} ${isLinkActive("/create-post") ? styles.active_link : ""}`}
             >
-              <Image src='/public/icons/discover.svg' alt='i' height={20} width={20}></Image>
+              <Image src='/icons/discover.svg' alt='i' height={20} width={20}></Image>
 
               <p className={styles.linktext}>Create Post</p>
             </Link>
@@ -131,7 +134,7 @@ const DashboardNav = ({
               className={`${styles.link} ${isLinkActive("/bookmarks") ? styles.active_link : ""}`}
             >
               <Image
-                src="/public/icons/discover.svg"
+                src="/icons/discover.svg"
                 alt="i"
                 height={20}
                 width={20}
