@@ -1,7 +1,4 @@
-import dynamic from 'next/dynamic'
-
-const SavedPosts = dynamic(()=> import('@/components/SavedPosts'), { ssr: true })
-
+import SavedPosts from '@/components/SavedPosts';
 export default function Page () {
   return (
     <>
