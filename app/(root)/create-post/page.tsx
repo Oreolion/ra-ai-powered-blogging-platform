@@ -1,7 +1,4 @@
-import dynamic from 'next/dynamic'
-
-const AddBlogPost = dynamic(() => import('@/components/AddBlogPost'), { ssr: true })
-
+import AddBlogPost from '@/components/AddBlogPost';
 export default function CreatePostPage() {
   return (
     <div>
