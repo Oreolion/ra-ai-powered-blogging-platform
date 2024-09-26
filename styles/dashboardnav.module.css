@@ -261,6 +261,10 @@
   display: none;
 }
 
+.collapseblock .hide {
+    display: none;
+  }
+
 .collapseblock .h5 {
   display: none;
 }

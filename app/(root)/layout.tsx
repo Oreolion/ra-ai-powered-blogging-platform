@@ -1,6 +1,5 @@
-import DashboardNav from "@/components/DashboardNav";
-import MobileDashBoardNav from "@/components/MobileDashBoardNav";
-import { Toaster } from "@/components/ui/toaster";
+import DashboardLayout from "@/components/DashboardLayout";
+
 
 export default function RootLayout({
   children,
@@ -9,11 +8,7 @@ export default function RootLayout({
 }>) {
   return (
     <main className="relative h-screen w-full">
-      <DashboardNav></DashboardNav>
-      <MobileDashBoardNav></MobileDashBoardNav>
-
-      {children}
-      <Toaster />
+      <DashboardLayout>{children}</DashboardLayout>
     </main>
   );
 }

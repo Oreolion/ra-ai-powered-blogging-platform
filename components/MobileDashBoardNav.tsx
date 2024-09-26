@@ -123,7 +123,7 @@ const MobileDashBoardNav = () => {
                   <p className={styles.p}>My Profile</p>
                 </Link>
               </li>
-              <li className={styles.li}>
+              {/* <li className={styles.li}>
                 <Link className={styles.link} href="/dashboard/nocontent">
                   <svg
                     className={styles.svg}
@@ -134,7 +134,7 @@ const MobileDashBoardNav = () => {
                   </svg>
                   Notifications
                 </Link>
-              </li>
+              </li> */}
               <li>
                 <div className={styles.link}>
                   <svg

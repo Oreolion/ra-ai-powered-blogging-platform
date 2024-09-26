@@ -6,14 +6,14 @@ import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import Loader from "./Loader";
 import HomeCard from "./HomeCard";
+// import SearchBar from "./SearchBar";
 import EmptyStates from "@/components/EmptyStates";
 import dynamic from 'next/dynamic'
 
-const SearchBar = dynamic(() => import('@/components/SearchBar'), { ssr: false })
+const SearchBar = dynamic(() => import('@/components/SearchBar'), {ssr: false})
 
 const HomeFeeds = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [showNav, setShowNav] = useState(true);
   const router = useRouter();
   const searchParams = useSearchParams();
   const search = searchParams.get("search") || "";

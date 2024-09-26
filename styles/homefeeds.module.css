@@ -1,6 +1,6 @@
 .dashboard__feeds {
   margin-top: 23rem;
-  margin-left: 14.5rem;
+  margin-left: 10rem;
   font-weight: bold;
   font-size: 1rem;
   padding: 2rem 4rem;
@@ -283,7 +283,7 @@
 
 @media (max-width: 767px) {
   .dashboard__feeds {
-    margin-left: 1rem;
+    margin-left: -1rem;
     padding: 1rem;
     width: 40rem;
   }
