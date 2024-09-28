@@ -8,6 +8,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { postCategory } from "@/types";
 import { navbarLinks } from "@/constants";
 import SVGIcon from "@/components/SVGIcon";
+import slugify from "slugify";
 
 const MobileDashBoardNav = () => {
   const [toggle, setToggle] = useState<boolean>(false);
@@ -48,6 +49,10 @@ const MobileDashBoardNav = () => {
     "Machine Learning",
     "Artificial Intelligence",
   ];
+
+  const createSlug = (category: string) => {
+    return slugify(category, { lower: true, strict: true });
+  };
 
   const isLinkActive = (href: string) => {
     return pathname === href || pathname.startsWith(href);
@@ -99,11 +104,12 @@ const MobileDashBoardNav = () => {
                 </svg>
               </span>{" "}
               {postCategories.map((category) => {
+                const slug = createSlug(category);
                 return (
                   <li className={styles.li} key={category}>
                     <Link
-                      href={`/filter-posts/${category}`}
-                      className={`${styles.link} ${isLinkActive(`/filter-posts/${category}`) ? styles.active_link : ""}`}
+                      href={`/filter-posts/${slug}`}
+                      className={`${styles.link} ${isLinkActive(`/filter-posts/${slug}`) ? styles.active_link : ""}`}
                     >
                       {category}
                     </Link>

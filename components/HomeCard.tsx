@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styles from "@/styles/homefeeds.module.css";
 import { PostCardProps } from "@/types";
 import Image from "next/image";
@@ -8,6 +8,8 @@ import { useUser } from "@clerk/nextjs";
 import Like from "./post-actions/Like";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
+import { CalendarIcon } from "lucide-react";
+import { Badge } from "./ui/badge";
 
 const HomeCard = ({
   imageUrl,
@@ -21,8 +23,9 @@ const HomeCard = ({
   content,
   authorImageUrl,
   author,
+  authorId,
   imageStorageId,
-  audioStorageId
+  audioStorageId,
 }: PostCardProps) => {
   const [more, setMore] = useState<boolean>(false);
   //   const posts = useQuery(api.posts.getAllPosts);
@@ -30,7 +33,7 @@ const HomeCard = ({
   const { user } = useUser();
   const postComments = useQuery(api.posts.getComments, {
     // @ts-ignore
-  postId: postId ?? undefined,
+    postId: postId ?? undefined,
   });
 
   const handleViews = () => {
@@ -43,12 +46,13 @@ const HomeCard = ({
     }
   };
 
-  const formatDate = (_creationTime: number) => {
-    // Convert the timestamp to an integer, as Date expects milliseconds
-    let millis = Math.floor(_creationTime);
-    let mydate = new Date(millis);
-    let localDate = mydate.toISOString().split("T")[0];
-    return localDate;
+  const formatDate = (creationTime: number) => {
+    const date = new Date(Math.floor(creationTime));
+    return date.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
   };
 
   return (
@@ -76,30 +80,25 @@ const HomeCard = ({
             )}
           </Link>
           <div className={styles.user__info}>
-            <div className="flex justify-between">
-              <h3 className={styles.username}>{author}</h3>
-              <p className={styles.p1}>
-                <svg
-                  className={styles.svg}
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 512 512"
-                >
-                  <path d="M256 0a256 256 0 1 1 0 512A256 256 0 1 1 256 0zM232 120V256c0 8 4 15.5 10.7 20l96 64c11 7.4 25.9 4.4 33.3-6.7s4.4-25.9-6.7-33.3L280 243.2V120c0-13.3-10.7-24-24-24s-24 10.7-24 24z" />
-                </svg>
-                {formatDate(_creationTime)}
-              </p>
+            <div className="flex items-center justify-between w-full">
+              <Link href={`/profile/${authorId}`} className={styles.username}>
+                {author}
+              </Link>
+              <div className="flex items-center text-base text-slate-200">
+                <CalendarIcon className="mr-1 h-6 w-6" />
+                <time dateTime={new Date(_creationTime).toISOString()}>
+                  {formatDate(_creationTime)}
+                </time>
+              </div>
             </div>
-
             <div className="flex flex-col">
-              <p className={styles.userrole}>{category}</p>
-
-              <p className={styles.desc}> {description} </p>
+              <Badge className={styles.userrole}>{category}</Badge>
             </div>
           </div>
         </div>
-
         <div className={styles.postheader}>
           <h2 className={styles.h2}> {title} </h2>
+          <p className={styles.desc}> {description} </p>
         </div>
         <div className={styles.contentbox}>
           <p className={styles.p}>
@@ -111,7 +110,7 @@ const HomeCard = ({
             )}
           </p>
           <div className={styles.image}>
-            <Image src={imageUrl} alt="thumbnail" width={230} height={18} />
+            <Image src={imageUrl} alt="thumbnail" width={230} height={15} />
           </div>
         </div>
 

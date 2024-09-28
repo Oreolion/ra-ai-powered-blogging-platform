@@ -93,6 +93,7 @@ export interface PostCardProps {
   authorImageUrl?: string;
   description: string;
   postId: Id<"posts">;
+  authorId: string;
   imageStorageId: string;
   audioStorageId: string | null;
 }

@@ -5,25 +5,36 @@ import EmptyStates from "@/components/EmptyStates";
 import LoaderSpinner from "@/components/LoaderSpinner";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
+import slugify from "slugify";
 
 const SimilarPostByCategory = ({
   params,
 }: {
   params: {
-    category: string;
+    slug: string;
   };
 }) => {
   const posts = useQuery(api.posts.getAllPosts);
 
+  const createSlug = (category: string) => {
+    return slugify(category, { lower: true, strict: true });
+  };
+
+  const getCategoryFromSlug = (slug: string) => {
+    return posts?.find(post => createSlug(post.postCategory) === slug)?.postCategory || slug;
+  };
+
+  const originalCategory = getCategoryFromSlug(params.slug);
+
   const filteredPosts = posts?.filter(
-    (post) => post.postCategory === params.category
+    (post) => createSlug(post.postCategory) === params.slug
   );
 
   if (!filteredPosts) return <LoaderSpinner />;
 
   return (
-    <section className=" flex flex-col gap-5 ml-[9rem] mt-[9rem] max-md:ml-[0]">
-      <h1 className="text-[1.8rem] font-bold text-white-1">Similar Posts</h1>
+    <section className="flex flex-col gap-5 ml-[9rem] mt-[9rem] max-md:ml-[0]">
+      <h1 className="text-[1.8rem] font-bold text-white-1">Similar Posts in {originalCategory}</h1>
       {filteredPosts && filteredPosts.length > 0 ? (
         <div className="">
           {filteredPosts?.map(
@@ -62,10 +73,10 @@ const SimilarPostByCategory = ({
       ) : (
         <>
           <EmptyStates
-            title="No Similar post Found"
+            title={`No Similar posts found in ${originalCategory}`}
             buttonLink="/dashboard"
             buttonText="Discover more Posts"
-          ></EmptyStates>
+          />
         </>
       )}
     </section>

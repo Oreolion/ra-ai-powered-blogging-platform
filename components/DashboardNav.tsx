@@ -8,6 +8,7 @@ import { postCategory } from "@/types";
 import { navbarLinks } from "@/constants";
 import SVGIcon from "@/components/SVGIcon";
 import Image from "next/image";
+import slugify from "slugify";
 
 const DashboardNav = ({
   onNavToggle,
@@ -30,6 +31,10 @@ const DashboardNav = ({
     "Machine Learning",
     "Artificial Intelligence",
   ];
+
+  const createSlug = (category: string) => {
+    return slugify(category, { lower: true, strict: true });
+  };
 
   const isLinkActive = (href: string) => {
     return pathname === href || pathname.startsWith(href);
@@ -109,7 +114,7 @@ const DashboardNav = ({
               href="/dashboard"
               className={`${styles.link} ${isLinkActive("/dashboard") ? styles.active_link : ""}`}
             >
-                 <Image
+              <Image
                 src="/icons/discover.svg"
                 alt="i"
                 height={20}
@@ -123,7 +128,12 @@ const DashboardNav = ({
               href="/create-post"
               className={`${styles.link} ${isLinkActive("/create-post") ? styles.active_link : ""}`}
             >
-              <Image src='/icons/discover.svg' alt='i' height={20} width={20}></Image>
+              <Image
+                src="/icons/discover.svg"
+                alt="i"
+                height={20}
+                width={20}
+              ></Image>
 
               <p className={styles.linktext}>Create Post</p>
             </Link>
@@ -154,11 +164,12 @@ const DashboardNav = ({
             </svg>
           </span>
           {postCategories.map((category) => {
+            const slug = createSlug(category);
             return (
               <li className={styles.li} key={category}>
                 <Link
-                  href={`/filter-posts/${category}`}
-                  className={`${styles.link} ${isLinkActive(`/filter-posts/${category}`) ? styles.active_link : ""}`}
+                  href={`/filter-posts/${slug}`}
+                  className={`${styles.link} ${isLinkActive(`/filter-posts/${slug}`) ? styles.active_link : ""}`}
                 >
                   {category}
                 </Link>

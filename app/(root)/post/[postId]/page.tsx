@@ -1,6 +1,5 @@
 "use client";
 
-// import PostDetailPlayer from "@/components/PostDetailPlayer";
 import EmptyStates from "@/components/EmptyStates";
 import LoaderSpinner from "@/components/LoaderSpinner";
 import { api } from "@/convex/_generated/api";
@@ -18,6 +17,9 @@ import { Share } from "@/components/post-actions/Share";
 import Saved from "@/components/post-actions/Saved";
 import Comment from "@/components/post-actions/Comment";
 import Link from "next/link";
+import { Badge } from "@/components/ui/badge";
+import { CalendarIcon } from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const PostDetails = ({
   params: { postId },
@@ -40,14 +42,14 @@ const PostDetails = ({
     postId: postId,
   });
 
-
-  const formatDate = (_creationTime: number) => {
-    // Convert the timestamp to an integer, as Date expects milliseconds
-    let millis = Math.floor(_creationTime);
-    let mydate = new Date(millis);
-    let localDate = mydate.toISOString().split("T")[0];
-    return localDate;
- }
+  const formatDate = (creationTime: number) => {
+    const date = new Date(Math.floor(creationTime));
+    return date.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+  };
 
   //   const isOwner = user?.id === post?.authorId;
 
@@ -62,61 +64,53 @@ const PostDetails = ({
   };
 
   return (
-    <section className="ml-[14.5rem] mt-[9rem] max-md:ml-[0]">
-      <article
-        className={`${styles.post} ${styles.postdetails}`}
-      >
+    <section className="ml-[9rem] mt-[9rem] max-md:ml-[0]">
+      <article className={`${styles.post} ${styles.postdetails}`}>
         <div className={styles.user__profile}>
           <Link href={`/profile/${user?.id}`} className={styles.user__image}>
-            {!post?.authorImageUrl ? (
-              <span className={styles.span}>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 448 512"
-                  className={styles.svg}
-                >
-                  <path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z" />
-                </svg>
-              </span>
-            ) : (
-              <Image
-                src={post?.authorImageUrl}
-                alt="userpicture"
-                width={25}
-                height={25}
+            <Avatar className="w-12 h-12">
+              <AvatarImage
+                src={post.authorImageUrl || "/placeholder-avatar.jpg"}
+                alt={post.author}
               />
-            )}
+              <AvatarFallback>{post.author?.charAt(0)}</AvatarFallback>
+            </Avatar>
           </Link>
           <div className={styles.user__info}>
-            <div className="flex justify-between">
-              <h3 className={styles.username}> {post?.author}</h3>
-              <p className={styles.p1}>
-                <svg
-                  className={styles.svg}
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 512 512"
-                >
-                  <path d="M256 0a256 256 0 1 1 0 512A256 256 0 1 1 256 0zM232 120V256c0 8 4 15.5 10.7 20l96 64c11 7.4 25.9 4.4 33.3-6.7s4.4-25.9-6.7-33.3L280 243.2V120c0-13.3-10.7-24-24-24s-24 10.7-24 24z" />
-                </svg>
-                {formatDate(post?._creationTime)}
-              </p>
+            <div className="flex items-center justify-between w-full">
+              <Link
+                href={`/profile/${post.authorId}`}
+                className={styles.username}
+              >
+                {post.author}
+              </Link>
+              <div className="flex items-center text-sm text-gray-500">
+                <CalendarIcon className="mr-1 h-6 w-6" />
+                <time dateTime={new Date(post._creationTime).toISOString()}>
+                  {formatDate(post._creationTime)}
+                </time>
+              </div>
             </div>
 
-            <div className="flex flex-col">
-              <p className={styles.userrole}>{post?.postCategory}</p>
-
-              <p className={styles.desc}> {post?.postDescription} </p>
-            </div>
+            <Badge className="mb-4 h-8 min-w-[7rem] max-w-[11rem]">
+              {post.postCategory}
+            </Badge>
           </div>
         </div>
 
         <div className={styles.postheader}>
           <h2 className={styles.h2}> {post?.postTitle} </h2>
-          <p className={`${styles.p} prose prose-li:marker:text-green-500 prose-img:rounded-lg prose-headings:underline prose-a:text-blue-600 lg:prose-xl`}> {post?.postContent} </p>
+          <p className={styles.desc}> {post?.postDescription} </p>
         </div>
         <div className={styles.postimage}>
           <Image src={post?.imageUrl} alt="thumbnail" width={230} height={46} />
         </div>
+        <p
+          className={`${styles.p} prose prose-li:marker:text-green-500 prose-img:rounded-lg prose-headings:underline prose-a:text-blue-600 lg:prose-xl`}
+        >
+          {" "}
+          {post?.postContent}{" "}
+        </p>
 
         <div className={styles.reactionbox}>
           <div className={styles.left}>
