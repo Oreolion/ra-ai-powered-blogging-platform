@@ -1,31 +1,15 @@
-import { HiLink } from "react-icons/hi";
-import { useToast } from "../ui/use-toast";
+import React from 'react';
+import { Share2 } from "lucide-react";
 
-export const Share = () => {
-  const path = window.location.href;
-  const { toast } = useToast();
 
-  const copyLink = async () => {
-    try {
-      await navigator.clipboard.writeText(path);
-      toast({
-        title: "Post Link Copied successfully",
-      });
-    } catch (error) {
-      toast({
-        title: "Post Link Copied successfully",
-        variant: "destructive",
-      });
-    }
-  };
+interface ShareProps {
+  onOpenModal: () => void;
+}
 
+export const Share: React.FC<ShareProps> = ({ onOpenModal }) => {
   return (
-    <div className="flex gap-1.5 items-center mt-[-1rem]" onClick={copyLink}>
-      <HiLink
-        size={30}
-        opacity={0.5}
-        className="hover:opacity-100 cursor-pointer"
-      />
+    <div onClick={onOpenModal} className="cursor-pointer mb-3">
+      <Share2 size={24} color={'#2b7810'}/>
     </div>
   );
 };

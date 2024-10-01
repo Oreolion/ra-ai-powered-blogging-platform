@@ -10,7 +10,7 @@ import { PostComments } from "./PostComments";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import Delete from "./post-actions/Delete";
-import { Share } from "./post-actions/Share";
+import { Share } from "./post-actions/CopyLink";
 import Saved from "./post-actions/Saved";
 
 const PostCard = ({
@@ -42,20 +42,17 @@ const PostCard = ({
     setToggleComment(!toggleComment);
   };
 
-  
   const formatDate = (_creationTime: number) => {
     // Convert the timestamp to an integer, as Date expects milliseconds
     let millis = Math.floor(_creationTime);
     let mydate = new Date(millis);
     let localDate = mydate.toISOString().split("T")[0];
     return localDate;
- }
+  };
 
   return (
     <>
-      <article
-        className={`${styles.post} ${styles.postdetails}`}
-      >
+      <article className={`${styles.post} ${styles.postdetails}`}>
         <div className={styles.user__profile}>
           <Link href={`/profile/${user?.id}`} className={styles.user__image}>
             {!authorImageUrl ? (
@@ -102,7 +99,12 @@ const PostCard = ({
 
         <div className={styles.postheader}>
           <h2 className={styles.h2}> {title} </h2>
-          <p className={`${styles.p} prose prose-li:marker:text-green-500 prose-img:rounded-lg prose-headings:underline prose-a:text-blue-600 lg:prose-xl`}> {content} </p>
+          <p
+            className={`${styles.p} prose prose-li:marker:text-green-500 prose-img:rounded-lg prose-headings:underline prose-a:text-blue-600 lg:prose-xl`}
+          >
+            {" "}
+            {content}{" "}
+          </p>
         </div>
         <div className={styles.postimage}>
           <Image src={imageUrl} alt="thumbnail" width={230} height={46} />

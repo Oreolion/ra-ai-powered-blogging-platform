@@ -13,13 +13,15 @@ import Like from "@/components/post-actions/Like";
 import HomeCard from "@/components/HomeCard";
 import { PostComments } from "@/components/PostComments";
 import Delete from "@/components/post-actions/Delete";
-import { Share } from "@/components/post-actions/Share";
+import { CopyLink } from "@/components/post-actions/CopyLink";
 import Saved from "@/components/post-actions/Saved";
 import Comment from "@/components/post-actions/Comment";
+import {Share} from "@/components/post-actions/Share";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { CalendarIcon } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import ShareModal from "@/components/ShareModal";
 
 const PostDetails = ({
   params: { postId },
@@ -27,6 +29,7 @@ const PostDetails = ({
   params: { postId: Id<"posts"> };
 }) => {
   const [toggleComment, setToggleComment] = useState<boolean>(false);
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
 
   const { user } = useUser();
 
@@ -131,7 +134,14 @@ const PostDetails = ({
               imageStorageId={post?.imageStorageId}
               audioStorageId={post?.audioStorageId}
             ></Delete>
-            <Share></Share>
+            <CopyLink></CopyLink>
+            <Share onOpenModal={() => setIsShareModalOpen(true)} />
+            <ShareModal
+              isOpen={isShareModalOpen}
+              onClose={() => setIsShareModalOpen(false)}
+              postUrl={`${typeof window !== "undefined" ? window.location.origin : ""}/post/${postId}`}
+              postTitle={post?.postTitle}
+            />
             <div
               onClick={handleToggleCommentBox}
               className={`${styles.icon} mt-[-4px]`}
