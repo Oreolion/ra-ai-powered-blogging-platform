@@ -82,7 +82,7 @@ const PostDetails = ({
           <div className={styles.user__info}>
             <div className="flex items-center justify-between w-full">
               <Link
-                href={`/profile/${post.authorId}`}
+                href={`/profile/${user?.id}`}
                 className={styles.username}
               >
                 {post.author}

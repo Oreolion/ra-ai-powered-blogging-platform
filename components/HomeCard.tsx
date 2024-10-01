@@ -81,7 +81,7 @@ const HomeCard = ({
           </Link>
           <div className={styles.user__info}>
             <div className="flex items-center justify-between w-full">
-              <Link href={`/profile/${authorId}`} className={styles.username}>
+              <Link href={`/profile/${user?.id}`} className={styles.username}>
                 {author}
               </Link>
               <div className="flex items-center text-base text-slate-200">
