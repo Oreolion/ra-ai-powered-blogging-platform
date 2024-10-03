@@ -53,61 +53,49 @@
   height: 5rem;
 }
 .right__herosection {
-  width: 50%;
-  margin-top: 2rem;
-  position: relative;
-}
+    width: 50%;
+    margin-top: 2rem;
+    position: relative;
+    height: 400px; /* Add a fixed height to contain the images */
+  }
+  
+  .right__herosection .imgbox,
+  .right__herosection .box2 {
+    position: absolute;
+    width: 570px;
+    height: 350px;
+    transition: all 1s ease-in-out;
+  }
 
-.right__herosection .imgbox {
-  z-index: 11;
-  position: absolute;
-  margin-top: 2rem;
-}
-
-.right__herosection .imgbox .img,
-.right__herosection .box2 .img {
-  border-radius: 2rem;
-}
-
-.right__herosection .box2 {
-  margin-top: 2rem;
-  position: absolute;
-  top: 8%;
-  right: -2%;
-  z-index: 1;
-  width: 570px;
-  height: 350px;
-}
-
-.right__herosection .imgbox {
-  transition: all 1s ease-in-out;
-}
-.right__herosection .box2 {
-  transition: all 1s ease-in-out;
-  position: absolute;
-}
-
-.right__herosection .imgbox {
-  z-index: 1;
-  top: 0;
-  width: 570px;
-  height: 350px;
-  left: 0;
-}
-
-.right__herosection .imgbox.animate {
-  top: 8%;
-  right: -2%;
-  left: auto;
-  z-index: 11;
-}
-
-.right__herosection .box2.animate {
-  top: 0;
-  left: 0;
-  right: auto;
-  z-index: 11;
-}
+  .img {
+    border-radius: 2rem;
+  }
+  
+  .right__herosection .imgbox {
+    z-index: 2;
+    top: 0;
+    left: 0;
+  }
+  
+  .right__herosection .box2 {
+    z-index: 1;
+    top: 10%;
+    right: -2%;
+  }
+  
+  .right__herosection .imgbox.animate {
+    top: 10%;
+    right: -2%;
+    left: auto;
+    z-index: 1;
+  }
+  
+  .right__herosection .box2.animate {
+    top: 0;
+    left: 0;
+    right: auto;
+    z-index: 2;
+  }
 
 @media (max-width: 767px) {
   .section {
@@ -147,13 +135,13 @@
 
   .right__herosection .imgbox {
     padding-top: 3rem;
-    width: 290px;
+    width: 350px;
     height: 150px;
   }
 
   .right__herosection .box2 {
-    top: 25%;
-    width: 290px;
+    top: 20%;
+    width: 350px;
     height: 150px;
   }
 }
@@ -195,6 +183,10 @@
   .right__herosection .imgbox {
     width: 250px;
     height: 100px;
+  }
+
+  .inner__herosection {
+    padding-bottom: 1rem;
   }
 }
 
