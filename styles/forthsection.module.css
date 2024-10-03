@@ -98,8 +98,14 @@
   }
 }
 @media (max-width: 480px) {
+  .section {
+    padding-top: 1rem;
+    margin-top: 1rem;
+  }
   .rightbox {
-    padding: 3rem 4rem;
+    padding: 3rem;
+    width: 23rem;
+    border-bottom: 0.5rem dotted #e67e22;
   }
 
   .rightbox .h1 {
@@ -114,7 +120,7 @@
 }
 @media (max-width: 320px) {
   .rightbox {
-    padding: 2rem 6rem;
+    padding: 2rem;
   }
   .rightbox .h1 {
     font-size: 1.4rem;

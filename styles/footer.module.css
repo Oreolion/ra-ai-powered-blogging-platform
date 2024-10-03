@@ -108,7 +108,7 @@
 
 @media (max-width: 768px) {
   .footer {
-    height: 45rem;
+    height: 30rem;
   }
   .footer .logo {
     margin: 0 auto;
@@ -131,6 +131,11 @@
 
   .footer .li {
     text-align: center;
+  }
+
+  .footer .p1 {
+    text-align: center;
+    margin-right: 0;
   }
 }
 

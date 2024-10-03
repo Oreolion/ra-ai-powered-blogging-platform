@@ -53,8 +53,9 @@
 
 @media (max-width: 480px) {
   .section {
-    padding-top: 2rem;
-    height: 42rem;
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+    height: 40rem;
   }
 
   .inner__box .leftbox {
@@ -62,6 +63,8 @@
   }
   .h1 {
     margin-bottom: 2rem;
+    font-size: 1.7rem;
+    margin-left: 1rem;
   }
   .p {
     font-size: 1.3rem;
@@ -69,7 +72,6 @@
 }
 @media (max-width: 320px) {
   .section {
-    padding-top: 2rem;
     height: 36rem;
   }
 
@@ -80,12 +82,14 @@
   .h1 {
     font-size: 1.6rem;
     margin-bottom: 2rem;
+    margin-left: 2rem;
     max-width: 21rem;
     padding: 0 1rem;
   }
   .p {
     font-size: 1.1rem;
     max-width: 23rem;
-    padding: 0 2rem;
+    padding: 1rem;
+    margin-left: 1rem;
   }
 }

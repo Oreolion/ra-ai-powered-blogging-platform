@@ -31,17 +31,10 @@ const Footer = () => {
           <h5 className={styles.h5}>Support</h5>
           <ul>
             <li className={styles.li}>Support Docs</li>
-            <li className={styles.li}>Join Slack</li>
             <li className={styles.li}>Contact</li>
           </ul>
         </div>
-        <div className={styles.box1}>
-          <h5 className={styles.h5}>Official Blog</h5>
-          <ul>
-            <li className={styles.li}>Official Blog</li>
-            <li className={styles.li}>Engineering Blog</li>
-          </ul>
-        </div>
+    
       </div>
       <p className={styles.p1}>Term of Service | Security | the RA APP 2024</p>
     </footer>
