@@ -7,10 +7,10 @@ import ScrollToTop from "@/components/ScrollToTop";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "RA | Blog and read about your Interest",
+  title: "RA | Blog and read about your Interest with AI Powered Features to generate blog and thumbnail for free, Anytime, Anywhere. ",
   description: "AI Powered Blogging App",
   icons: {
-    icon: '/public/logo/favicon-32x32.png'
+    icon: '/logo/favicon-32x32.png'
   }
 };
 

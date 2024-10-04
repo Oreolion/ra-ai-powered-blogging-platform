@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import styles from "../styles/navbar.module.css";
 import Image from "next/image";
 
-
 const Navbar = () => {
   const [toggleNavbar, setToggleNavbar] = useState<boolean>(false);
 
@@ -16,15 +15,12 @@ const Navbar = () => {
     <header className={styles.header}>
       <div className={`${styles.logo} ${styles.link}`}>
         <Link href="/">
-         <Image src='/images/logo.webp' alt='logo' height={10} width={100}               objectFit="cover"
-         />
+          <Image src="/images/logo.webp" alt="logo" height={10} width={92} />
         </Link>
       </div>
 
       <nav className={styles.right__nav}>
         <div className={styles.nav__icons}>
-        
-
           {toggleNavbar ? (
             <svg
               className={styles.svg}
@@ -46,7 +42,7 @@ const Navbar = () => {
             </div>
           )}
         </div>
-      
+
         <ul className={styles.navlist}>
           <li>
             <Link className={styles.li} href="/">

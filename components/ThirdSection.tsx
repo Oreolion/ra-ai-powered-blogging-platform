@@ -72,7 +72,7 @@ const ThirdSection = () => {
               <p className={styles.p}>
                 Users on the platform can create Post completely with AI, using
                 AI to generate Blog content and also Blog Thumbnails using Gen
-                AI
+                AI prompts.
               </p>
             </div>
           </article>
