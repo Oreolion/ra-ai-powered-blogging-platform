@@ -2,6 +2,8 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import styles from "../styles/navbar.module.css";
+import Image from "next/image";
+
 
 const Navbar = () => {
   const [toggleNavbar, setToggleNavbar] = useState<boolean>(false);
@@ -14,12 +16,8 @@ const Navbar = () => {
     <header className={styles.header}>
       <div className={`${styles.logo} ${styles.link}`}>
         <Link href="/">
-          <h3 className={styles.h3}>
-            THE <span>RA</span> APP
-          </h3>
-          <p className={`${styles.p} text-[#e67e22]`}>
-            The <span className={styles.span}>Read Along</span> APP
-          </p>
+         <Image src='/images/logo.webp' alt='logo' height={10} width={100}               objectFit="cover"
+         />
         </Link>
       </div>
 

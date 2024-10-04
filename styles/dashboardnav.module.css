@@ -1,20 +1,14 @@
 .logo {
-  color: #e67e22;
-  margin-right: auto;
-  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-    "Lucida Sans", Arial, sans-serif;
-    margin: 1rem 0;
-    margin-bottom: 1.1rem;
+    margin-bottom: 1rem;
+    margin-left: 1rem;
     cursor: pointer;
 }
 
 .otherlogo {
-  color: #e67e22;
-  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-    "Lucida Sans", Arial, sans-serif;
+
   position: fixed;
-  top: 4%;
-  left: 5%;
+  top: -2%;
+  left: 6%;
   z-index: 1111;
   margin: 1rem 0;
   margin-bottom: 1.1rem;
@@ -33,7 +27,7 @@
   font-weight: bold;
 }
 
-.h3 .span,.otherlogo .h3 .span {
+.h3 .span {
   color: #ccc;
   background-color: #e67e22;
   border-top-left-radius: 6px;
@@ -57,29 +51,6 @@
   fill: #e67e22;
 }
 
-.logo .p,
-.otherlogo .p {
-  font-size: 0.8rem;
-  font-weight: bold;
-  letter-spacing: 1px;
-  padding: 0.5rem;
-  padding-left: 4px;
-  background: rgba(255, 255, 255, 0.2);
-  border-top-right-radius: 1rem;
-  border-bottom-left-radius: 1rem;
-  white-space: nowrap;
-
-}
-
-.logo .p .span,
-.otherlogo .p .span {
-  background: rgba(355, 355, 355, 0.3);
-  background-color: green;
-  font-weight: bold;
-  border-radius: 0.4rem;
-  padding: 0.2rem;
-  font-size: 0.8rem;
-}
 .dashboard__nav {
   position: fixed;
   top: 0;

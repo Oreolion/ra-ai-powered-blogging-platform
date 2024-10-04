@@ -13,7 +13,7 @@ const Hero = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setIsAnimating((prev) => !prev);
-    }, 3000); // Switch every 5 seconds
+    }, 3000); 
 
     return () => clearInterval(interval);
   }, []);
@@ -47,7 +47,6 @@ const Hero = () => {
               alt="backgroundimage"
               width={570}
               height={350}
-              objectFit="cover"
             />
           </div>
           <div
@@ -59,7 +58,6 @@ const Hero = () => {
               alt="second background image"
               width={570}
               height={350}
-              objectFit="cover"
             />
           </div>
         </div>

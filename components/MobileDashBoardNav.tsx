@@ -9,6 +9,7 @@ import { postCategory } from "@/types";
 import { navbarLinks } from "@/constants";
 import SVGIcon from "@/components/SVGIcon";
 import slugify from "slugify";
+import Image from "next/image";
 
 const MobileDashBoardNav = () => {
   const [toggle, setToggle] = useState<boolean>(false);
@@ -68,12 +69,8 @@ const MobileDashBoardNav = () => {
             ref={myRef}
           >
             <div className={`${styles.logo} ${styles.link}`}>
-              <h3 className={styles.h3}>
-                THE <span className={styles.span}>RA</span> APP
-              </h3>
-              <p className={styles.p}>
-                The <span className={styles.span}>Read Along</span> APP
-              </p>
+            <Image src='/images/logo.webp' alt='logo' height={10} width={100}      />
+
             </div>
 
             <ul className={styles.dashboard__navlists}>
@@ -169,12 +166,8 @@ const MobileDashBoardNav = () => {
         {/* <!-- header --> */}
         <header className={styles.header}>
           <div className={`${styles.logo} ${styles.link}`}>
-            <h3 className={styles.h3}>
-              THE <span className={styles.span}>RA</span> APP
-            </h3>
-            <p className={styles.p}>
-              The <span className={styles.span}>Read Along</span> APP
-            </p>
+          <Image src='/images/logo.webp' alt='logo' height={10} width={100} />
+
           </div>
           <nav className={styles.right__nav}>
             <div className={styles.nav__icons}>

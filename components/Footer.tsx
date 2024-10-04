@@ -1,6 +1,8 @@
 import React from "react";
 import styles from "../styles/footer.module.css";
 import Link from "next/link";
+import Image from "next/image";
+
 
 const Footer = () => {
   return (
@@ -8,12 +10,8 @@ const Footer = () => {
       <div className={styles.inner_footer}>
         <div className={`${styles.logo} ${styles.link}`}>
           <Link href="/">
-            <h3 className={styles.h3}>
-              THE <span className={styles.span}>RA</span> APP
-            </h3>
-            <p className={`${styles.p} text-[#e67e22]`}>
-              The <span className={styles.span}>Read Along</span> APP
-            </p>
+          <Image src='/images/logo.webp' alt='logo' height={30} width={100}/>
+
           </Link>
         </div>
         {/* <div className={styles.boxes}>

@@ -1,11 +1,48 @@
+"use client";
+import React, { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
 import Image from "next/image";
-import React from "react";
 import styles from "../styles/forthsection.module.css";
 
 const ForthSection = () => {
+    const [hasAnimated, setHasAnimated] = useState(false);
+    const ref = useRef(null);
+  
+    useEffect(() => {
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting && !hasAnimated) {
+            setHasAnimated(true);
+          }
+        },
+        { threshold: 0.1 }
+      );
+  
+      if (ref.current) {
+        observer.observe(ref.current);
+      }
+  
+      return () => {
+        if (ref.current) {
+          observer.unobserve(ref.current);
+        }
+      };
+    }, [hasAnimated]);
+  
+    const variants = {
+      hidden: { x: "-100%", opacity: 0 },
+      visible: {
+        x: 0,
+        opacity: 1,
+        transition: { duration: 0.8, ease: "easeOut" },
+      },
+    };
   return (
-    <section className={styles.section}>
-      <div className={styles.inner_container}>
+    <section className={styles.section} ref={ref}>
+      <motion.div className={styles.inner_container}
+      initial="hidden"
+      animate={hasAnimated ? "visible" : "hidden"}
+      variants={variants}>
         <div className={styles.leftbox}>
           <div className={styles.imgbox}>
             <Image
@@ -47,7 +84,7 @@ const ForthSection = () => {
             Get Started
           </button>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 };

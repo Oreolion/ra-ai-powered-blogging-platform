@@ -13,21 +13,7 @@
 
 .header .logo {
   margin-right: auto;
-  background-color: rgba(05, 05, 05, 0.1);
-  padding: 0.5rem;
-  color: #e67e22;
   cursor: pointer;
-}
-
-.logo .h3 {
-  line-height: 1;
-  letter-spacing: 0.7;
-  color: #e67e22;
-  font-size: 1.2rem;
-  text-align: center;
-  font-weight: bold;
-  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-    "Lucida Sans", Arial, sans-serif;
 }
 
 .h3 span {
@@ -39,29 +25,6 @@
   font-weight: bold;
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
-}
-
-.logo .p {
-  font-size: 0.7rem;
-  font-weight: bold;
-  letter-spacing: 1px;
-  padding: 0.5rem;
-  padding-left: 4px;
-  background: rgba(05, 05, 05, 0.5);
-  border-top-right-radius: 1rem;
-  border-bottom-left-radius: 1rem;
-  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-    "Lucida Sans", Arial, sans-serif;
-}
-
-.logo .p .span {
-  background: rgba(05, 05, 05, 0.4);
-  font-weight: bold;
-  border-radius: 0.4rem;
-  letter-spacing: 0.2;
-  padding: 0.2rem;
-  font-size: 0.7rem;
-  text-transform: uppercase;
 }
 
 .right__nav {
@@ -156,21 +119,8 @@
   }
 
   .header .logo {
-    color: #222;
-    font-size: 2rem;
     margin-right: 3rem;
     z-index: 111;
-    background-color: rgba(05, 05, 05, 0.1);
-    padding: 0.5rem;
-  }
-
-  .logo .p {
-    font-size: 1.3rem;
-    letter-spacing: 0;
-    padding-left: 4px;
-    line-height: 0.9;
-    white-space: nowrap;
-    color: #e67e22;
   }
 
   .logo .nav__icons {
@@ -229,19 +179,6 @@
     padding: 0.5rem;
   }
 
-  .logo .h3 {
-    font-size: 1rem;
-  }
-
-  .logo .p {
-    font-size: 0.8rem;
-    letter-spacing: 0;
-    padding-left: 2px;
-    line-height: 0.5;
-    white-space: nowrap;
-    color: #e67e22;
-  }
-
   .mobile__nav {
     width: 24rem;
     width: 18rem;
@@ -264,14 +201,6 @@
 @media (max-width: 320px) {
   .logo {
     margin-left: -0.5rem;
-  }
-
-  .logo .h3 {
-    font-size: 0.8rem;
-  }
-
-  .logio .p {
-    font-size: 0.4rem;
   }
 
   .header .logo {

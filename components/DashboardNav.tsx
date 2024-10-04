@@ -97,12 +97,7 @@ const DashboardNav = ({
         )}
         <div className={`${styles.logo} ${styles.link}`}>
           <Link href="/">
-            <h3 className={styles.h3}>
-              THE <span className={styles.span}>RA</span> APP
-            </h3>
-            <p className={styles.p}>
-              The <span className={styles.span}>Read Along</span> APP
-            </p>
+          <Image src='/images/logo.webp' alt='logo' height={10} width={100} />
           </Link>
         </div>
 
@@ -234,12 +229,7 @@ const DashboardNav = ({
       {!showNav && (
         <Link href="/">
           <div className={`${styles.otherlogo} ${styles.link}`}>
-            <h3 className={styles.h3}>
-              THE <span className={styles.span}>RA</span> APP
-            </h3>
-            <p className={styles.p}>
-              The <span className={styles.span}>Read Along</span> APP
-            </p>
+          <Image src='/images/logo.webp' alt='logo' height={10} width={100} />
           </div>
         </Link>
       )}

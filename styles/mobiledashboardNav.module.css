@@ -1,45 +1,7 @@
 .logo {
-  color: #e67e22;
   margin-right: auto;
   margin-bottom: 1.5rem;
 }
-
-.logo .h3 {
-  line-height: 1;
-  letter-spacing: 0.7;
-  color: #e67e22;
-  font-size: 0.6rem;
-  text-align: center;
-}
-
-.logo .h3 .span {
-  color: green;
-  background-color: #e67e22;
-  border-top-left-radius: 6px;
-  border-bottom-right-radius: 6px;
-  padding: 0.2rem;
-  font-weight: bold;
-}
-
-.logo .p {
-  font-size: 0.6rem;
-  font-weight: bold;
-  letter-spacing: 1px;
-  padding: 0.5rem;
-  padding-left: 4px;
-  background: rgba(255, 255, 255, 0.2);
-  border-top-right-radius: 1rem;
-  border-bottom-left-radius: 1rem;
-}
-
-.logo .p .span {
-  background: rgba(355, 355, 355, 0.3);
-  font-weight: bold;
-  border-radius: 0.4rem;
-  padding: 0.2rem;
-  font-size: 0.8rem;
-}
-
 
 .dashboard__nav {
   position: fixed;
@@ -76,12 +38,12 @@
 }
 
 .dashboard__navlists .active_link {
-    background-color: rgba(255, 255, 255, 0.1);
-    font-weight: bold;
-    color: green;
-    border-bottom: 3px solid #ccc;
-    padding: 2px;
-  }
+  background-color: rgba(255, 255, 255, 0.1);
+  font-weight: bold;
+  color: green;
+  border-bottom: 3px solid #ccc;
+  padding: 2px;
+}
 
 .p {
   font-weight: bold;
@@ -127,10 +89,10 @@
 }
 
 .spanheader svg {
-    height: 1rem;
-    width: 1rem;
-    fill: #e67e22;
-  }
+  height: 1rem;
+  width: 1rem;
+  fill: #e67e22;
+}
 
 .dashboard__navlists .li:last-child {
   color: red;

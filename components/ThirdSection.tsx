@@ -1,10 +1,50 @@
-import React from "react";
+"use client";
+import React, { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
 import styles from "@/styles/thirdsection.module.css";
 
 const ThirdSection = () => {
+  const [hasAnimated, setHasAnimated] = useState(false);
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !hasAnimated) {
+          setHasAnimated(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => {
+      if (ref.current) {
+        observer.unobserve(ref.current);
+      }
+    };
+  }, [hasAnimated]);
+
+  const variants = {
+    hidden: { x: "-100%", opacity: 0 },
+    visible: {
+      x: 0,
+      opacity: 1,
+      transition: { duration: 0.8, ease: "easeOut" },
+    },
+  };
+
   return (
-    <section>
-      <div className={styles.post__box}>
+    <section ref={ref}>
+      <motion.div
+        className={styles.post__box}
+        initial="hidden"
+        animate={hasAnimated ? "visible" : "hidden"}
+        variants={variants}
+      >
         <div className={styles.header}>
           <h1 className={styles.h1}>Why You Should Join Read Along</h1>
           <p className={styles.p}>
@@ -19,19 +59,20 @@ const ThirdSection = () => {
             <div className={styles.svg}>
               <svg
                 className={styles.ssvg}
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 512 512"
+                viewBox="0 0 16 16"
+                height="2rem"
+                width="2rem"
               >
-                <path d="M64 64c0-17.7-14.3-32-32-32S0 46.3 0 64V400c0 44.2 35.8 80 80 80H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H80c-8.8 0-16-7.2-16-16V64zm406.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L320 210.7l-57.4-57.4c-12.5-12.5-32.8-12.5-45.3 0l-112 112c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L240 221.3l57.4 57.4c12.5 12.5 32.8 12.5 45.3 0l128-128z" />
+                <path d="M7.657 6.247c.11-.33.576-.33.686 0l.645 1.937a2.89 2.89 0 001.829 1.828l1.936.645c.33.11.33.576 0 .686l-1.937.645a2.89 2.89 0 00-1.828 1.829l-.645 1.936a.361.361 0 01-.686 0l-.645-1.937a2.89 2.89 0 00-1.828-1.828l-1.937-.645a.361.361 0 010-.686l1.937-.645a2.89 2.89 0 001.828-1.828l.645-1.937zM3.794 1.148a.217.217 0 01.412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 010 .412l-1.162.387A1.734 1.734 0 004.593 5.69l-.387 1.162a.217.217 0 01-.412 0L3.407 5.69A1.734 1.734 0 002.31 4.593l-1.162-.387a.217.217 0 010-.412l1.162-.387A1.734 1.734 0 003.407 2.31l.387-1.162zM10.863.099a.145.145 0 01.274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 010 .274l-.774.258a1.156 1.156 0 00-.732.732l-.258.774a.145.145 0 01-.274 0l-.258-.774a1.156 1.156 0 00-.732-.732L9.1 2.137a.145.145 0 010-.274l.774-.258c.346-.115.617-.386.732-.732L10.863.1z" />
               </svg>
             </div>
 
             <div>
-              <h2 className={styles.h2}>Analytics</h2>
+              <h2 className={styles.h2}>AI Powered</h2>
               <p className={styles.p}>
-                Analytics to track the number of views, likes and comment and
-                also analyze the performance of your articles over a period of
-                time
+                Users on the platform can create Post completely with AI, using
+                AI to generate Blog content and also Blog Thumbnails using Gen
+                AI
               </p>
             </div>
           </article>
@@ -76,7 +117,7 @@ const ThirdSection = () => {
             </div>
           </article>
         </figure>
-      </div>
+      </motion.div>
     </section>
   );
 };
