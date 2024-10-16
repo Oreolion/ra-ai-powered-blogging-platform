@@ -84,7 +84,8 @@ export const createComment = mutation({
       username: user.name,
       commentUserImage: user.imageUrl,
       content: args.content,
-      createdAt: Date.now(),
+      creationTime: Date.now(),
+      editedAt: Date.now(),
     });
   },
 });
@@ -94,7 +95,7 @@ export const editComment = mutation({
   args: {
     _id: v.id("comments"),
     newContent: v.string(),
-    userId: v.id("users"),
+    userId: v.string(),
   },
   handler: async (ctx, args) => {
     const { _id, newContent, userId } = args;
@@ -106,15 +107,19 @@ export const editComment = mutation({
       throw new Error("Comment not found");
     }
 
+    // console.log("Existing comment author:", existingComment.authorId);
+    // console.log("Existing comment author:", existingComment);
+    // console.log("User attempting edit:", userId);
+
     // Check if the user is allowed to edit this comment
-    if (existingComment.authorId !== _id) {
+    if (existingComment._id !== userId) {
       throw new Error("User not authorized to edit this comment");
     }
 
     // Update the comment
     const updatedComment = await ctx.db.patch(_id, {
       content: newContent,
-      editedAt: new Date().toISOString(),
+      editedAt: Math.floor(Date.now() / 1000),
     });
 
     return updatedComment;

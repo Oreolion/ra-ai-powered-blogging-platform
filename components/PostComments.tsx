@@ -91,27 +91,20 @@ export const PostComments = ({ postId }: { postId: string }) => {
   const handleEdit = async ({ _id, newContent }: { _id: Id<"comments">, newContent: string }) => {
     setIsLoading(true);
     try {
-      // Add the mutation to update the comment in the database
-      if (user && user.id) {
-        console.log("userId:", user.id); // Log the user ID value
-        // await editCommentMutation({
-        //     _id,
-        //     newContent,
-        //     userId: user.id  as Id<"users">,
-        // });
-        
+      if (user && userId) {
         await editCommentMutation({
-            _id,
-            newContent,
-            userId: user.id,
-          });
+          _id,
+          newContent,
+          userId: userId?._id, // Use the actual user ID from your query
+        });
+        setEditComment("");
+        setIsEdit(false);
+        toast({
+          title: "Comment edited successfully",
+        });
       }
-      setEditComment("");
-      setIsEdit(false);
-      toast({
-        title: "Comment edited successfully",
-      });
     } catch (error) {
+      console.error('Error occurred while editing comment:', error);
       toast({
         title: "Error occurred while editing comment",
         variant: "destructive",
@@ -120,7 +113,6 @@ export const PostComments = ({ postId }: { postId: string }) => {
       setIsLoading(false);
     }
   };
-
   return (
     <>
       {toggleComment && (
@@ -255,7 +247,6 @@ export const PostComments = ({ postId }: { postId: string }) => {
                 <button
                   type="button"
                   onClick={() => {
-                    // e.preventDefault();
                     if (editingCommentId && editComment) {
                       handleEdit({ 
                         _id: editingCommentId, 

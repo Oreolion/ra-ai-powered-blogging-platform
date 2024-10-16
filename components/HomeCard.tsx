@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useUser } from "@clerk/nextjs";
 import Like from "./post-actions/Like";
-import { useQuery } from "convex/react";
+import { useMutation, useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { CalendarIcon } from "lucide-react";
 import { Badge } from "./ui/badge";
@@ -28,15 +28,17 @@ const HomeCard = ({
   audioStorageId,
 }: PostCardProps) => {
   const [more, setMore] = useState<boolean>(false);
-  //   const posts = useQuery(api.posts.getAllPosts);
   const router = useRouter();
   const { user } = useUser();
   const postComments = useQuery(api.posts.getComments, {
     // @ts-ignore
     postId: postId ?? undefined,
   });
+  const updatePostViews = useMutation(api.posts.updatePostViews);
+
 
   const handleViews = () => {
+    console.log(postId)
     if (postId) {
       router.push(`/post/${postId}`, {
         scroll: true,
@@ -92,7 +94,7 @@ const HomeCard = ({
               </div>
             </div>
             <div className="flex flex-col">
-              <Badge className={styles.userrole}>{category}</Badge>
+              <Badge className="mb-4 h-8 min-w-[7rem] max-w-[11rem]">{category}</Badge>
             </div>
           </div>
         </div>

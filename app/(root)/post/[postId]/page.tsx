@@ -1,5 +1,4 @@
 "use client";
-
 import EmptyStates from "@/components/EmptyStates";
 import LoaderSpinner from "@/components/LoaderSpinner";
 import { api } from "@/convex/_generated/api";
@@ -163,7 +162,7 @@ const PostDetails = ({
           <div className="">
             {similarPosts?.map(
               ({
-                postId,
+                _id: postId,
                 views,
                 likes,
                 postCategory,

@@ -30,11 +30,10 @@ export interface PostCommentType {
   newContent: string;
   _id: string;
   _creationTime: number;
-  creationAt: number;
+  editedAt: number;
   postId: string;
   userId: string;
   username: string;
-  commentId: string;
   commentUserImage: string;
 }
 

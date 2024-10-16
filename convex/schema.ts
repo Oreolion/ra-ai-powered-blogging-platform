@@ -16,13 +16,13 @@ export default defineSchema({
     authorImageUrl: v.string(),
     imageUrl: v.string(),
     imagePrompt: v.string(),
-    // audioDuration: v.number(),
     views: v.number(),
     likes: v.optional(v.number()),
   })
     .searchIndex("search_author", { searchField: "author" })
     .searchIndex("search_title", { searchField: "postTitle" })
-    .searchIndex("search_body", { searchField: "postDescription" }),
+    .searchIndex("search_body", { searchField: "postDescription" })
+    .searchIndex("search_category", { searchField: "postCategory" }),
   users: defineTable({
     email: v.string(),
     imageUrl: v.string(),
@@ -32,12 +32,13 @@ export default defineSchema({
   // comment tables ...
   comments: defineTable({
     postId: v.id("posts"),
-    userId: v.id("users"),
-    commentUserImage: v.optional(v.string()),
-    commentId: v.optional(v.id("comment")),
-    content: v.string(),
+    userId: v.string(),
     username: v.optional(v.string()),
-    createdAt: v.number(),
+    commentUserImage: v.optional(v.string()),
+    content: v.string(),
+    creationTime: v.number(),
+    newContent: v.optional(v.string()),
+    editedAt: v.optional(v.number()),
   }).index("by_post", ["postId"]),
 
   // user open ai call count table...
