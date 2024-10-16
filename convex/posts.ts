@@ -85,7 +85,7 @@ export const createComment = mutation({
       commentUserImage: user.imageUrl,
       content: args.content,
       creationTime: Date.now(),
-      editedAt: Date.now(),
+      editedAt: Math.floor(Date.now() / 1000),
     });
   },
 });
@@ -106,10 +106,6 @@ export const editComment = mutation({
     if (!existingComment) {
       throw new Error("Comment not found");
     }
-
-    // console.log("Existing comment author:", existingComment.authorId);
-    // console.log("Existing comment author:", existingComment);
-    // console.log("User attempting edit:", userId);
 
     // Check if the user is allowed to edit this comment
     if (existingComment._id !== userId) {
@@ -348,14 +344,12 @@ export const createSavedPost = mutation({
     postTitle: v.string(),
     postId: v.string(),
     postDescription: v.string(),
-    // audioUrl: v.string(),
     imageUrl: v.string(),
     postContent: v.string(),
     imagePrompt: v.optional(v.string()),
     postCategory: v.string(),
     views: v.number(),
     likes: v.number(),
-    // audioDuration: v.number(),
   },
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();

@@ -95,7 +95,7 @@ export const PostComments = ({ postId }: { postId: string }) => {
         await editCommentMutation({
           _id,
           newContent,
-          userId: userId?._id, // Use the actual user ID from your query
+          userId: userId?._id,
         });
         setEditComment("");
         setIsEdit(false);

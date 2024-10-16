@@ -36,9 +36,9 @@ export default defineSchema({
     username: v.optional(v.string()),
     commentUserImage: v.optional(v.string()),
     content: v.string(),
-    creationTime: v.number(),
+    _creationTime: v.number(),
     newContent: v.optional(v.string()),
-    editedAt: v.optional(v.number()),
+    editedAt: v.number(),
   }).index("by_post", ["postId"]),
 
   // user open ai call count table...
