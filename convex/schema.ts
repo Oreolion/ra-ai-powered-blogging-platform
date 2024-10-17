@@ -38,7 +38,8 @@ export default defineSchema({
     content: v.string(),
     _creationTime: v.number(),
     newContent: v.optional(v.string()),
-    editedAt: v.number(),
+    editedAt: v.optional(v.number()),
+    createdAt: v.optional(v.number()),
   }).index("by_post", ["postId"]),
 
   // user open ai call count table...

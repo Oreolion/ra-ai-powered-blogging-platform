@@ -84,8 +84,8 @@ export const createComment = mutation({
       username: user.name,
       commentUserImage: user.imageUrl,
       content: args.content,
-      creationTime: Date.now(),
-      editedAt: Math.floor(Date.now() / 1000),
+    //   _creationTime: Date.now(),
+      editedAt: Date.now(),
     });
   },
 });
@@ -108,14 +108,14 @@ export const editComment = mutation({
     }
 
     // Check if the user is allowed to edit this comment
-    if (existingComment._id !== userId) {
+    if (existingComment._id !== _id) {
       throw new Error("User not authorized to edit this comment");
     }
 
     // Update the comment
     const updatedComment = await ctx.db.patch(_id, {
       content: newContent,
-      editedAt: Math.floor(Date.now() / 1000),
+      editedAt: Date.now(),
     });
 
     return updatedComment;

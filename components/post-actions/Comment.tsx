@@ -16,9 +16,6 @@ const Comment = () => {
           size={30}
           className="hover:opacity-100 cursor-pointer"
         />
-        {/* <span className="text-xs font-semibold opacity-80 ">
-          {formattedNumber}
-        </span> */}
       </div>
     </>
   );

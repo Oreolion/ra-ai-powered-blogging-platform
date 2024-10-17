@@ -300,7 +300,7 @@
 
 @media (max-width: 767px) {
   .dashboard__feeds {
-    margin-left: -1rem;
+    margin-left: 0rem;
     padding: 1rem;
     width: 40rem;
   }

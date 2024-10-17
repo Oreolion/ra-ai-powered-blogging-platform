@@ -88,7 +88,13 @@ export const PostComments = ({ postId }: { postId: string }) => {
     }
   };
 
-  const handleEdit = async ({ _id, newContent }: { _id: Id<"comments">, newContent: string }) => {
+  const handleEdit = async ({
+    _id,
+    newContent,
+  }: {
+    _id: Id<"comments">;
+    newContent: string;
+  }) => {
     setIsLoading(true);
     try {
       if (user && userId) {
@@ -104,7 +110,7 @@ export const PostComments = ({ postId }: { postId: string }) => {
         });
       }
     } catch (error) {
-      console.error('Error occurred while editing comment:', error);
+      console.error("Error occurred while editing comment:", error);
       toast({
         title: "Error occurred while editing comment",
         variant: "destructive",
@@ -157,7 +163,6 @@ export const PostComments = ({ postId }: { postId: string }) => {
                           setIsEdit(true);
                           setEditComment(comment.content);
                           setEditingCommentId(comment._id);
-
                         }}
                         className="opacity-50 hover:opacity-100 cursor-pointer"
                       />
@@ -228,7 +233,7 @@ export const PostComments = ({ postId }: { postId: string }) => {
               </div>
             </div>
           ) : (
-            <div className="flex gap-[2rem]">
+            <div className={styles.comment__inputbox}>
               <textarea
                 rows={3}
                 value={editComment}
@@ -248,9 +253,9 @@ export const PostComments = ({ postId }: { postId: string }) => {
                   type="button"
                   onClick={() => {
                     if (editingCommentId && editComment) {
-                      handleEdit({ 
-                        _id: editingCommentId, 
-                        newContent: editComment 
+                      handleEdit({
+                        _id: editingCommentId,
+                        newContent: editComment,
                       });
                     }
                   }}

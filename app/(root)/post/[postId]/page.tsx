@@ -66,7 +66,7 @@ const PostDetails = ({
   };
 
   return (
-    <section className="ml-[9rem] mt-[9rem] max-md:ml-[0]">
+    <section className="ml-[7rem] mt-[9rem] max-md:ml-[-1rem]">
       <article className={`${styles.post} ${styles.postdetails}`}>
         <div className={styles.user__profile}>
           <Link href={`/profile/${user?.id}`} className={styles.user__image}>

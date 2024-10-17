@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import styles from "../styles/forthsection.module.css";
+import Link from "next/link";
 
 const ForthSection = () => {
     const [hasAnimated, setHasAnimated] = useState(false);
@@ -49,8 +50,8 @@ const ForthSection = () => {
               className={styles.img}
               src="/images/pexels-justin-shaifer-1222271.jpg"
               alt="img"
-              width={80}
-              height={80}
+              width={85}
+              height={85}
             />
           </div>
           <div className={styles.imgbox}>
@@ -58,8 +59,8 @@ const ForthSection = () => {
               className={styles.img}
               src="/images/pexels-andrea-piacquadio-762020.jpg"
               alt="img"
-              width={80}
-              height={80}
+              width={85}
+              height={85}
             />
           </div>
           <div className={styles.imgbox}>
@@ -67,8 +68,8 @@ const ForthSection = () => {
               className={styles.img}
               src="/images/pexels-daniel-xavier-1239291.jpg"
               alt="img"
-              width={80}
-              height={80}
+              width={85}
+              height={85}
             />
           </div>
         </div>
@@ -81,7 +82,9 @@ const ForthSection = () => {
             interests. connect with people of same interests and goals
           </p>
           <button className={styles.button} type="button">
+            <Link href='/sign-up'>
             Get Started
+            </Link>
           </button>
         </div>
       </motion.div>
