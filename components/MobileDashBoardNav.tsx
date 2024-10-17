@@ -14,6 +14,8 @@ import Image from "next/image";
 const MobileDashBoardNav = () => {
   const [toggle, setToggle] = useState<boolean>(false);
   const [dropDown, setDropDown] = useState<boolean>(false);
+  const [dropDownList, setDropDownList] = useState(true);
+
   const { signOut } = useClerk();
   const { user } = useUser();
   const pathname = usePathname();
@@ -23,8 +25,8 @@ const MobileDashBoardNav = () => {
   function toggleMenu() {
     setToggle(!toggle);
   }
-  function toggleDropDown() {
-    setDropDown(!dropDown);
+  function toggleDropDownList() {
+    setDropDownList(!dropDownList);
   }
 
   useEffect(() => {
@@ -59,6 +61,10 @@ const MobileDashBoardNav = () => {
     return pathname === href || pathname.startsWith(href);
   };
 
+  const toggleDropDown = () => {
+    setDropDown(!dropDown);
+  };
+
   return (
     <>
       {/*  mobile dashboard navbar  */}
@@ -69,8 +75,12 @@ const MobileDashBoardNav = () => {
             ref={myRef}
           >
             <div className={`${styles.logo} ${styles.link}`}>
-            <Image src='/images/logo.webp' alt='logo' height={10} width={100}      />
-
+              <Image
+                src="/images/logo.webp"
+                alt="logo"
+                height={10}
+                width={100}
+              />
             </div>
 
             <ul className={styles.dashboard__navlists}>
@@ -90,29 +100,6 @@ const MobileDashBoardNav = () => {
                   );
                 })}
               </li>
-              <span className={styles.spanheader}>
-                <h5 className={styles.h5}>Trending Tags</h5>
-                <svg
-                  className={styles.svg}
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 512 512"
-                >
-                  <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z" />
-                </svg>
-              </span>{" "}
-              {postCategories.map((category) => {
-                const slug = createSlug(category);
-                return (
-                  <li className={styles.li} key={category}>
-                    <Link
-                      href={`/filter-posts/${slug}`}
-                      className={`${styles.link} ${isLinkActive(`/filter-posts/${slug}`) ? styles.active_link : ""}`}
-                    >
-                      {category}
-                    </Link>
-                  </li>
-                );
-              })}
               <h5 className={styles.h5}>Personal</h5>
               <li className={styles.li}>
                 <Link className={styles.link} href={`/profile/${user?.id}`}>
@@ -157,6 +144,34 @@ const MobileDashBoardNav = () => {
                   </SignedIn>
                 </div>
               </li>
+              <span className={styles.spanheader}>
+                <h5 className={styles.h5}>Trending Tags</h5>
+                <svg
+                  className={`${styles.svg} ${dropDownList ? styles.rotated : ""}`}
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 512 512"
+                  onClick={toggleDropDownList}
+                >
+                  <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z" />
+                </svg>
+              </span>{" "}
+              {postCategories.map((category) => {
+                const slug = createSlug(category);
+                return (
+                  <>
+                    {dropDownList && (
+                      <li className={styles.li} key={category}>
+                        <Link
+                          href={`/filter-posts/${slug}`}
+                          className={`${styles.link} ${isLinkActive(`/filter-posts/${slug}`) ? styles.active_link : ""}`}
+                        >
+                          {category}
+                        </Link>
+                      </li>
+                    )}
+                  </>
+                );
+              })}
             </ul>
           </nav>
         </>
@@ -166,8 +181,7 @@ const MobileDashBoardNav = () => {
         {/* <!-- header --> */}
         <header className={styles.header}>
           <div className={`${styles.logo} ${styles.link}`}>
-          <Image src='/images/logo.webp' alt='logo' height={10} width={100} />
-
+            <Image src="/images/logo.webp" alt="logo" height={10} width={100} />
           </div>
           <nav className={styles.right__nav}>
             <div className={styles.nav__icons}>

@@ -86,12 +86,12 @@
   height: 1rem;
   width: 1rem;
   fill: #e67e22;
+  margin-left: 1rem;
+  transition: transform 0.3s ease;
 }
 
-.spanheader svg {
-  height: 1rem;
-  width: 1rem;
-  fill: #e67e22;
+.rotated {
+  transform: rotate(180deg);
 }
 
 .dashboard__navlists .li:last-child {

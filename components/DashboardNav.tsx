@@ -16,6 +16,7 @@ const DashboardNav = ({
   onNavToggle: (showNav: boolean) => void;
 }) => {
   const [showNav, setShowNav] = useState(true);
+  const [dropDown, setDropDown] = useState(true);
   const { signOut } = useClerk();
   const { user } = useUser();
   const router = useRouter();
@@ -45,6 +46,10 @@ const DashboardNav = ({
     setShowNav(newShowNav);
     onNavToggle(newShowNav);
   }, [showNav, onNavToggle]);
+
+  const toggleDropDown = () => {
+    setDropDown(!dropDown);
+  };
 
   return (
     <div className={styles.dashboard__navcontainer}>
@@ -97,7 +102,7 @@ const DashboardNav = ({
         )}
         <div className={`${styles.logo} ${styles.link}`}>
           <Link href="/">
-          <Image src='/images/logo.webp' alt='logo' height={10} width={100} />
+            <Image src="/images/logo.webp" alt="logo" height={10} width={100} />
           </Link>
         </div>
 
@@ -154,30 +159,6 @@ const DashboardNav = ({
             </Link>
           </li>
 
-          <span className={styles.spanheader}>
-            <h5 className={styles.h5}>Trending Tags</h5>
-            <svg
-              className={styles.svg}
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 512 512"
-            >
-              <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z" />
-            </svg>
-          </span>
-          {postCategories.map((category) => {
-            const slug = createSlug(category);
-            return (
-              <li className={styles.li} key={category}>
-                <Link
-                  href={`/filter-posts/${slug}`}
-                  className={`${styles.link} ${isLinkActive(`/filter-posts/${slug}`) ? styles.active_link : ""}`}
-                >
-                  {category}
-                </Link>
-              </li>
-            );
-          })}
-
           <h5 className={styles.h5}>Personal</h5>
 
           <li className={styles.li}>
@@ -223,13 +204,43 @@ const DashboardNav = ({
               </SignedIn>
             </div>
           </li>
+
+          <span className={styles.spanheader}>
+            <h5 className={styles.h5}>Trending Tags</h5>
+            <svg
+  className={`${styles.svg} ${dropDown ? styles.rotated : ''}`}              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 512 512"
+              onClick={toggleDropDown}
+            >
+              <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z" />
+            </svg>
+          </span>
+          {postCategories.map((category) => {
+            const slug = createSlug(category);
+            return (
+              <>
+                {dropDown && (
+                  <li className={styles.li} key={category}>
+                    <Link
+                      href={`/filter-posts/${slug}`}
+                      className={`${styles.link} ${isLinkActive(`/filter-posts/${slug}`) ? styles.active_link : ""}`}
+                    >
+                      {category}
+                    </Link>
+                  </li>
+                )}
+              </>
+            );
+          })}
+
+          
         </ul>
       </nav>
 
       {!showNav && (
         <Link href="/">
           <div className={`${styles.otherlogo} ${styles.link}`}>
-          <Image src='/images/logo.webp' alt='logo' height={10} width={100} />
+            <Image src="/images/logo.webp" alt="logo" height={10} width={100} />
           </div>
         </Link>
       )}
