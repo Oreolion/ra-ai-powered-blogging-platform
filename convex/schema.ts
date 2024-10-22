@@ -65,7 +65,6 @@ export default defineSchema({
     authorImageUrl: v.string(),
     imageUrl: v.string(),
     imagePrompt: v.string(),
-    // audioDuration: v.number(),
     views: v.number(),
     likes: v.number(),
     savedAt: v.number(),

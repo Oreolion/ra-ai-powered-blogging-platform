@@ -6,14 +6,15 @@ import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import HomeCard from "@/components/HomeCard";
 import SearchBar from "@/components/SearchBar";
+import Link from "next/link";
+import { Button } from "./ui/button";
 
-export default function SavedPost  ()  {
+export default function SavedPost() {
   const { user } = useUser();
   const allSavedPosts = useQuery(api.posts.getAllSavedPosts);
   const getUserById = useQuery(api.users.getUserById, {
     clerkId: user?.id,
   });
-
 
   // Handle loading state
   if (allSavedPosts === undefined || getUserById === undefined) {
@@ -31,14 +32,19 @@ export default function SavedPost  ()  {
       {user?.id === getUserById?.clerkId ? (
         <div className="flex flex-col gap-10">
           {allSavedPosts.length === 0 ? (
-            <p className="text-center text-gel-gray mt-[3rem] text-2xl">
-              You have no saved posts
-            </p>
+            <>
+              <p className="text-center text-gel-gray mt-[3rem] text-2xl">
+                You have no saved posts
+              </p>
+              <Button>
+                <Link href="/dashboard">Go back to Home</Link>
+              </Button>
+            </>
           ) : (
             <div className={styles.post__box}>
               {allSavedPosts.map(
                 ({
-                  _id: savedPostId,
+                  _id,
                   postId,
                   views,
                   likes,
@@ -55,7 +61,7 @@ export default function SavedPost  ()  {
                 }) => {
                   return (
                     <HomeCard
-                      key={savedPostId}
+                      key={postId}
                       imageUrl={imageUrl!}
                       title={postTitle!}
                       description={postDescription}
@@ -85,4 +91,4 @@ export default function SavedPost  ()  {
       )}
     </div>
   );
-};
+}
