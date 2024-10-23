@@ -17,7 +17,7 @@ export const createPost = mutation({
     postCategory: v.string(),
     views: v.number(),
     likes: v.number(),
-    // audioDuration: v.number(),
+    summaryImageUrl: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
@@ -84,7 +84,7 @@ export const createComment = mutation({
       username: user.name,
       commentUserImage: user.imageUrl,
       content: args.content,
-    //   _creationTime: Date.now(),
+      //   _creationTime: Date.now(),
       editedAt: Date.now(),
     });
   },
@@ -342,7 +342,7 @@ export const createSavedPost = mutation({
     audioStorageId: v.optional(v.union(v.id("_storage"), v.null())),
     imageStorageId: v.optional(v.union(v.id("_storage"), v.null())),
     postTitle: v.string(),
-    postId: v.id('posts'),
+    postId: v.id("posts"),
     postDescription: v.string(),
     imageUrl: v.string(),
     postContent: v.string(),
@@ -434,5 +434,25 @@ export const deleteSavedPost = mutation({
     await ctx.storage.delete(args.imageStorageId);
     await ctx.storage.delete(args.audioStorageId);
     return await ctx.db.delete(args.postId);
+  },
+});
+
+// save summary image
+export const saveSummaryImage = mutation({
+  args: {
+    postId: v.id("posts"),
+    summaryImageUrl: v.string(),
+    summaryImageStorageId: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const { postId, summaryImageUrl, summaryImageStorageId } = args;
+
+    // Update the post with the summary image URL
+    const updatedPost = await ctx.db.patch(postId, {
+      summaryImageUrl,
+      summaryImageStorageId,
+    });
+
+    return updatedPost;
   },
 });

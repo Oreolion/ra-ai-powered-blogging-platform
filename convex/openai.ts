@@ -46,7 +46,7 @@ export const generatePostAction = action({
 
       const model = new ChatOpenAI({
         apiKey: process.env.OPENAI_API_KEY,
-        model: "gpt-40-2024-08-06",
+        model: "gpt-4",
         temperature: 0.2,
       });
 
@@ -117,6 +117,70 @@ export const generateThumbnailAction = action({
     } catch (e: any) {
       console.error("Error generating thumbnail:", e);
       throw new Error("Failed to generate thumbnail");
+    }
+  },
+});
+
+export const summarizePostAction = action({
+  args: { content: v.string(), title: v.string() },
+  handler: async (ctx, { content, title }) => {
+    // Get the user's ID from the context
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      throw new Error("Unauthenticated");
+    }
+    const userId = identity.subject;
+
+    // Check if the user has exceeded their limit
+    const userCallCount = await ctx.runQuery(
+      api.userCallsCount.getUserCallCount,
+      {
+        userId: userId,
+      }
+    );
+
+    if (userCallCount >= 4) {
+      throw new RateLimitError(
+        "You have exceeded the maximum number of calls to this function."
+      );
+    }
+
+    try {
+      const TEMPLATE = `You are a creative AI assistant that summarizes blog posts into concise, engaging summaries suitable for social media sharing.
+
+Blog Title: {title}
+
+Blog Content: {content}
+
+Summary:
+`;
+
+      const model = new ChatOpenAI({
+        apiKey: process.env.OPENAI_API_KEY,
+        model: "gpt-4",
+        temperature: 0.3,
+        maxTokens: 200,
+      });
+
+      const parser = new StringOutputParser();
+
+      const promptTemplate = PromptTemplate.fromTemplate(TEMPLATE);
+      const chain = promptTemplate.pipe(model).pipe(parser);
+
+      const response = await chain.invoke({
+        title: title,
+        content: content,
+      });
+
+      // Increment the user's call count
+      await ctx.runMutation(api.userCallsCount.incrementUserCallCount, {
+        userId,
+      });
+
+      return response;
+    } catch (e) {
+      console.error("Error summarizing post:", e);
+      throw new Error("Failed to summarize post");
     }
   },
 });

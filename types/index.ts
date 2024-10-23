@@ -15,6 +15,7 @@ export interface PostProps {
   postCategory: string;
   audioUrl: string | null;
   imageUrl: string | null;
+  summaryImageUrl: string | null;
   imageStorageId: Id<"_storage"> | null;
   author: string;
   authorId: string;
