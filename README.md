@@ -3,7 +3,7 @@
 ## TECH STACKS
 
 -NEXTJS
--TYPESCROPT
+-TYPESCRiPT
 -TAILWIND CSS and CSS MODULES
 -UPLOAD STUFF=> TO UPLOAD FILES TO CONVEX DATABASE
 -CONVEX FOR DATABASE
@@ -24,6 +24,8 @@
 👉 Profile Page: View all created Posts with options to delete them.
 
 👉 Post Details Page: Displays detailed information about each post, including creator details, number of likes, and comments.
+
+👉 Feature to convert BlogPost to summarized Image to post on Social media with AI.
 
 👉 Responsive Design: Fully functional and visually appealing across all devices and screen sizes.
 
