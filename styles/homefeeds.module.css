@@ -1,6 +1,6 @@
 .dashboard__feeds {
   margin-top: 23rem;
-  margin-left: 10rem;
+  margin-left: 11rem;
   font-weight: bold;
   font-size: 1rem;
   padding: 2rem 4rem;
@@ -196,7 +196,7 @@
 
 .post .image {
   width: 94%;
-  height: 12rem;
+  height: 11rem;
 }
 .post .postimage {
   width: 94%;
@@ -316,7 +316,7 @@
 
 @media (max-width: 767px) {
   .dashboard__feeds {
-    margin-left: 0rem;
+    margin-left: -2rem;
     padding: 1rem;
     width: 40rem;
   }
@@ -361,8 +361,9 @@
     display: none;
   }
   .dashboard__feeds {
-    margin-left: 0.5rem;
+    margin-left: -1rem;
     margin-right: 0.5rem;
+    margin-top: 17rem;
     border: none;
     padding: 2rem 1rem;
     width: 32rem;
@@ -396,7 +397,7 @@
   }
 
   .post__box {
-    gap: 4rem;
+    gap: 2rem;
     width: 90%;
   }
 

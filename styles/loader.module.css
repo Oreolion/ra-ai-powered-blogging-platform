@@ -62,14 +62,15 @@
   
   @media (max-width: 768px) {
     .loader {
-      width: 340px;
+      width: 640px;
       height: 400px;
     }
   }
   
   @media (max-width: 480px) {
     .loader {
-      width: 250px;
+      width:400px;
+      margin-left: 0rem;
     }
   }
   

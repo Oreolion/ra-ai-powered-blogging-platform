@@ -6,7 +6,6 @@ import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import Loader from "./Loader";
 import HomeCard from "./HomeCard";
-// import SearchBar from "./SearchBar";
 import EmptyStates from "@/components/EmptyStates";
 import dynamic from 'next/dynamic'
 
