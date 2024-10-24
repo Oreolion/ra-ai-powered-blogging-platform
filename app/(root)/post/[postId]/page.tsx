@@ -379,15 +379,14 @@ const PostDetails = ({
               <Comment></Comment>
               <span className="ml-4">{postComments?.length} </span>
             </div>
-            <div className="flex gap-2 items-center justify-center">
-              <Like likes={post?.likes} postId={post._id}></Like>
-            </div>
+
+            <Like likes={post?.likes} postId={post._id}></Like>
           </div>
         </div>
         {toggleComment && <PostComments postId={postId}></PostComments>}
       </article>
 
-      <section className="mt-8 flex flex-col gap-5">
+      <section className="mt-8 flex flex-col gap-5 ml-[-1rem]">
         <h1 className="text-[1.8rem] font-bold text-white-1">Similar Posts</h1>
         {similarPosts && similarPosts.length > 0 ? (
           <div className="">

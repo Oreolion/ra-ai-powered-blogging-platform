@@ -324,6 +324,7 @@
   .post {
     min-width: 27rem;
     width: 33rem;
+    margin-bottom: 2rem;
   }
 
   .post .h2 {
@@ -332,7 +333,7 @@
 
   .user__profile {
     flex-direction: column;
-    gap: 0rem;
+    gap: 2rem;
   }
 
   .user__info div {
@@ -404,10 +405,16 @@
   .post {
     padding-left: 0.5rem;
     width: 26rem;
+    margin-bottom: 1rem;
   }
+
+  .postdetails {
+    margin-left: -1rem;
+  }
+
   .post .image {
     width: 24rem;
-    height: 20rem;
+    height: 8rem;
     margin-bottom: 1rem;
   }
 
@@ -420,16 +427,44 @@
     font-size: 0.8rem;
   }
 
+  .post .postheader h2 {
+    font-size: 1.1rem;
+  }
+  .post .postheader p {
+    font-size: 1rem;
+  }
+
   .post .contentbox img {
     margin-top: -7rem;
   }
 
+  .post .reactionbox {
+    width: 95%;
+  }
+  .postdetails .reactionbox {
+    width: 96%;
+  }
+
+  .postdetails .reactionbox .right {
+    margin-left: 3rem;
+  }
+  
   .post .reactionbox .left {
     margin-right: 1rem;
+  }  
+
+  .postdetails .reactionbox .left {
+    margin-right: 3rem;
+    margin-left: 1rem;
   }
 
   .post .reactionbox .svg {
     margin-right: 0.5rem;
+  }
+
+  .post .reactionbox .right {
+    gap: 1rem;
+    margin-left: -1rem;
   }
 
   .post .reactionbox .right .icon {

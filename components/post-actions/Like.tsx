@@ -56,7 +56,7 @@ const Like = ({ likes, postId }: { likes: number; postId: string }) => {
 
   return (
     <div
-      className=" mt-[-1.2rem] flex gap-1.5 items-center"
+      className=" mt-[-1.2rem] flex items-center ml-[-2rem]"
       onClick={handleLike}
     >
       {isLiked ? (
