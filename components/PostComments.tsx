@@ -6,7 +6,7 @@ import { useToast } from "./ui/use-toast";
 import { PostCommentsArrayType, PostCommentType } from "@/types";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useTimeAgo } from "../custom-hooks/useTimeAgo";
+// import { useTimeAgo } from "../custom-hooks/useTimeAgo";
 import { useMutation, useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { MdModeEdit, MdOutlineDelete } from "react-icons/md";

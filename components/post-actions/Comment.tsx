@@ -1,12 +1,10 @@
 // import { useNumFormatter } from "@/custom-hooks/useNumberFormatter";
-// import { useUser } from "@clerk/nextjs";
 import React, { useState } from "react";
 import { AiOutlineComment } from "react-icons/ai";
 
 const Comment = () => {
   const [commentCount, setCommentCount] = useState(0);
 //   const formattedNumber = useNumFormatter(commentCount);
-//   const { user } = useUser();
 
   return (
     <>

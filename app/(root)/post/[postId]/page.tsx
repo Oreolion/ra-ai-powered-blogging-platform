@@ -377,7 +377,7 @@ const PostDetails = ({
               className={`${styles.icon} mt-[-4px]`}
             >
               <Comment></Comment>
-              <span className="ml-4">{postComments?.length} </span>
+              <span className="ml-2">{postComments?.length} </span>
             </div>
 
             <Like likes={post?.likes} postId={post._id}></Like>

@@ -8,7 +8,6 @@
   min-width: 23rem;
   display: flex;
   flex-direction: column;
-  
 }
 
 .comment__box .user__profile {
@@ -17,7 +16,6 @@
   gap: 1rem;
   align-items: center;
   justify-content: center;
-
 }
 
 .comment__box .textbox {
@@ -101,19 +99,25 @@
 }
 @media (max-width: 480px) {
   .comment__box {
-    right: -7%;
+    right: 0%;
   }
 
   .comment__box .textarea {
-    width: 90%;
+    width: 100%;
     height: 10rem;
   }
 }
 
-@media (max-width: 320px) {
+@media (max-width: 380px) {
   .comment__box {
     top: -5%;
-    right: 9%;
-    min-width: 32rem;
+    min-width: 20rem;
+  }
+
+  .comment__box .textarea {
+    height: 7rem;
+    color: #ccc;
+    text-indent: 0.5rem;
+    width: 12rem;
   }
 }

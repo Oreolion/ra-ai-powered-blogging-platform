@@ -253,6 +253,7 @@
 @media (max-width: 767px) {
   .mobile {
     display: flex;
+    overflow-y: scroll;
   }
 
   .otherlogo {
@@ -269,9 +270,6 @@
     display: none;
   }
 
-  .mobile {
-    display: flex;
-  }
 }
 
 @media (max-width: 480px) {

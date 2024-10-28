@@ -349,6 +349,14 @@
   .post .image {
     margin-bottom: 0.5rem;
   }
+
+  .postdetails .reactionbox {
+    width: 94%;
+  }
+
+  .post .reactionbox .right {
+    gap: 1rem;
+  }
 }
 
 @media (max-width: 640px) {
@@ -367,7 +375,7 @@
     margin-top: 17rem;
     border: none;
     padding: 2rem 1rem;
-    width: 25rem;
+    /* width: 11rem; */
   }
 
   .leftbox {

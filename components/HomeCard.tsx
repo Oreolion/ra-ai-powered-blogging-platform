@@ -37,9 +37,10 @@ const HomeCard = ({
   const updatePostViews = useMutation(api.posts.updatePostViews);
 
 
-  const handleViews = () => {
-    console.log(postId)
+  const handleViews = async () => {
+    console.log(postId);
     if (postId) {
+      await updatePostViews({ postId });
       router.push(`/post/${postId}`, {
         scroll: true,
       });
@@ -106,9 +107,9 @@ const HomeCard = ({
           <p className={styles.p}>
             {more ? content : content.substring(0, 150)}
             {content.length > 150 && (
-              <Link href={`/post/${postId}`} onClick={handleViews}>
+              <div className='text-xs font-bold text-orange-400 hover:text-orange-300' onClick={handleViews}>
                 Continue reading...
-              </Link>
+              </div>
             )}
           </p>
           <div className={styles.image}>

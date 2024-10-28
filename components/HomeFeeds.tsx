@@ -8,7 +8,6 @@ import Loader from "./Loader";
 import HomeCard from "./HomeCard";
 import EmptyStates from "@/components/EmptyStates";
 import dynamic from 'next/dynamic'
-import { DialogOverlay } from "@radix-ui/react-dialog";
 
 const SearchBar = dynamic(() => import('@/components/SearchBar'), {ssr: false})
 

@@ -62,15 +62,16 @@
   
   @media (max-width: 768px) {
     .loader {
-      width: 640px;
+      width: 620px;
       height: 400px;
     }
   }
   
   @media (max-width: 480px) {
     .loader {
-      width:400px;
+      width:380px;
       margin-left: 0rem;
     }
   }
+
   
