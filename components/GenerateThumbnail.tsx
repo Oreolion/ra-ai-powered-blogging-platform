@@ -95,13 +95,13 @@ const GenerateThumbnail = ({
   };
   return (
     <>
-      <div className="mt-[30px] flex w-full max-w-[520px] flex-col justify-between gap-4 rounded-sm border border-black-6 bg-black-1 px-2 py-2 md:flex-row md:gap-2">
+      <div className="mt-[30px] flex w-full max-w-[520px] flex-col justify-between gap-4 rounded-sm border border-slate-600 bg-black px-2 py-2 md:flex-row md:gap-2">
         <button
           onClick={() => setIsAIThumbnail(true)}
           type="button"
           //   variant="plain"
           className={cn("w-[16rem] p-2 h-7 text-[.6rem]", {
-            "bg-black-6 hover:bg-black-9 bg-slate-400": isAiThumbnail,
+            "bg-black-600 hover:bg-black-900 bg-slate-400": isAiThumbnail,
           })}
         >
           Use AI to generate Thumbnail
@@ -110,8 +110,8 @@ const GenerateThumbnail = ({
           onClick={() => setIsAIThumbnail(false)}
           type="button"
           //   variant="plain"
-          className={cn("w-[18rem] p-2 h-7 text-[.6rem]", {
-            "bg-black-6 hover:bg-black-9 bg-slate-400": !isAiThumbnail,
+          className={cn("w-[16rem] p-2 h-7 text-[.6rem]", {
+            "bg-black-600 hover:bg-black-900 bg-slate-400": !isAiThumbnail,
           })}
         >
           Upload custom image

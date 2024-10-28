@@ -165,13 +165,7 @@ export default function AddBlogPost() {
                     );
                   })}
                 </SelectContent>
-                {/* {voiceType && (
-                  <audio
-                    src={`/${voiceType}.mp3`}
-                    autoPlay
-                    className="hidden"
-                  ></audio>
-                )} */}
+            
               </Select>
             </div>
             <FormField
@@ -202,7 +196,6 @@ export default function AddBlogPost() {
               postCategory={postCategories}
               postContent={postContent}
               setPostContent={setPostContent}
-            //   setAudioDuration={setAudioDuration}
             ></GeneratePost>
             <GenerateThumbnail
               setImage={setImageUrl}

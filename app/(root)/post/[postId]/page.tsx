@@ -387,7 +387,7 @@ const PostDetails = ({
       </article>
 
       <section className="mt-8 flex flex-col gap-5 ml-[-1rem]">
-        <h1 className="text-[1.8rem] font-bold text-white-1">Similar Posts</h1>
+        <h1 className="text-[1.8rem] font-bold text-gray-400 max-sm:text-[1.3rem]">Similar Posts</h1>
         {similarPosts && similarPosts.length > 0 ? (
           <div className="">
             {similarPosts?.map(

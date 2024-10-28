@@ -130,17 +130,17 @@
 }
 
 @media (max-width: 768px) {
+  .bloginput__box {
+    width: 85%;
+    margin-left: 2.5rem;
+  }
   .inner__container {
     margin-left: 0rem;
   }
 
-  .bloginput__box {
-    margin-left: 5rem;
-  }
-
   .imgbox {
     width: 35rem;
-    height: 22rem;
+    height: 15rem;
     top: -1rem;
   }
 
@@ -148,4 +148,16 @@
     top: 5rem;
     left: 12%;
   }
+}
+
+@media (max-width: 480px) {
+    .bloginput__box {
+        margin-left: 2rem;
+    }
+}
+
+@media (max-width: 380px) {
+    .bloginput__box {
+        margin-left: 1.5rem;
+    }
 }
