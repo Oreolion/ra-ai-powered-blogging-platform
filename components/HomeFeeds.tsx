@@ -8,6 +8,7 @@ import Loader from "./Loader";
 import HomeCard from "./HomeCard";
 import EmptyStates from "@/components/EmptyStates";
 import dynamic from 'next/dynamic'
+import { DialogOverlay } from "@radix-ui/react-dialog";
 
 const SearchBar = dynamic(() => import('@/components/SearchBar'), {ssr: false})
 
@@ -36,7 +37,7 @@ const HomeFeeds = () => {
   return (
     <>
       <SearchBar />
-      <section className={styles.dashboard__feeds}>
+      <div className={styles.dashboard__feeds}>
         <div className={styles.dashboardfeeds__header}>
           <div className={styles.leftbox}>
             <h1 className={styles.h1}>FEEDS</h1>
@@ -91,7 +92,7 @@ const HomeFeeds = () => {
             <EmptyStates title="No results found" />
           )}
         </div>
-      </section>
+      </div>
     </>
   );
 };

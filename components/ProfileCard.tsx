@@ -1,10 +1,6 @@
 "use client";
 import Image from "next/image";
-import { useState } from "react";
-
-// import { useAudio } from "../app/providers/AudioProvider";
 import { PostProps, ProfileCardProps } from "@/types";
-
 import LoaderSpinner from "./LoaderSpinner";
 // import { Button } from "./ui/button";
 
@@ -55,40 +51,26 @@ const ProfileCard = ({
               height={15}
               alt="verified"
             />
-            <h2 className="text-14 font-medium text-white-2">
+            <h2 className="text-14 font-medium text-gray-400">
               Verified Creator
             </h2>
           </figure>
-          <h1 className="text-32 font-extrabold tracking-[-0.32px] text-white-1">
+          <h1 className="text-32 font-extrabold tracking-[-0.32px] text-gray-400">
             {userFirstName}
           </h1>
         </div>
         <figure className="flex gap-3 py-6">
-          {/* <Image
-            src="/icons/headphone.svg"
+          <Image
+            src='/images/icons8-views-64.png'
             width={24}
             height={24}
-            alt="headphones"
-          /> */}
-          <h2 className="text-23 font-semibold text-white-1">
+            alt="readers"
+          />
+          <h2 className="text-23 font-semibold text-gray-200">
             {postData?.listeners} &nbsp;
-            <span className="font-normal text-white-2">Readers</span>
+            <span className="font-normal text-gray-200">Readers</span>
           </h2>
         </figure>
-        {/* {postData?.posts.length > 0 && (
-          <Button
-            onClick={playRandomPost}
-            className="text-16 bg-orange-1 font-extrabold text-white-1"
-          >
-            <Image
-              src="/icons/Play.svg"
-              width={20}
-              height={20}
-              alt="random play"
-            />{" "}
-            &nbsp; Play a random post
-          </Button>
-        )} */}
       </div>
     </div>
   );

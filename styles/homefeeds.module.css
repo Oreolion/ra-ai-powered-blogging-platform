@@ -8,7 +8,7 @@
   background: rgba(225, 255, 255, 0.2);
   color: aliceblue;
   min-width: 36rem;
-  width: 56rem;
+  max-width: 56rem;
   min-height: 38rem;
   display: flex;
   flex-direction: column;
@@ -367,7 +367,7 @@
     margin-top: 17rem;
     border: none;
     padding: 2rem 1rem;
-    width: 28rem;
+    width: 25rem;
   }
 
   .leftbox {
@@ -380,7 +380,7 @@
   }
 
   .dashboardfeeds__header {
-    margin-left: 0rem;
+    margin-left: 3rem;
     justify-content: flex-start;
     gap: 4rem;
   }
@@ -399,12 +399,13 @@
 
   .post__box {
     gap: 2rem;
-    width: 90%;
+    width: 100%;
   }
 
   .post {
     padding-left: 0.5rem;
-    width: 24rem;
+    margin-left: 1rem;
+    width: 95%;
     margin-bottom: 1rem;
   }
 
@@ -425,6 +426,7 @@
 
   .post .contentbox .p {
     font-size: 0.8rem;
+    max-width: 24rem;
   }
 
   .post .postheader h2 {
@@ -439,7 +441,7 @@
   }
 
   .post .reactionbox {
-    width: 96%;
+    width: 92%;
   }
   .postdetails .reactionbox {
     width: 96%;
@@ -478,7 +480,7 @@
 
 @media (max-width: 380px) {
   .dashboard__feeds {
-    width: 25rem;
+    width: 23rem;
     padding: 1rem;
   }
 
@@ -517,7 +519,7 @@
 
   .post {
     padding-left: 1rem;
-    width: 23rem;
+    width: 22rem;
   }
 
   .post .image {
@@ -531,7 +533,7 @@
   }
 
   .post .reactionbox {
-    width: 95%;
+    width: 98%;
   }
 
   .postdetails .reactionbox {
