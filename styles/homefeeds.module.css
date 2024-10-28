@@ -296,7 +296,7 @@
 
 .post .reactionbox .right {
   display: flex;
-  gap: 1.5rem;
+  gap: 3rem;
   align-items: center;
   justify-content: center;
 }
@@ -308,7 +308,7 @@
 
 .post .reactionbox .right .icon {
   margin-right: 1rem;
-  margin-top: -0.5rem;
+  margin-bottom: 0.6rem;
   &:hover {
     opacity: 0.7;
   }
@@ -316,7 +316,7 @@
 
 @media (max-width: 767px) {
   .dashboard__feeds {
-    margin-left: -2rem;
+    margin-left: 1rem;
     padding: 1rem;
     width: 40rem;
   }
@@ -367,7 +367,7 @@
     margin-top: 17rem;
     border: none;
     padding: 2rem 1rem;
-    width: 32rem;
+    width: 28rem;
   }
 
   .leftbox {
@@ -380,7 +380,7 @@
   }
 
   .dashboardfeeds__header {
-    margin-left: -1rem;
+    margin-left: 0rem;
     justify-content: flex-start;
     gap: 4rem;
   }
@@ -404,7 +404,7 @@
 
   .post {
     padding-left: 0.5rem;
-    width: 26rem;
+    width: 24rem;
     margin-bottom: 1rem;
   }
 
@@ -413,7 +413,7 @@
   }
 
   .post .image {
-    width: 24rem;
+    width: 23rem;
     height: 8rem;
     margin-bottom: 1rem;
   }
@@ -435,11 +435,11 @@
   }
 
   .post .contentbox img {
-    margin-top: -7rem;
+    margin-top: -2rem;
   }
 
   .post .reactionbox {
-    width: 95%;
+    width: 96%;
   }
   .postdetails .reactionbox {
     width: 96%;
@@ -448,10 +448,10 @@
   .postdetails .reactionbox .right {
     margin-left: 3rem;
   }
-  
+
   .post .reactionbox .left {
     margin-right: 1rem;
-  }  
+  }
 
   .postdetails .reactionbox .left {
     margin-right: 3rem;
@@ -476,15 +476,21 @@
   }
 }
 
-@media (max-width: 320px) {
+@media (max-width: 380px) {
   .dashboard__feeds {
-    width: 29rem;
+    width: 25rem;
     padding: 1rem;
-    margin-left: -2rem;
+  }
+
+  .dashboardfeeds__header {
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+    margin-left: 0rem;
   }
 
   .dashboardfeeds__header .button {
-    width: 12rem;
+    width: 11rem;
+    padding: 1rem;
   }
 
   .leftbox {
@@ -492,7 +498,7 @@
     margin-left: 1rem;
   }
   .leftbox .h1 {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     letter-spacing: 2px;
   }
 
@@ -505,28 +511,30 @@
   }
 
   .post__box {
-    width: 88%;
+    width: 100%;
     gap: 1rem;
   }
 
   .post {
     padding-left: 1rem;
-    width: 26rem;
-  }
-
-  .post .image {
     width: 23rem;
   }
 
-  .post .p {
+  .post .image {
+    width: 21rem;
+    height: 8rem;
+  }
+
+  .post .contentbox .p {
     font-size: 0.8rem;
+    max-width: 22rem;
   }
 
-  .post .reactionbox .button {
-    width: 9rem;
+  .post .reactionbox {
+    width: 95%;
   }
 
-  .post .reactionbox .right .icon {
-    margin-right: 1rem;
+  .post .reactionbox .right {
+    margin-right: 3rem;
   }
 }
