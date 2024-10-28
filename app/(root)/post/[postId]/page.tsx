@@ -2,9 +2,9 @@
 import EmptyStates from "@/components/EmptyStates";
 import LoaderSpinner from "@/components/LoaderSpinner";
 import { api } from "@/convex/_generated/api";
-import { useMutation, useQuery } from "convex/react";
+import { useMutation, useQuery, useAction } from "convex/react";
 import Image from "next/image";
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { Id } from "@/convex/_generated/dataModel";
 import { useUser } from "@clerk/nextjs";
 import styles from "@/styles/homefeeds.module.css";
@@ -22,10 +22,9 @@ import { CalendarIcon } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import ShareModal from "@/components/ShareModal";
 import { Button } from "@/components/ui/button";
-import { useAction } from "convex/react";
 import { useToast } from "@/components/ui/use-toast";
-import { useUploadFiles } from "@xixixao/uploadstuff/react";
 import html2canvas from "html2canvas";
+
 const PostDetails = ({
   params: { postId },
 }: {
@@ -34,13 +33,12 @@ const PostDetails = ({
   const [toggleComment, setToggleComment] = useState<boolean>(false);
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
   const [summary, setSummary] = useState<string>("");
-  const [summaryImageUrl, setSummaryImageUrl] = useState<string>("");
   const [isSaved, setIsSaved] = useState<boolean>(false);
   const [isGenerating, setIsGenerating] = useState<boolean>(false);
-  const [isUploading, setIsUploading] = useState<boolean>(false);
   const [isSummaryReady, setIsSummaryReady] = useState<boolean>(false);
   const summaryRef = useRef<HTMLDivElement>(null);
   const summarizePost = useAction(api.openai.summarizePostAction);
+  const saveSummary = useMutation(api.posts.saveSummary);
   const { toast } = useToast();
   const { user } = useUser();
 
@@ -48,18 +46,20 @@ const PostDetails = ({
     postId: postId,
   });
   const postComments = useQuery(api.posts.getComments, {
-    // @ts-ignore
     postId,
   });
 
   const similarPosts = useQuery(api.posts.getPostByPostCategory, {
     postId: postId,
   });
-  const updatePostSummaryImage = useMutation(api.posts.saveSummaryImage);
 
-  const generateUploadUrl = useMutation(api.file.generateUploadUrl);
-  const { startUpload } = useUploadFiles(generateUploadUrl);
-  const getImageUrl = useMutation(api.posts.getUrl);
+  useEffect(() => {
+    if (post && post.summary && !summary) {
+      setSummary(post.summary);
+      setIsSummaryReady(true);
+      setIsSaved(true);
+    }
+  }, [post, summary]);
 
   const formatDate = (creationTime: number) => {
     const date = new Date(Math.floor(creationTime));
@@ -70,7 +70,7 @@ const PostDetails = ({
     });
   };
 
-  if (!similarPosts || !post) return <LoaderSpinner></LoaderSpinner>;
+  if (!similarPosts || !post) return <LoaderSpinner />;
 
   if (!postId) {
     return <LoaderSpinner />;
@@ -81,6 +81,14 @@ const PostDetails = ({
   };
 
   const handleSummarize = async () => {
+    if (summary) {
+      toast({
+        title: "Summary Already Exists",
+        description: "A summary has already been generated for this post.",
+      });
+      return;
+    }
+
     setIsGenerating(true);
     try {
       // Generate summary
@@ -88,92 +96,27 @@ const PostDetails = ({
         title: post?.postTitle,
         content: post?.postContent,
       });
+
       // Validate the response
       if (!response || typeof response !== "string" || response.trim() === "") {
         throw new Error("Invalid summary response from OpenAI");
       }
 
-      console.log(response);
       setSummary(response);
-      console.log(summary);
       setIsSummaryReady(true);
 
-      if (summaryRef.current) {
-        await new Promise((resolve) => setTimeout(resolve, 400));
-        const canvas = await html2canvas(summaryRef.current, {
-          scale: 2,
-          backgroundColor: "#f8f8f8",
-          logging: false,
-          useCORS: true,
-          allowTaint: true,
-          windowWidth: 1200,
-          windowHeight: summaryRef.current.scrollHeight,
-        });
+      // Save the summary to the database
+      await saveSummary({
+        postId: postId,
+        summary: response,
+      });
 
-        canvas.toBlob(
-          async (blob) => {
-            console.log(blob);
-            if (blob) {
-              try {
-                setIsUploading(true);
+      setIsSaved(true);
 
-                // Convert blob to File object
-                const file = new File([blob], "summary.png", {
-                  type: "image/png",
-                });
-
-                console.log(file);
-
-                // Upload using uploadstuff
-                const uploaded = await startUpload([file]);
-                const storageId = (uploaded[0].response as any).storageId;
-
-                if (!storageId) {
-                  throw new Error("Failed to upload image");
-                }
-
-                // Get the URL for the uploaded image
-                const summaryUrl = await getImageUrl({ storageId });
-
-                console.log(storageId);
-                console.log(summaryUrl);
-
-                if (!summaryUrl) {
-                  throw new Error("Failed to get image URL");
-                }
-
-                await updatePostSummaryImage({
-                  postId: postId,
-                  summaryImageUrl: summaryUrl,
-                  summaryImageStorageId: storageId,
-                });
-
-                setIsSaved(true);
-                setSummaryImageUrl(summaryUrl);
-                console.log(summaryImageUrl);
-
-                toast({
-                  title: "Success!",
-                  description:
-                    "Summary has been generated and saved. You can now download it.",
-                });
-              } catch (error) {
-                console.error("Error saving image:", error);
-                toast({
-                  title: "Error",
-                  description:
-                    "Failed to save the summary image. Please try again.",
-                  variant: "destructive",
-                });
-              } finally {
-                setIsUploading(false);
-              }
-            }
-          },
-          "image/png",
-          1.0
-        );
-      }
+      toast({
+        title: "Success!",
+        description: "Summary has been generated and saved.",
+      });
     } catch (error) {
       console.error("Error summarizing post:", error);
       toast({
@@ -189,6 +132,9 @@ const PostDetails = ({
   const handleDownload = async () => {
     if (summaryRef.current) {
       try {
+        // Wait for the component to render
+        await new Promise((resolve) => setTimeout(resolve, 400));
+
         const canvas = await html2canvas(summaryRef.current, {
           scale: 2,
           backgroundColor: "#f8f8f8",
@@ -225,6 +171,12 @@ const PostDetails = ({
           variant: "destructive",
         });
       }
+    } else {
+      toast({
+        title: "Error",
+        description: "No summary available to download.",
+        variant: "destructive",
+      });
     }
   };
 
@@ -271,6 +223,7 @@ const PostDetails = ({
   return (
     <section className="ml-[7rem] mt-[9rem] max-md:ml-[-1rem]">
       <article className={`${styles.post} ${styles.postdetails}`}>
+        {/* Post Header */}
         <div className={styles.user__profile}>
           <Link href={`/profile/${user?.id}`} className={styles.user__image}>
             <Avatar className="w-12 h-12">
@@ -300,6 +253,7 @@ const PostDetails = ({
           </div>
         </div>
 
+        {/* Post Content */}
         <div className={styles.postheader}>
           <h2 className={styles.h2}> {post?.postTitle} </h2>
           <p className={styles.desc}> {post?.postDescription} </p>
@@ -310,41 +264,34 @@ const PostDetails = ({
         <p
           className={`${styles.p} prose prose-li:marker:text-green-500 prose-img:rounded-lg prose-headings:underline prose-a:text-blue-600 lg:prose-xl`}
         >
-          {" "}
-          {post?.postContent}{" "}
+          {post?.postContent}
         </p>
 
+        {/* Summary Generation and Download */}
         <div className="text-center mb-4">
           {!isSummaryReady ? (
             <Button
               variant="secondary"
               onClick={handleSummarize}
-              disabled={isGenerating || isUploading}
+              disabled={isGenerating}
               className="w-64 mb-4"
             >
-              {isGenerating ? (
-                <>
-                  <LoaderSpinner />
-                  {isUploading ? "Saving Summary..." : "Generating Summary..."}
-                </>
-              ) : (
-                "Generate Summary with AI"
-              )}
+              {isGenerating ? "Generating Summary..." : "Generate Summary with AI"}
             </Button>
           ) : (
             <Button
               variant="secondary"
               onClick={handleDownload}
-              disabled={!isSaved}
               className="w-64 mb-4"
             >
-              {!isSaved ? "Saving Summary..." : "Download Summary as Image"}
+              Download Summary as Image
             </Button>
           )}
 
           {isSummaryReady && <SummaryTemplate />}
         </div>
 
+        {/* Post Reactions */}
         <div className={styles.reactionbox}>
           <div className={styles.left}>
             <div className={styles.user}>
@@ -354,83 +301,70 @@ const PostDetails = ({
                 width={30}
                 height={30}
               />
-              <span className={styles.span}>{post?.views} </span>
+              <span className={styles.span}>{post?.views}</span>
             </div>
           </div>
           <div className={styles.right}>
-            <Saved post={post} audioStorageId={post?.audioStorageId}></Saved>
+            <Saved post={post} audioStorageId={post?.audioStorageId} />
             <Delete
               postId={post?._id}
               imageStorageId={post?.imageStorageId}
               audioStorageId={post?.audioStorageId}
-            ></Delete>
-            <CopyLink></CopyLink>
+            />
+            <CopyLink />
             <Share onOpenModal={() => setIsShareModalOpen(true)} />
             <ShareModal
               isOpen={isShareModalOpen}
               onClose={() => setIsShareModalOpen(false)}
-              postUrl={`${typeof window !== "undefined" ? window.location.origin : ""}/post/${postId}`}
+              postUrl={`${
+                typeof window !== "undefined" ? window.location.origin : ""
+              }/post/${postId}`}
               postTitle={post?.postTitle}
             />
             <div
               onClick={handleToggleCommentBox}
               className={`${styles.icon} mt-[-4px]`}
             >
-              <Comment></Comment>
-              <span className="ml-2">{postComments?.length} </span>
+              <Comment />
+              <span className="ml-2">{postComments?.length}</span>
             </div>
-
-            <Like likes={post?.likes} postId={post._id}></Like>
+            <Like likes={post?.likes} postId={post._id} />
           </div>
         </div>
-        {toggleComment && <PostComments postId={postId}></PostComments>}
+
+        {toggleComment && <PostComments postId={postId} />}
       </article>
 
+      {/* Similar Posts */}
       <section className="mt-8 flex flex-col gap-5 ml-[-1rem]">
-        <h1 className="text-[1.8rem] font-bold text-gray-400 max-sm:text-[1.3rem]">Similar Posts</h1>
+        <h1 className="text-[1.8rem] font-bold text-gray-400 max-sm:text-[1.3rem]">
+          Similar Posts
+        </h1>
         {similarPosts && similarPosts.length > 0 ? (
-          <div className="">
-            {similarPosts?.map(
-              ({
-                _id: postId,
-                views,
-                likes,
-                postCategory,
-                postTitle,
-                postDescription,
-                postContent,
-                authorImageUrl,
-                imageUrl,
-                author,
-                _creationTime,
-              }) => {
-                return (
-                  <HomeCard
-                    key={postId}
-                    imageUrl={imageUrl!}
-                    title={postTitle!}
-                    description={postDescription}
-                    category={postCategory}
-                    content={postContent}
-                    postId={postId}
-                    views={views}
-                    likes={likes}
-                    author={author}
-                    authorImageUrl={authorImageUrl}
-                    _creationTime={_creationTime}
-                  />
-                );
-              }
-            )}
+          <div>
+            {similarPosts.map((similarPost) => (
+              <HomeCard
+                key={similarPost._id}
+                imageUrl={similarPost.imageUrl!}
+                title={similarPost.postTitle!}
+                description={similarPost.postDescription}
+                category={similarPost.postCategory}
+                content={similarPost.postContent}
+                postId={similarPost._id}
+                views={similarPost.views}
+                likes={similarPost.likes}
+                author={similarPost.author}
+                authorImageUrl={similarPost.authorImageUrl}
+                _creationTime={similarPost._creationTime}
+              />
+            ))}
           </div>
         ) : (
-          <>
-            <EmptyStates
-              title="No Similar post Found"
-              buttonLink="/dashboard"
-              buttonText="Discover more posts"
-            ></EmptyStates>
-          </>
+          <EmptyStates
+            title="No Similar post Found"
+            buttonLink="/dashboard"
+            buttonText="Discover more posts"
+          />
         )}
       </section>
     </section>

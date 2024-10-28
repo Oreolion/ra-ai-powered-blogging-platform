@@ -38,7 +38,6 @@ const HomeCard = ({
 
 
   const handleViews = async () => {
-    console.log(postId);
     if (postId) {
       await updatePostViews({ postId });
       router.push(`/post/${postId}`, {

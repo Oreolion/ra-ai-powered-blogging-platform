@@ -17,7 +17,7 @@ export const createPost = mutation({
     postCategory: v.string(),
     views: v.number(),
     likes: v.number(),
-    summaryImageUrl: v.optional(v.string()),
+    summary: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
@@ -284,42 +284,41 @@ export const updatePostLikes = mutation({
 
 // this mutation will update the views of the post.
 export const updatePostViews = mutation({
-    args: {
-      postId: v.id("posts"),
-    },
-    handler: async (ctx, args) => {
-      const post = await ctx.db.get(args.postId);
-  
-      if (!post) {
-        throw new ConvexError("Post not found");
-      }
-  
-      // Get the current user's ID
-      const userId = ctx.auth.userId;
-  
-      // If the user is not authenticated, you may choose to handle it differently
-      if (!userId) {
-        return post;
-      }
-  
-      // Initialize the viewedBy array if it doesn't exist
-      if (!post.viewedBy) {
-        post.viewedBy = [];
-      }
-  
-      // Check if the user has already viewed the post
-      if (!post.viewedBy.includes(userId)) {
-        // Increment the view count and add the user to the viewedBy array
-        await ctx.db.patch(args.postId, {
-          views: post.views + 1,
-          viewedBy: [...post.viewedBy, userId],
-        });
-      }
-  
+  args: {
+    postId: v.id("posts"),
+  },
+  handler: async (ctx, args) => {
+    const post = await ctx.db.get(args.postId);
+
+    if (!post) {
+      throw new ConvexError("Post not found");
+    }
+
+    // Get the current user's ID
+    const userId = ctx.auth.userId;
+
+    // If the user is not authenticated, you may choose to handle it differently
+    if (!userId) {
       return post;
-    },
-  });
-  
+    }
+
+    // Initialize the viewedBy array if it doesn't exist
+    if (!post.viewedBy) {
+      post.viewedBy = [];
+    }
+
+    // Check if the user has already viewed the post
+    if (!post.viewedBy.includes(userId)) {
+      // Increment the view count and add the user to the viewedBy array
+      await ctx.db.patch(args.postId, {
+        views: post.views + 1,
+        viewedBy: [...post.viewedBy, userId],
+      });
+    }
+
+    return post;
+  },
+});
 
 // this mutation will delete the post.
 export const deletePost = mutation({
@@ -459,19 +458,17 @@ export const deleteSavedPost = mutation({
 });
 
 // save summary image
-export const saveSummaryImage = mutation({
+export const saveSummary = mutation({
   args: {
     postId: v.id("posts"),
-    summaryImageUrl: v.string(),
-    summaryImageStorageId: v.string(),
+    summary: v.string(),
   },
   handler: async (ctx, args) => {
-    const { postId, summaryImageUrl, summaryImageStorageId } = args;
+    const { postId, summary } = args;
 
     // Update the post with the summary image URL
     const updatedPost = await ctx.db.patch(postId, {
-      summaryImageUrl,
-      summaryImageStorageId,
+      summary,
     });
 
     return updatedPost;
