@@ -379,10 +379,10 @@
   }
 
   .dashboardfeeds__header {
-    margin-left: 3.5rem;
+    margin-left: 2rem;
     justify-content: flex-start;
     gap: 4rem;
-    width: 100%;
+    max-width: 25rem;
   }
 
   .dashboardfeeds__header .button {
@@ -398,25 +398,30 @@
   }
 
   .dashboard__feeds {
-    margin-left: -1rem;
-    margin-right: 0.5rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
     margin-top: 17rem;
     border: none;
-    padding: 2rem 1rem;
+    padding: 1rem .1rem;
+    max-width: 23rem;
+    min-width: 30rem;
 
   }
 
-
   .post__box {
     gap: 2rem;
-    width: 100%;
-    margin-left: 2.5rem;
+    margin-left: .5rem;
+    margin-right: .5rem;
+    padding: 0.5rem;
+    max-width: 23rem;
+    width: 23rem;
   }
 
   .post {
     padding-left: 1rem;
-    margin-left: 1rem;
-    max-width: 23rem;
+    margin-left: .5rem;
+    margin-right: .5rem;
+    max-width: 22rem;
     margin-bottom: 1rem;
   }
 
@@ -449,11 +454,11 @@
   }
 
   .post .contentbox img {
-    margin-top: -2rem;
+    margin-top: -1.8rem;
   }
 
   .post .reactionbox {
-    width: 92%;
+    width: 96%;
   }
   .postdetails .reactionbox {
     width: 96%;
@@ -492,13 +497,15 @@
 
 @media (max-width: 380px) {
   .dashboard__feeds {
-    padding: 1rem .5rem;
+    width: 21rem;
+    padding: 1rem 0.5rem;
   }
 
   .dashboardfeeds__header {
     margin-bottom: 1rem;
     margin-top: 1rem;
     margin-left: 4rem;
+    width: 21rem;
   }
 
   .dashboardfeeds__header .button {
@@ -525,6 +532,7 @@
 
   .post__box {
     gap: 2rem;
+    width: 22rem;
   }
 
   .post {
