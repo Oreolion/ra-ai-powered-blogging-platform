@@ -375,7 +375,8 @@
     margin-top: 17rem;
     border: none;
     padding: 2rem 1rem;
-    /* width: 11rem; */
+    width: 26rem;
+    max-width: 480px;
   }
 
   .leftbox {
@@ -411,9 +412,9 @@
   }
 
   .post {
-    padding-left: 0.5rem;
+    padding-left: 1rem;
     margin-left: 1rem;
-    width: 95%;
+    /* width: 95%; */
     margin-bottom: 1rem;
   }
 
@@ -488,14 +489,14 @@
 
 @media (max-width: 380px) {
   .dashboard__feeds {
-    width: 23rem;
+    /* width: 23rem; */
     padding: 1rem;
   }
 
   .dashboardfeeds__header {
     margin-bottom: 1rem;
     margin-top: 1rem;
-    margin-left: -1rem;
+    margin-left: 0rem;
   }
 
   .dashboardfeeds__header .button {
@@ -521,12 +522,11 @@
   }
 
   .post__box {
-    width: 100%;
-    gap: 1rem;
+    gap: 2rem;
   }
 
   .post {
-    padding-left: 1rem;
+    padding-left: 2rem;
     width: 22rem;
   }
 
