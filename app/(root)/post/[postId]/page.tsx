@@ -36,6 +36,7 @@ const PostDetails = ({
   const [isSaved, setIsSaved] = useState<boolean>(false);
   const [isGenerating, setIsGenerating] = useState<boolean>(false);
   const [isSummaryReady, setIsSummaryReady] = useState<boolean>(false);
+  const [isDarkTheme, setIsDarkTheme] = useState<boolean>(false); 
   const summaryRef = useRef<HTMLDivElement>(null);
   const summarizePost = useAction(api.openai.summarizePostAction);
   const saveSummary = useMutation(api.posts.saveSummary);
@@ -105,7 +106,6 @@ const PostDetails = ({
       setSummary(response);
       setIsSummaryReady(true);
 
-      // Save the summary to the database
       await saveSummary({
         postId: postId,
         summary: response,
@@ -179,21 +179,31 @@ const PostDetails = ({
       });
     }
   };
+  // Toggle theme handler
+  const handleThemeToggle = () => {
+    setIsDarkTheme(!isDarkTheme);
+  };
 
   const SummaryTemplate = () => (
     <div
       ref={summaryRef}
-      className="mx-auto bg-gray-50 p-8 rounded-lg shadow-lg mb-6"
+      className={`mx-auto p-8 rounded-lg shadow-lg mb-6 ${
+        isDarkTheme ? "bg-black text-gray-100" : "bg-gray-50 text-gray-800"
+      }`}
     >
       <div className="space-y-6">
         {/* Header */}
-        <div className="border-b border-gray-200 pb-6">
-          <h1 className=" font-mono text-4xl font-bold text-gray-800 mb-4 max-ssm:text-3xl">
+        <div
+          className={`border-b pb-6 ${
+            isDarkTheme ? "border-gray-700" : "border-gray-200"
+          }`}
+        >
+          <h1 className="font-mono text-4xl font-bold mb-4 max-ssm:text-3xl">
             {post?.postTitle}
           </h1>
           <div className="flex items-center gap-4">
             <div>
-              <p className="text-sm text-gray-500">
+              <p className="text-sm">
                 {formatDate(post?._creationTime)}
               </p>
             </div>
@@ -201,7 +211,7 @@ const PostDetails = ({
         </div>
 
         {/* Summary Content */}
-        <div className="prose prose-lg max-w-none text-gray-700">
+        <div className="prose prose-lg max-w-none">
           {summary.split("\n").map((paragraph, index) => (
             <p key={index} className="mb-4">
               {paragraph}
@@ -210,11 +220,15 @@ const PostDetails = ({
         </div>
 
         {/* Footer */}
-        <div className="border-t border-gray-200 pt-6 flex justify-between items-center text-sm text-gray-500">
-          <span>{post?.author}</span>
+        <div
+          className={`border-t pt-6 flex justify-between items-center text-sm ${
+            isDarkTheme ? "border-gray-700" : "border-gray-200"
+          }`}
+        >
+          <span>@{post?.author}</span>
           <span className="flex items-center gap-2">
             <Badge variant="secondary">{post?.postCategory}</Badge>
-            <Badge variant="secondary"> created @ THE RA APP</Badge>
+            <Badge variant="secondary">Created @ THE RA APP</Badge>
           </span>
         </div>
       </div>
@@ -282,16 +296,26 @@ const PostDetails = ({
                 : "Generate Summary with AI"}
             </Button>
           ) : (
-            <Button
-              variant="secondary"
-              onClick={handleDownload}
-              className="w-64 mb-4"
-            >
-              Download Summary as Image
-            </Button>
+            <div className="flex flex-col items-center">
+              <div className="flex gap-4 mb-4 max-md:flex-col">
+                <Button
+                  variant="secondary"
+                  onClick={handleDownload}
+                  className="w-64"
+                >
+                  Download Summary as Image
+                </Button>
+                <Button
+                  variant="secondary"
+                  onClick={handleThemeToggle}
+                  className="w-64"
+                >
+                  Switch to {isDarkTheme ? "Light" : "Dark"} Theme
+                </Button>
+              </div>
+              <SummaryTemplate />
+            </div>
           )}
-
-          {isSummaryReady && <SummaryTemplate />}
         </div>
 
         {/* Post Reactions */}

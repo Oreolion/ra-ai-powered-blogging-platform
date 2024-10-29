@@ -361,7 +361,7 @@
 
 @media (max-width: 640px) {
   .dashboard__feeds {
-    width: 36rem;
+    width: 24rem;
   }
 }
 
@@ -369,16 +369,6 @@
   .dashboardfeeds__nav {
     display: none;
   }
-  .dashboard__feeds {
-    margin-left: -1rem;
-    margin-right: 0.5rem;
-    margin-top: 17rem;
-    border: none;
-    padding: 2rem 1rem;
-    width: 26rem;
-    max-width: 480px;
-  }
-
   .leftbox {
     padding-right: 2rem;
     margin-left: 1rem;
@@ -389,9 +379,10 @@
   }
 
   .dashboardfeeds__header {
-    margin-left: 3rem;
+    margin-left: 3.5rem;
     justify-content: flex-start;
     gap: 4rem;
+    width: 100%;
   }
 
   .dashboardfeeds__header .button {
@@ -406,15 +397,26 @@
     flex-direction: row;
   }
 
+  .dashboard__feeds {
+    margin-left: -1rem;
+    margin-right: 0.5rem;
+    margin-top: 17rem;
+    border: none;
+    padding: 2rem 1rem;
+
+  }
+
+
   .post__box {
     gap: 2rem;
     width: 100%;
+    margin-left: 2.5rem;
   }
 
   .post {
     padding-left: 1rem;
     margin-left: 1rem;
-    /* width: 95%; */
+    max-width: 23rem;
     margin-bottom: 1rem;
   }
 
@@ -431,6 +433,7 @@
   .post .contentbox {
     flex-direction: column;
     gap: 2rem;
+    max-width: 24rem;
   }
 
   .post .contentbox .p {
@@ -489,14 +492,13 @@
 
 @media (max-width: 380px) {
   .dashboard__feeds {
-    /* width: 23rem; */
-    padding: 1rem;
+    padding: 1rem .5rem;
   }
 
   .dashboardfeeds__header {
     margin-bottom: 1rem;
     margin-top: 1rem;
-    margin-left: 0rem;
+    margin-left: 4rem;
   }
 
   .dashboardfeeds__header .button {
@@ -527,17 +529,17 @@
 
   .post {
     padding-left: 2rem;
-    width: 22rem;
+    width: 21rem;
   }
 
   .post .image {
-    width: 21rem;
+    width: 20rem;
     height: 8rem;
   }
 
   .post .contentbox .p {
     font-size: 0.8rem;
-    max-width: 22rem;
+    max-width: 20rem;
   }
 
   .post .reactionbox {

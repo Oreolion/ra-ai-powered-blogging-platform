@@ -472,11 +472,11 @@
   }
 
   .header .img__box {
-    right: 11%;
+    right: 9%;
   }
 
   .search_form {
-    left: 8%;
+    left: 20%;
     top: 18%;
   }
 }
@@ -509,7 +509,7 @@
 
   .search_form {
     top: 23%;
-    left: 3%;
+    left: 13%;
   }
 
   .dashboard__navlists .h5 {
@@ -533,6 +533,6 @@
   }
 
   .header .img__box {
-    right: 6%;
+    right: 10%;
   }
 }
