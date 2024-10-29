@@ -322,7 +322,7 @@
   }
 
   .post {
-    min-width: 27rem;
+    min-width: 25rem;
     width: 33rem;
     margin-bottom: 2rem;
   }
@@ -379,7 +379,7 @@
   }
 
   .dashboardfeeds__header {
-    margin-left: 2rem;
+    margin-left: 0rem;
     justify-content: flex-start;
     gap: 4rem;
     max-width: 25rem;
@@ -404,13 +404,13 @@
     border: none;
     padding: 1rem .1rem;
     max-width: 23rem;
-    min-width: 30rem;
+    min-width: 26.5rem;
 
   }
 
   .post__box {
     gap: 2rem;
-    margin-left: .5rem;
+    margin-left: .2rem;
     margin-right: .5rem;
     padding: 0.5rem;
     max-width: 23rem;
@@ -419,9 +419,10 @@
 
   .post {
     padding-left: 1rem;
-    margin-left: .5rem;
+    margin-left: 0rem;
     margin-right: .5rem;
-    max-width: 22rem;
+    min-width: 24rem;
+    max-width: 24rem;
     margin-bottom: 1rem;
   }
 
@@ -430,7 +431,7 @@
   }
 
   .post .image {
-    width: 23rem;
+    width: 22rem;
     height: 8rem;
     margin-bottom: 1rem;
   }
@@ -438,12 +439,12 @@
   .post .contentbox {
     flex-direction: column;
     gap: 2rem;
-    max-width: 24rem;
+    max-width: 23rem;
   }
 
   .post .contentbox .p {
     font-size: 0.8rem;
-    max-width: 24rem;
+    max-width: 22rem;
   }
 
   .post .postheader h2 {
@@ -497,6 +498,7 @@
 
 @media (max-width: 380px) {
   .dashboard__feeds {
+    min-width: 20rem;
     width: 21rem;
     padding: 1rem 0.5rem;
   }
