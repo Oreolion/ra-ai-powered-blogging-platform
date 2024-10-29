@@ -119,7 +119,7 @@
   align-items: center;
   padding: 1.2rem 7%;
   height: 7rem;
-  z-index: 111111;
+  z-index: 5;
 }
 
 .innerdashboard__container .header .logo {
@@ -529,10 +529,10 @@
   .header .nav__icons {
     gap: 0.5rem;
     top: 40%;
-    right: 29%;
+    right: 25%;
   }
 
   .header .img__box {
-    right: 10%;
+    right: 6%;
   }
 }

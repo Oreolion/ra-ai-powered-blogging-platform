@@ -27,7 +27,7 @@ const ProfilePage = ({
       <h1 className="text-24 font-bold text-gray-200 mb-4 max-md:text-center">
         Your Profile
       </h1>
-      <div className="mt-6 flex flex-col gap-6 max-md:items-center max-sm:ml-[-1rem] md:flex-row">
+      <div className="mt-6 flex flex-col gap-6 max-md:items-center max-sm:ml-[-2rem] md:flex-row">
         <ProfileCard
           postData={postsData}
           imageUrl={user?.imageUrl}
