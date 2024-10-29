@@ -159,6 +159,7 @@
 
   .mobile__nav {
     display: flex;
+    gap: 1rem;
     width: 26rem;
   }
 
@@ -198,7 +199,7 @@
   }
 }
 
-@media (max-width: 320px) {
+@media (max-width: 380px) {
   .logo {
     margin-left: -0.5rem;
   }

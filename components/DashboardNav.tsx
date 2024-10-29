@@ -101,7 +101,7 @@ const DashboardNav = ({
           </div>
         )}
         <div className={`${styles.logo} ${styles.link}`}>
-          <Link href="/">
+          <Link href="/dashboard">
             <Image src="/images/logo.webp" alt="logo" height={10} width={100} />
           </Link>
         </div>
@@ -208,7 +208,8 @@ const DashboardNav = ({
           <span className={styles.spanheader}>
             <h5 className={styles.h5}>Trending Tags</h5>
             <svg
-  className={`${styles.svg} ${dropDown ? styles.rotated : ''}`}              xmlns="http://www.w3.org/2000/svg"
+              className={`${styles.svg} ${dropDown ? styles.rotated : ""}`}
+              xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 512 512"
               onClick={toggleDropDown}
             >
@@ -232,13 +233,11 @@ const DashboardNav = ({
               </>
             );
           })}
-
-          
         </ul>
       </nav>
 
       {!showNav && (
-        <Link href="/">
+        <Link href="/dashboard">
           <div className={`${styles.otherlogo} ${styles.link}`}>
             <Image src="/images/logo.webp" alt="logo" height={10} width={100} />
           </div>

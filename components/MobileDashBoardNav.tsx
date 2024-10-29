@@ -74,14 +74,14 @@ const MobileDashBoardNav = () => {
             className={`${styles.dashboard__nav} ${styles.mobile}`}
             ref={myRef}
           >
-            <div className={`${styles.logo} ${styles.link}`}>
+            <Link href='/dashboard' className={`${styles.logo} ${styles.link}`}>
               <Image
                 src="/images/logo.webp"
                 alt="logo"
                 height={10}
                 width={100}
               />
-            </div>
+            </Link>
 
             <ul className={styles.dashboard__navlists}>
               <h5 className={styles.h5}>Overview</h5>
@@ -180,9 +180,9 @@ const MobileDashBoardNav = () => {
       <main className={styles.innerdashboard__container}>
         {/* <!-- header --> */}
         <header className={styles.header}>
-          <div className={`${styles.logo} ${styles.link}`}>
+          <Link href='/dashbaord' className={`${styles.logo} ${styles.link}`}>
             <Image src="/images/logo.webp" alt="logo" height={10} width={100} />
-          </div>
+          </Link>
           <nav className={styles.right__nav}>
             <div className={styles.nav__icons}>
               {!toggle ? (
@@ -209,7 +209,6 @@ const MobileDashBoardNav = () => {
 
               <svg
                 className={styles.notification_icon}
-                // className="svg"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 448 512"
                 onClick={toggleDropDown}

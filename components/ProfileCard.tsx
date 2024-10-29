@@ -2,39 +2,16 @@
 import Image from "next/image";
 import { PostProps, ProfileCardProps } from "@/types";
 import LoaderSpinner from "./LoaderSpinner";
-// import { Button } from "./ui/button";
 
 const ProfileCard = ({
   postData,
   imageUrl,
   userFirstName,
 }: ProfileCardProps) => {
-  //   const { setAudio } = useAudio();
-
-//   const [randomPost, setRandomPost] = useState<PostProps | null>(null);
-
-//   const playRandomPost = () => {
-//     const randomIndex = Math.floor(Math.random() * postData.posts.length);
-
-//     setRandomPost(postData.posts[randomIndex]);
-//   };
-
-  //   useEffect(() => {
-  //     if (randomPost) {
-  //       setAudio({
-  //         title: randomPost.postTitle,
-  //         audioUrl: randomPost.audioUrl || "",
-  //         imageUrl: randomPost.imageUrl || "",
-  //         author: randomPost.author,
-  //         postId: randomPost._id,
-  //       });
-  //     }
-  //   }, [randomPost, setAudio]);
-
   if (!imageUrl) return <LoaderSpinner />;
 
   return (
-    <div className="mt-6 flex flex-col gap-6 max-md:items-center md:flex-row">
+    <div className="mt-6 flex flex-col gap-6 max-md:items-center  max-md:flex-row max-ssm:ml-[-1rem]">
       <Image
         src={imageUrl}
         width={160}
@@ -61,7 +38,7 @@ const ProfileCard = ({
         </div>
         <figure className="flex gap-3 py-6">
           <Image
-            src='/images/icons8-views-64.png'
+            src="/images/icons8-views-64.png"
             width={24}
             height={24}
             alt="readers"

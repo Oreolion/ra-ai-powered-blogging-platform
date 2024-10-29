@@ -495,7 +495,7 @@
   .dashboardfeeds__header {
     margin-bottom: 1rem;
     margin-top: 1rem;
-    margin-left: 0rem;
+    margin-left: -1rem;
   }
 
   .dashboardfeeds__header .button {

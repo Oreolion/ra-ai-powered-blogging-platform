@@ -188,7 +188,7 @@ const PostDetails = ({
       <div className="space-y-6">
         {/* Header */}
         <div className="border-b border-gray-200 pb-6">
-          <h1 className="text-3xl font-bold text-gray-800 mb-4">
+          <h1 className=" font-mono text-4xl font-bold text-gray-800 mb-4 max-ssm:text-3xl">
             {post?.postTitle}
           </h1>
           <div className="flex items-center gap-4">
@@ -214,6 +214,7 @@ const PostDetails = ({
           <span>{post?.author}</span>
           <span className="flex items-center gap-2">
             <Badge variant="secondary">{post?.postCategory}</Badge>
+            <Badge variant="secondary"> created @ THE RA APP</Badge>
           </span>
         </div>
       </div>
@@ -276,7 +277,9 @@ const PostDetails = ({
               disabled={isGenerating}
               className="w-64 mb-4"
             >
-              {isGenerating ? "Generating Summary..." : "Generate Summary with AI"}
+              {isGenerating
+                ? "Generating Summary..."
+                : "Generate Summary with AI"}
             </Button>
           ) : (
             <Button

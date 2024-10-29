@@ -1,7 +1,3 @@
-/* .logo {
-  margin-right: auto;
-  margin-bottom: 1.5rem;
-} */
 
 .dashboard__nav {
   position: fixed;
@@ -123,6 +119,7 @@
   align-items: center;
   padding: 1.2rem 7%;
   height: 7rem;
+  z-index: 111111;
 }
 
 .innerdashboard__container .header .logo {
@@ -532,10 +529,10 @@
   .header .nav__icons {
     gap: 0.5rem;
     top: 40%;
-    right: 31%;
+    right: 29%;
   }
 
   .header .img__box {
-    right: 15%;
+    right: 10%;
   }
 }

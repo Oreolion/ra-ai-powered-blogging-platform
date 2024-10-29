@@ -110,7 +110,7 @@ export default function AddBlogPost() {
   const postCategories = ["Technology", "Metaphysics & Esoterics", "Science", "World News", "Africa", "Programming", "Machine Learning", "Artificial Intelligence" ];
   return (
     <section className={styles.bloginput__box}>
-      <h1 className="text-3xl font-bold text-white-1"> Create post</h1>
+      <h1 className="text-3xl font-bold text-gray-200 max-sm:text-2xl"> Create post</h1>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -122,7 +122,7 @@ export default function AddBlogPost() {
               name="postTitle"
               render={({ field }) => (
                 <FormItem className="flex flex-col gap-2.5">
-                  <FormLabel className="text-16 font-bold text-white-1">
+                  <FormLabel className="text-16 font-bold text-gray-200">
                     Title
                   </FormLabel>
                   <FormControl>
@@ -138,7 +138,7 @@ export default function AddBlogPost() {
               )}
             />
             <div className="flex flex-col gap-2.5">
-              <Label className="text-16 font-bold text-white-1">
+              <Label className="text-16 font-bold text-gray-200">
                 Select Post Category
               </Label>
               <Select onValueChange={(value) => setPostCategory(value)}>
@@ -152,7 +152,7 @@ export default function AddBlogPost() {
                     className="placeholder:text-gray-1"
                   />
                 </SelectTrigger>
-                <SelectContent className="text-16 border-none bg-slate-700 font-bold text-white-1 focus:ring-orange-1">
+                <SelectContent className="text-16 border-none bg-slate-700 font-bold text-gray-200 focus:ring-orange-1">
                   {postCategories.map((category) => {
                     return (
                       <SelectItem
@@ -173,7 +173,7 @@ export default function AddBlogPost() {
               name="postDescription"
               render={({ field }) => (
                 <FormItem className="flex flex-col gap-2.5">
-                  <FormLabel className="text-16 font-bold text-white-1">
+                  <FormLabel className="text-16 font-bold text-gray-200">
                     Description
                   </FormLabel>
                   <FormControl>
@@ -208,7 +208,7 @@ export default function AddBlogPost() {
           <div className="mt-10 w-full">
             <Button
               type="submit"
-              className="text-16 h-20 w-full bg-orange-1 py-4 font-extrabold text-white-1 transition-all duration-500 hover:bg-black-1"
+              className="text-16 h-20 w-full bg-orange-1 py-4 font-extrabold text-gray-200 transition-all duration-500 hover:bg-black-1"
             >
               {isSubmitting ? (
                 <>
