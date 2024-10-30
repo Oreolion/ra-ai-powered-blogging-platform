@@ -236,7 +236,7 @@ const PostDetails = ({
   );
 
   return (
-    <section className="ml-[7rem] mt-[9rem] max-md:ml-[-1rem]">
+    <section className="ml-[7rem] mt-[9rem] max-md:ml-[0rem]">
       <article className={`${styles.post} ${styles.postdetails}`}>
         {/* Post Header */}
         <div className={styles.user__profile}>
@@ -254,7 +254,7 @@ const PostDetails = ({
               <Link href={`/profile/${user?.id}`} className={styles.username}>
                 {post.author}
               </Link>
-              <div className="flex items-center text-sm text-gray-500 ml-10">
+              <div className="flex items-center text-sm text-gray-500 ml-10 max-sm:ml-6">
                 <CalendarIcon className="mr-1 h-6 w-6" />
                 <time dateTime={new Date(post._creationTime).toISOString()}>
                   {formatDate(post._creationTime)}

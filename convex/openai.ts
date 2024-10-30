@@ -1,13 +1,11 @@
 import { action } from "./_generated/server";
 import { v } from "convex/values";
 import { RateLimitError } from "../lib/limitError";
-// import { Buffer } from 'buffer';
 import OpenAI from "openai";
 import { ChatOpenAI } from "@langchain/openai";
 import { PromptTemplate } from "@langchain/core/prompts";
 import { StringOutputParser } from "@langchain/core/output_parsers";
 import { api } from "./_generated/api";
-
 export const dynamic = "force-dynamic";
 
 const openai = new OpenAI({
@@ -31,7 +29,7 @@ export const generatePostAction = action({
       }
     );
 
-    if (userCallCount >= 4) {
+    if (userCallCount >= 6) {
       throw new RateLimitError(
         "You have exceeded the maximum number of calls to this function."
       );
@@ -89,7 +87,7 @@ export const generateThumbnailAction = action({
       }
     );
 
-    if (userCallCount >= 4) {
+    if (userCallCount >= 6) {
       throw new RateLimitError(
         "You have exceeded the maximum number of calls to this function."
       );
@@ -139,7 +137,7 @@ export const summarizePostAction = action({
       }
     );
 
-    if (userCallCount >= 4) {
+    if (userCallCount >= 6) {
       throw new RateLimitError(
         "You have exceeded the maximum number of calls to this function."
       );

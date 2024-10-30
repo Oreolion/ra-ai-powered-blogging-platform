@@ -398,8 +398,8 @@
   }
 
   .dashboard__feeds {
-    margin-left: 1rem;
-    margin-right: 1rem;
+    margin-left: .5rem;
+    margin-right: .5rem;
     margin-top: 17rem;
     border: none;
     padding: 1rem .1rem;
@@ -459,10 +459,10 @@
   }
 
   .post .reactionbox {
-    width: 96%;
+    width: 100%;
   }
   .postdetails .reactionbox {
-    width: 96%;
+    width: 100%;
   }
 
   .postdetails .reactionbox .right {
@@ -483,7 +483,7 @@
   }
 
   .post .reactionbox .right {
-    gap: 1rem;
+    gap: .5rem;
     margin-left: -1rem;
   }
 

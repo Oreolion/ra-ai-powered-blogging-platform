@@ -100,18 +100,27 @@
 @media (max-width: 480px) {
   .comment__box {
     right: 0%;
+    min-width: 22rem;
   }
 
   .comment__box .textarea {
     width: 100%;
     height: 10rem;
   }
+
+  .commentlist .comment__item {
+    gap: 0.5rem;
+    min-width: 23rem;
+  }
+
+  .comment__inputbox {
+    gap: 0.5rem;
+  }
 }
 
 @media (max-width: 380px) {
   .comment__box {
     top: -5%;
-    min-width: 20rem;
   }
 
   .comment__box .textarea {

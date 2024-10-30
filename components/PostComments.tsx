@@ -147,7 +147,7 @@ export const PostComments = ({ postId }: { postId: string }) => {
                     )}
                     <p className={styles.username}>{comment.username}</p>
                   </div>
-                  <p className="text-xl text-[#d1d5db;]">
+                  <p className="text-base text-[#d1d5db;] min-h-16 p-2 bg-gray-100">
                     {more ? comment.content : comment.content.substring(0, 100)}
                     {comment.content.length > 100 && (
                       <button type="button" onClick={() => setMore(!more)}>
@@ -156,7 +156,7 @@ export const PostComments = ({ postId }: { postId: string }) => {
                     )}
                   </p>
                   {user && userId?._id === comment.userId && (
-                    <div className="flex gap-[1rem]">
+                    <div className="flex gap-[1rem] max-md:gap-0">
                       <MdModeEdit
                         size={25}
                         onClick={() => {
