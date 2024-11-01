@@ -66,7 +66,9 @@
   flex-direction: row;
   align-items: center;
   gap: 1rem;
-  width: 23rem;
+  padding: .3rem;
+  /* width: 26rem; */
+  background: rgba(29, 19, 19, 0.3);
 }
 
 .comment__inputbox {
@@ -110,7 +112,6 @@
 
   .commentlist .comment__item {
     gap: 0.5rem;
-    min-width: 23rem;
   }
 
   .comment__inputbox {

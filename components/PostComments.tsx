@@ -125,8 +125,8 @@ export const PostComments = ({ postId }: { postId: string }) => {
         <div className={styles.comment__box}>
           {comments && comments.length > 0 ? (
             <ul className={styles.commentlist}>
-              {comments.map((comment, i) => (
-                <li className={styles.comment__item} key={i}>
+              {comments.map((comment) => (
+                <li className={styles.comment__item} key={comment.userId}>
                   <div className={styles.user__profile}>
                     {comment.commentUserImage ? (
                       <Image
@@ -147,7 +147,7 @@ export const PostComments = ({ postId }: { postId: string }) => {
                     )}
                     <p className={styles.username}>{comment.username}</p>
                   </div>
-                  <p className="text-base text-[#d1d5db;] min-h-16 p-2 bg-gray-100">
+                  <p className="text-base min-w-[16rem] text-[#444749;] min-h-22 p-2 bg-slate-300">
                     {more ? comment.content : comment.content.substring(0, 100)}
                     {comment.content.length > 100 && (
                       <button type="button" onClick={() => setMore(!more)}>

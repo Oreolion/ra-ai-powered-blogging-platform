@@ -109,7 +109,7 @@ const DashboardNav = ({
         <ul className={styles.dashboard__navlists}>
           <h5 className={styles.h5}>Overview</h5>
 
-          <li className={styles.li} key="Homefeeds">
+          <li className={styles.li} key="feeds">
             <Link
               href="/dashboard"
               className={`${styles.link} ${isLinkActive("/dashboard") ? styles.active_link : ""}`}
@@ -125,7 +125,7 @@ const DashboardNav = ({
               <p className={styles.linktext}>Homefeeds</p>
             </Link>
           </li>
-          <li className={styles.li} key="Create-post">
+          <li className={styles.li} key="Create">
             <Link
               href="/create-post"
               className={`${styles.link} ${isLinkActive("/create-post") ? styles.active_link : ""}`}
@@ -142,7 +142,7 @@ const DashboardNav = ({
               <p className={styles.linktext}>Create Post</p>
             </Link>
           </li>
-          <li className={styles.li} key="Bookmarks">
+          <li className={styles.li} key="Bookmarklist">
             <Link
               href="/bookmarks"
               className={`${styles.link} ${isLinkActive("/bookmarks") ? styles.active_link : ""}`}

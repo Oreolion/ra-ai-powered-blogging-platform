@@ -104,11 +104,11 @@ const HomeCard = ({
         </div>
         <div className={styles.contentbox}>
           <p className={styles.p}>
-            {more ? content : content.substring(0, 150)}
+            {more ? content : content.substring(0, 150)} <br />
             {content.length > 150 && (
-              <div className='text-xs font-bold text-orange-400 hover:text-orange-300' onClick={handleViews}>
+              <span className='text-xs font-bold text-orange-400 hover:text-orange-300' onClick={handleViews}>
                 Continue reading...
-              </div>
+              </span>
             )}
           </p>
           <div className={styles.image}>
