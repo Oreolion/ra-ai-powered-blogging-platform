@@ -9,6 +9,7 @@
   align-items: center;
   padding: 1.2rem 4%;
   height: 6rem;
+  z-index: 1111;
 }
 
 .header .logo {
@@ -55,6 +56,7 @@
   right: 0%;
   padding: 2rem;
   padding-bottom: 2rem;
+  z-index: 111;
 }
 
 .mobile__nav .li,
@@ -159,7 +161,7 @@
 
   .mobile__nav {
     display: flex;
-    gap: 1rem;
+    gap: 2rem;
     width: 26rem;
   }
 
@@ -181,7 +183,6 @@
   }
 
   .mobile__nav {
-    width: 24rem;
     width: 18rem;
   }
   .search {
