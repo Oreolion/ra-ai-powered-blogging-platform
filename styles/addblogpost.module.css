@@ -91,7 +91,7 @@
 
 .blog__content {
   height: 90%;
-  width: 90%;
+  /* width: 90%; */
   margin-top: 10rem;
   margin-bottom: 4rem;
 }
@@ -132,7 +132,7 @@
 @media (max-width: 768px) {
   .bloginput__box {
     width: 85%;
-    margin-left: 2.5rem;
+    margin-left: 1rem;
   }
   .inner__container {
     margin-left: 0rem;

@@ -80,8 +80,10 @@ const GeneratePost = (props: GeneratePostProps) => {
           className="input-class font-light focus-visible:ring-offset-orange-1 h-[3rem] indent-2 max-ssm:text-sm"
         />
         <MarkdownEditor
+        className="max-w-full"
           value={markdown}
-          height="200px"
+          height="220px"
+          maxWidth="50rem"
           onChange={(value) => {
             setMarkdown(value);
             props.setPostContent(value);
