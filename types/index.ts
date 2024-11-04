@@ -57,9 +57,6 @@ export type postCategory =
 
 export interface GeneratePostProps {
   postCategory: postCategory;
-  //   setAudio: Dispatch<SetStateAction<string>>;
-  //   audio: string;
-  //   setAudioStorageId: Dispatch<SetStateAction<Id<"_storage"> | null>>;
   postContent: string;
   setPostContent: Dispatch<SetStateAction<string>>;
   prompt: string;

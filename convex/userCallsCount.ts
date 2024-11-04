@@ -2,23 +2,27 @@ import { query, mutation } from "./_generated/server";
 import { v } from "convex/values";
 
 export const getUserCallCount = query({
-  args: { userId: v.string() },
-  handler: async (ctx, { userId }) => {
+  args: { userId: v.string(), day: v.string() },
+  handler: async (ctx, { userId, day }) => {
     const userCallCount = await ctx.db
       .query("userCallCounts")
-      .withIndex("by_userId", (q) => q.eq("userId", userId))
+      .withIndex("by_userId_and_day", (q) => 
+        q.eq("userId", userId).eq("day", day)
+      )
       .unique();
-    
+
     return userCallCount ? userCallCount.count : 0;
   },
 });
 
 export const incrementUserCallCount = mutation({
-  args: { userId: v.string() },
-  handler: async (ctx, { userId }) => {
+  args: { userId: v.string(), day: v.string() },
+  handler: async (ctx, { userId, day }) => {
     const userCallCount = await ctx.db
       .query("userCallCounts")
-      .withIndex("by_userId", (q) => q.eq("userId", userId))
+      .withIndex("by_userId_and_day", (q) => 
+        q.eq("userId", userId).eq("day", day)
+      )
       .unique();
 
     if (userCallCount) {
@@ -29,6 +33,7 @@ export const incrementUserCallCount = mutation({
       await ctx.db.insert("userCallCounts", {
         userId,
         count: 1,
+        day,
       });
     }
 

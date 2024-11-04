@@ -74,7 +74,7 @@ const MobileDashBoardNav = () => {
             className={`${styles.dashboard__nav} ${styles.mobile}`}
             ref={myRef}
           >
-            <Link href='/dashboard' className={`${styles.logo} ${styles.link}`}>
+            <Link href="/dashboard" className={`${styles.logo} ${styles.link}`}>
               <Image
                 src="/images/logo.webp"
                 alt="logo"
@@ -180,7 +180,7 @@ const MobileDashBoardNav = () => {
       <main className={styles.innerdashboard__container}>
         {/* <!-- header --> */}
         <header className={styles.header}>
-          <Link href='/dashboard' className={`${styles.logo} ${styles.link}`}>
+          <Link href="/dashboard" className={`${styles.logo} ${styles.link}`}>
             <Image src="/images/logo.webp" alt="logo" height={10} width={100} />
           </Link>
           <nav className={styles.right__nav}>

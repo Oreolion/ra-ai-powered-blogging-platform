@@ -12,6 +12,13 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
+const getStartOfDay = () => {
+    const now = new Date();
+    return new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()))
+      .toISOString()
+      .split('T')[0];
+  };
+
 export const generatePostAction = action({
   args: { prompt: v.string() },
   handler: async (ctx, { prompt }) => {
@@ -22,10 +29,12 @@ export const generatePostAction = action({
     }
     const userId = identity.subject;
     // Check if the user has exceeded their limit
+    const currentDay = getStartOfDay();
     const userCallCount = await ctx.runQuery(
       api.userCallsCount.getUserCallCount,
       {
         userId: userId,
+        day: currentDay,
       }
     );
 
@@ -58,8 +67,11 @@ export const generatePostAction = action({
       });
 
       // Increment the user's call count
+      const currentDay = getStartOfDay();
+
       await ctx.runMutation(api.userCallsCount.incrementUserCallCount, {
         userId,
+        day: currentDay,
       });
 
       return response;
@@ -80,10 +92,13 @@ export const generateThumbnailAction = action({
     }
     const userId = identity.subject;
     // Check if the user has exceeded their limit
+    const currentDay = getStartOfDay();
+
     const userCallCount = await ctx.runQuery(
       api.userCallsCount.getUserCallCount,
       {
         userId: userId,
+        day: currentDay,
       }
     );
 
@@ -109,6 +124,7 @@ export const generateThumbnailAction = action({
 
       await ctx.runMutation(api.userCallsCount.incrementUserCallCount, {
         userId,
+        day: currentDay,
       });
 
       return buffer;
@@ -130,10 +146,14 @@ export const summarizePostAction = action({
     const userId = identity.subject;
 
     // Check if the user has exceeded their limit
+    const currentDay = getStartOfDay();
+
     const userCallCount = await ctx.runQuery(
       api.userCallsCount.getUserCallCount,
       {
         userId: userId,
+        day: currentDay,
+
       }
     );
 
@@ -171,8 +191,11 @@ Summary:
       });
 
       // Increment the user's call count
+      const currentDay = getStartOfDay();
+
       await ctx.runMutation(api.userCallsCount.incrementUserCallCount, {
         userId,
+        day: currentDay,
       });
 
       return response;

@@ -47,7 +47,8 @@ export default defineSchema({
   userCallCounts: defineTable({
     userId: v.string(),
     count: v.number(),
-  }).index("by_userId", ["userId"]),
+    day: v.optional(v.string()),
+  }).index("by_userId_and_day", ["userId", "day"]),
 
   // bookmarks tables for schema ...
   savedPosts: defineTable({
