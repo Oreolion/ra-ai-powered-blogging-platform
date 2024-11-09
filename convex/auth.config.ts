@@ -1,7 +1,7 @@
 const authConfig = {
     providers: [
       {
-        domain: "https://guided-lobster-91.clerk.accounts.dev",
+        domain: process.env.NEXT_PUBLIC_CLERK_AUTH_DOMAIN,
         applicationID: "convex",
       },
     ],
