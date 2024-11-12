@@ -17,6 +17,11 @@ const nextConfig = {
           protocol: "https",
           hostname: "img.clerk.com",
         },
+        {
+            protocol: 'https',
+            hostname: 'clever-dove-968.convex.cloud',
+            pathname: '/api/storage/**',
+          },
       ],
     },
   };

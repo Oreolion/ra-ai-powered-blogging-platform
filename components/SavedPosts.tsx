@@ -32,14 +32,14 @@ export default function SavedPost() {
       {user?.id === getUserById?.clerkId ? (
         <div className="flex flex-col gap-10">
           {allSavedPosts.length === 0 ? (
-            <>
+            <div className="max-h-[10rem]">
               <p className="text-center text-gel-gray mt-[3rem] text-2xl">
                 You have no saved posts
               </p>
               <Button>
                 <Link href="/dashboard">Go back to Home</Link>
               </Button>
-            </>
+            </div>
           ) : (
             <div className={styles.post__box}>
               {allSavedPosts.map(
