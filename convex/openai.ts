@@ -114,6 +114,7 @@ export const generateThumbnailAction = action({
         size: "1024x1024",
         quality: "standard",
         n: 1,
+        response_format: "url",
       });
 
       const url = response.data[0].url;

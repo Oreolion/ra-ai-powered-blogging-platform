@@ -85,6 +85,7 @@ const HomeFeeds = () => {
                 author={author}
                 authorImageUrl={authorImageUrl}
                 _creationTime={_creationTime}
+                shouldNavigate={false}
               />
             ))
           ) : (

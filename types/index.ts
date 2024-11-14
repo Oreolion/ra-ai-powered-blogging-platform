@@ -23,6 +23,7 @@ export interface PostProps {
   imagePrompt: string | null;
   audioDuration: number;
   views: number;
+//   viewedBy: string[];
   likes: number;
 }
 

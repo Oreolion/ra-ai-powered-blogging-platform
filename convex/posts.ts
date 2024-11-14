@@ -16,6 +16,7 @@ export const createPost = mutation({
     imagePrompt: v.string(),
     postCategory: v.string(),
     views: v.number(),
+    viewedBy: v.optional(v.array(v.string())),
     likes: v.number(),
     summary: v.optional(v.string()),
   },
@@ -287,37 +288,7 @@ export const updatePostViews = mutation({
   args: {
     postId: v.id("posts"),
   },
-  handler: async (ctx, args) => {
-    const post = await ctx.db.get(args.postId);
-
-    if (!post) {
-      throw new ConvexError("Post not found");
-    }
-
-    // Get the current user's ID
-    const userId = ctx.auth.userId;
-
-    // If the user is not authenticated, you may choose to handle it differently
-    if (!userId) {
-      return post;
-    }
-
-    // Initialize the viewedBy array if it doesn't exist
-    if (!post.viewedBy) {
-      post.viewedBy = [];
-    }
-
-    // Check if the user has already viewed the post
-    if (!post.viewedBy.includes(userId)) {
-      // Increment the view count and add the user to the viewedBy array
-      await ctx.db.patch(args.postId, {
-        views: post.views + 1,
-        viewedBy: [...post.viewedBy, userId],
-      });
-    }
-
-    return post;
-  },
+  handler: async (ctx, args) => {},
 });
 
 // this mutation will delete the post.

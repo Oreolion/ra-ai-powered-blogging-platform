@@ -18,6 +18,7 @@ export default defineSchema({
     imageUrl: v.string(),
     imagePrompt: v.string(),
     views: v.number(),
+    viewedBy: v.optional(v.array(v.string())),
     likes: v.optional(v.number()),
   })
     .searchIndex("search_author", { searchField: "author" })
@@ -69,6 +70,7 @@ export default defineSchema({
     imageUrl: v.string(),
     imagePrompt: v.string(),
     views: v.number(),
+    viewedBy: v.optional(v.array(v.string())),
     likes: v.number(),
     savedAt: v.number(),
   }),
