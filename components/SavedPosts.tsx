@@ -11,11 +11,12 @@ import { Button } from "./ui/button";
 
 export default function SavedPost() {
   const { user } = useUser();
-  const allSavedPosts = useQuery(api.posts.getAllSavedPosts);
+  let allSavedPosts = useQuery(api.posts.getAllSavedPosts);
   const getUserById = useQuery(api.users.getUserById, {
     clerkId: user?.id,
   });
 
+  allSavedPosts = [];
   // Handle loading state
   if (allSavedPosts === undefined || getUserById === undefined) {
     return <LoaderSpinner />;
@@ -32,7 +33,7 @@ export default function SavedPost() {
       {user?.id === getUserById?.clerkId ? (
         <div className="flex flex-col gap-10">
           {allSavedPosts.length === 0 ? (
-            <div className="max-h-[10rem]">
+            <div className="max-h-[10rem] gap-4 flex items-center flex-col">
               <p className="text-center text-gel-gray mt-[3rem] text-2xl">
                 You have no saved posts
               </p>

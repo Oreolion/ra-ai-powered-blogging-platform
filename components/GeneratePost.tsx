@@ -67,7 +67,7 @@ const GeneratePost = (props: GeneratePostProps) => {
   };
 
   return (
-    <div className='mt-[-3rem]'>
+    <div className="mt-[-3rem]">
       <div className="flex flex-col gap-2.5">
         <Label className="text-16 font-bold text-gray-200">
           Write Your Post
@@ -80,7 +80,7 @@ const GeneratePost = (props: GeneratePostProps) => {
           className="input-class font-light focus-visible:ring-offset-orange-1 h-[3rem] indent-2 max-ssm:text-sm"
         />
         <MarkdownEditor
-        className="max-w-full"
+          className="max-w-full"
           value={markdown}
           height="220px"
           maxWidth="50rem"
@@ -93,6 +93,7 @@ const GeneratePost = (props: GeneratePostProps) => {
       <div className="mt-5 w-full max-w-[200px]">
         <Button
           type="button"
+          disabled={!prompt}
           className="text-16 bg-orange-1 py-4 font-bold text-gray-200 hover:bg-black-1"
           onClick={handleGeneratePost}
         >
@@ -106,7 +107,7 @@ const GeneratePost = (props: GeneratePostProps) => {
           )}
         </Button>
       </div>
-      <p className="text-green-200 text-[.72rem] font-bold max-w-[35rem]">
+      <p className="text-green-200 text-[.7rem] font-bold max-w-[35rem]">
         Click button only to generate Article with AI after you have input your
         research prompt in the PROMPT field above...
       </p>

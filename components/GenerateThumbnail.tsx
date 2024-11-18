@@ -124,7 +124,7 @@ const GenerateThumbnail = ({
               AI Prompts to generate Thumbnail
             </Label>
             <Textarea
-              className="input-class font-light focus-visible:ring-offset-orange-1"
+              className="input-class font-light focus-visible:ring-offset-orange-1 h-7"
               placeholder="Provide text to generate Thumbnail"
               rows={5}
               value={imagePrompt}
