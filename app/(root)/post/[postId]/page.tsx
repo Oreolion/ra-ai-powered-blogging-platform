@@ -36,7 +36,7 @@ const PostDetails = ({
   const [isSaved, setIsSaved] = useState<boolean>(false);
   const [isGenerating, setIsGenerating] = useState<boolean>(false);
   const [isSummaryReady, setIsSummaryReady] = useState<boolean>(false);
-  const [isDarkTheme, setIsDarkTheme] = useState<boolean>(false); 
+  const [isDarkTheme, setIsDarkTheme] = useState<boolean>(false);
   const summaryRef = useRef<HTMLDivElement>(null);
   const summarizePost = useAction(api.openai.summarizePostAction);
   const saveSummary = useMutation(api.posts.saveSummary);
@@ -90,25 +90,54 @@ const PostDetails = ({
       return;
     }
 
-    setIsGenerating(true);
-    try {
-      // Generate summary
-      const response = await summarizePost({
-        title: post?.postTitle,
-        content: post?.postContent,
+    if (!post?.postContent) {
+      toast({
+        title: "No Content",
+        description: "Post content is missing.",
       });
+      return;
+    }
 
-      // Validate the response
-      if (!response || typeof response !== "string" || response.trim() === "") {
-        throw new Error("Invalid summary response from OpenAI");
+    setIsGenerating(true);
+
+    try {
+      let summaryText = "";
+
+      if (post.postContent.length < 1000) {
+        // If postContent is less than 1000 characters, use it as the summary
+        summaryText = post.postContent;
+
+        // Optionally, notify the user that the original content is used as the summary
+        toast({
+          title: "Summary Set to Original Content",
+          description:
+            "Post content is less than 1,000 characters. Using original content as summary.",
+        });
+      } else {
+        // Generate summary using the summarizePost function
+        const response = await summarizePost({
+          title: post.postTitle,
+          content: post.postContent,
+        });
+
+        // Validate the response
+        if (
+          !response ||
+          typeof response !== "string" ||
+          response.trim() === ""
+        ) {
+          throw new Error("Invalid summary response from OpenAI");
+        }
+
+        summaryText = response;
       }
 
-      setSummary(response);
+      setSummary(summaryText);
       setIsSummaryReady(true);
 
       await saveSummary({
         postId: postId,
-        summary: response,
+        summary: summaryText,
       });
 
       setIsSaved(true);
@@ -188,30 +217,32 @@ const PostDetails = ({
     <div
       ref={summaryRef}
       className={`mx-auto p-8 rounded-lg shadow-lg mb-6 ${
-        isDarkTheme ? "bg-black text-gray-100" : "bg-gray-50 text-gray-800"
+        isDarkTheme ? "bg-black text-gray-200" : "bg-gray-50 text-gray-800"
       }`}
     >
       <div className="space-y-6">
         {/* Header */}
         <div
           className={`border-b pb-6 ${
-            isDarkTheme ? "border-gray-700" : "border-gray-200"
+            isDarkTheme ? "border-gray-700 text-gray-200" : "border-gray-200"
           }`}
         >
-          <h1 className="font-mono text-4xl font-bold mb-4 max-ssm:text-3xl">
+          <h1 className="font-mono text-5xl font-bold mb-4 max-ssm:text-3xl">
             {post?.postTitle}
           </h1>
           <div className="flex items-center gap-4">
             <div>
-              <p className="text-sm">
-                {formatDate(post?._creationTime)}
-              </p>
+              <p className="text-sm">{formatDate(post?._creationTime)}</p>
             </div>
           </div>
         </div>
 
         {/* Summary Content */}
-        <div className="prose prose-lg max-w-none">
+        <div
+          className={`prose prose-lg max-w-none ${
+            isDarkTheme ? "text-gray-200" : "text-black"
+          }`}
+        >
           {summary.split("\n").map((paragraph, index) => (
             <p key={index} className="mb-4">
               {paragraph}

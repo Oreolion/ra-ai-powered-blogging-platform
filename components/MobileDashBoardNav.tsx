@@ -49,8 +49,12 @@ const MobileDashBoardNav = () => {
     "World News",
     "Africa",
     "Programming",
+    "Politics",
     "Machine Learning",
     "Artificial Intelligence",
+    "Economics & Finance",
+    "Self Development",
+    "Others",
   ];
 
   const createSlug = (category: string) => {

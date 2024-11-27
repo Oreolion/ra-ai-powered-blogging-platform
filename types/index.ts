@@ -23,7 +23,7 @@ export interface PostProps {
   imagePrompt: string | null;
   audioDuration: number;
   views: number;
-//   viewedBy: string[];
+  //   viewedBy: string[];
   likes: number;
 }
 
@@ -52,9 +52,13 @@ export type postCategory =
   | "Science"
   | "World News"
   | "Africa"
+  | "Politics"
   | "Programming"
   | "Machine Learning"
-  | "Artificial Intelligence";
+  | "Artificial Intelligence"
+  | "Economics & Finance"
+  | "Self Development"
+  | "Others";
 
 export interface GeneratePostProps {
   postCategory: postCategory;

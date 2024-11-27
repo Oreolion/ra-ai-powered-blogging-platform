@@ -76,7 +76,7 @@ const GeneratePost = (props: GeneratePostProps) => {
           type="text"
           value={prompt}
           onChange={(e) => setPrompt(e.target.value)}
-          placeholder="Enter your prompt to Generate article with AI here"
+          placeholder="Enter your prompt to write article with AI here"
           className="input-class font-light focus-visible:ring-offset-orange-1 h-[3rem] indent-2 max-ssm:text-sm"
         />
         <MarkdownEditor

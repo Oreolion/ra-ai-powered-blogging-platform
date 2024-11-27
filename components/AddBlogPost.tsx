@@ -34,8 +34,10 @@ import { api } from "@/convex/_generated/api";
 import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
-    postTitle: z.string().min(2, "Title must be at least 2 characters"),
-    postDescription: z.string().min(2, "Description must be at least 2 characters"),
+  postTitle: z.string().min(2, "Title must be at least 2 characters"),
+  postDescription: z
+    .string()
+    .min(2, "Description must be at least 2 characters"),
 });
 
 export default function AddBlogPost() {
@@ -43,7 +45,6 @@ export default function AddBlogPost() {
     null
   );
   const [audioUrl, setAudioUrl] = useState("");
-//   const [audioDuration, setAudioDuration] = useState(0);
   const [imageUrl, setImageUrl] = useState("");
   const [imagePrompt, setImagePrompt] = useState("");
   const [imageStorageId, setImageStorageId] = useState<Id<"_storage"> | null>(
@@ -78,17 +79,15 @@ export default function AddBlogPost() {
         throw new Error("Please Create Post and Add Thumbnail");
       }
 
-       await createPost({
+      await createPost({
         postTitle: data.postTitle,
         postDescription: data.postDescription,
         postContent,
         postCategory,
-        // audioUrl,
         imageUrl,
         imagePrompt,
         views: 0,
         likes: 0,
-        // audioDuration,
         audioStorageId: audioStorageId!,
         imageStorageId: imageStorageId!,
       });
@@ -107,10 +106,26 @@ export default function AddBlogPost() {
     }
   }
 
-  const postCategories = ["Technology", "Metaphysics & Esoterics", "Science", "World News", "Africa", "Programming", "Machine Learning", "Artificial Intelligence" ];
+  const postCategories = [
+    "Technology",
+    "Metaphysics & Esoterics",
+    "Science",
+    "World News",
+    "Africa",
+    "Programming",
+    "Politics",
+    "Machine Learning",
+    "Artificial Intelligence",
+    "Economics & Finance",
+    "Self Development",
+    "Others",
+  ];
   return (
     <section className={styles.bloginput__box}>
-      <h1 className="text-3xl font-bold text-gray-200 max-sm:text-2xl"> Create post</h1>
+      <h1 className="text-3xl font-bold text-gray-200 max-sm:text-2xl">
+        {" "}
+        Create post
+      </h1>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -165,7 +180,6 @@ export default function AddBlogPost() {
                     );
                   })}
                 </SelectContent>
-            
               </Select>
             </div>
             <FormField
@@ -191,7 +205,7 @@ export default function AddBlogPost() {
           </div>
           <div className="flex flex-col pt-10">
             <GeneratePost
-            //   postDescription={postDescription}
+              //   postDescription={postDescription}
               setAudio={setAudioUrl}
               postCategory={postCategories}
               postContent={postContent}
