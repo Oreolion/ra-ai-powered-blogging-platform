@@ -230,8 +230,9 @@
   margin-bottom: 1rem;
   letter-spacing: 0.5px;
   color: aliceblue;
-  max-width: 28rem;
+  max-width: 36rem;
   text-transform: capitalize;
+  font-weight: bold;
 }
 
 .post .contentbox .p {
@@ -331,6 +332,10 @@
     font-size: 1.4rem;
   }
 
+  .post .desc {
+    max-width: 32rem;
+  }
+
   .user__profile {
     flex-direction: column;
     gap: 2rem;
@@ -398,20 +403,19 @@
   }
 
   .dashboard__feeds {
-    margin-left: .5rem;
-    margin-right: .5rem;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
     margin-top: 17rem;
     border: none;
-    padding: 1rem .1rem;
+    padding: 1rem 0.1rem;
     max-width: 23rem;
     min-width: 26.5rem;
-
   }
 
   .post__box {
     gap: 2rem;
-    margin-left: .2rem;
-    margin-right: .5rem;
+    margin-left: 0.2rem;
+    margin-right: 0.5rem;
     padding: 0.5rem;
     max-width: 23rem;
     width: 23rem;
@@ -420,7 +424,7 @@
   .post {
     padding-left: 1rem;
     margin-left: 0rem;
-    margin-right: .5rem;
+    margin-right: 0.5rem;
     min-width: 24rem;
     max-width: 24rem;
     margin-bottom: 1rem;
@@ -483,7 +487,7 @@
   }
 
   .post .reactionbox .right {
-    gap: .5rem;
+    gap: 0.5rem;
     margin-left: -1rem;
   }
 
@@ -540,6 +544,10 @@
   .post {
     padding-left: 2rem;
     width: 21rem;
+  }
+
+  .post .desc {
+    max-width: 26rem;
   }
 
   .post .image {

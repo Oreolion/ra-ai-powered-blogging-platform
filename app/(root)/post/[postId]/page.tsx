@@ -24,35 +24,33 @@ import ShareModal from "@/components/ShareModal";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import html2canvas from "html2canvas";
+import { marked } from "marked";
+import DOMPurify from "dompurify";
 
 const PostDetails = ({
   params: { postId },
 }: {
   params: { postId: Id<"posts"> };
 }) => {
-  const [toggleComment, setToggleComment] = useState<boolean>(false);
+  const [toggleComment, setToggleComment] = useState(false);
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
-  const [summary, setSummary] = useState<string>("");
-  const [isSaved, setIsSaved] = useState<boolean>(false);
-  const [isGenerating, setIsGenerating] = useState<boolean>(false);
-  const [isSummaryReady, setIsSummaryReady] = useState<boolean>(false);
-  const [isDarkTheme, setIsDarkTheme] = useState<boolean>(false);
-  const summaryRef = useRef<HTMLDivElement>(null);
+  const [summary, setSummary] = useState("");
+  const [isSaved, setIsSaved] = useState(false);
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [isSummaryReady, setIsSummaryReady] = useState(false);
+  const [isDarkTheme, setIsDarkTheme] = useState(false);
+  const summaryRef = useRef(null);
   const summarizePost = useAction(api.openai.summarizePostAction);
   const saveSummary = useMutation(api.posts.saveSummary);
   const { toast } = useToast();
   const { user } = useUser();
 
-  const post = useQuery(api.posts.getPostById, {
-    postId: postId,
-  });
-  const postComments = useQuery(api.posts.getComments, {
-    postId,
-  });
+  const post = useQuery(api.posts.getPostById, { postId });
+  const postComments = useQuery(api.posts.getComments, { postId });
+  const similarPosts = useQuery(api.posts.getPostByPostCategory, { postId });
 
-  const similarPosts = useQuery(api.posts.getPostByPostCategory, {
-    postId: postId,
-  });
+  // State for HTML content
+  const [htmlContent, setHtmlContent] = useState("");
 
   useEffect(() => {
     if (post && post.summary && !summary) {
@@ -62,7 +60,15 @@ const PostDetails = ({
     }
   }, [post, summary]);
 
-  const formatDate = (creationTime: number) => {
+  useEffect(() => {
+    if (post?.postContent) {
+      const rawHtml = marked(post.postContent);
+      const sanitizedHtml = DOMPurify.sanitize(rawHtml);
+      setHtmlContent(sanitizedHtml);
+    }
+  }, [post]);
+
+  const formatDate = (creationTime) => {
     const date = new Date(Math.floor(creationTime));
     return date.toLocaleDateString("en-US", {
       year: "numeric",
@@ -73,9 +79,7 @@ const PostDetails = ({
 
   if (!similarPosts || !post) return <LoaderSpinner />;
 
-  if (!postId) {
-    return <LoaderSpinner />;
-  }
+  if (!postId) return <LoaderSpinner />;
 
   const handleToggleCommentBox = () => {
     setToggleComment(!toggleComment);
@@ -104,23 +108,18 @@ const PostDetails = ({
       let summaryText = "";
 
       if (post.postContent.length < 1000) {
-        // If postContent is less than 1000 characters, use it as the summary
         summaryText = post.postContent;
-
-        // Optionally, notify the user that the original content is used as the summary
         toast({
           title: "Summary Set to Original Content",
           description:
             "Post content is less than 1,000 characters. Using original content as summary.",
         });
       } else {
-        // Generate summary using the summarizePost function
         const response = await summarizePost({
           title: post.postTitle,
           content: post.postContent,
         });
 
-        // Validate the response
         if (
           !response ||
           typeof response !== "string" ||
@@ -135,10 +134,7 @@ const PostDetails = ({
       setSummary(summaryText);
       setIsSummaryReady(true);
 
-      await saveSummary({
-        postId: postId,
-        summary: summaryText,
-      });
+      await saveSummary({ postId, summary: summaryText });
 
       setIsSaved(true);
 
@@ -161,7 +157,6 @@ const PostDetails = ({
   const handleDownload = async () => {
     if (summaryRef.current) {
       try {
-        // Wait for the component to render
         await new Promise((resolve) => setTimeout(resolve, 400));
 
         const canvas = await html2canvas(summaryRef.current, {
@@ -174,9 +169,8 @@ const PostDetails = ({
           windowHeight: summaryRef.current.scrollHeight,
         });
 
-        // Create download link for the user
-        const blob = await new Promise<Blob>((resolve) =>
-          canvas.toBlob((blob) => resolve(blob!), "image/png", 1.0)
+        const blob = await new Promise((resolve) =>
+          canvas.toBlob((blob) => resolve(blob), "image/png", 1.0)
         );
 
         const downloadUrl = URL.createObjectURL(blob);
@@ -208,7 +202,7 @@ const PostDetails = ({
       });
     }
   };
-  // Toggle theme handler
+
   const handleThemeToggle = () => {
     setIsDarkTheme(!isDarkTheme);
   };
@@ -243,11 +237,7 @@ const PostDetails = ({
             isDarkTheme ? "text-gray-200" : "text-black"
           }`}
         >
-          {summary.split("\n").map((paragraph, index) => (
-            <p key={index} className="mb-4">
-              {paragraph}
-            </p>
-          ))}
+          {summary}
         </div>
 
         {/* Footer */}
@@ -301,17 +291,16 @@ const PostDetails = ({
 
         {/* Post Content */}
         <div className={styles.postheader}>
-          <h2 className={styles.h2}> {post?.postTitle} </h2>
-          <p className={styles.desc}> {post?.postDescription} </p>
+          <h2 className={styles.h2}>{post?.postTitle}</h2>
+          <p className={styles.desc}>{post?.postDescription}</p>
         </div>
         <div className={styles.postimage}>
           <Image src={post?.imageUrl} alt="thumbnail" width={230} height={46} />
         </div>
-        <p
+        <div
           className={`${styles.p} prose prose-li:marker:text-green-500 prose-img:rounded-lg prose-headings:underline prose-a:text-blue-600 lg:prose-xl`}
-        >
-          {post?.postContent}
-        </p>
+          dangerouslySetInnerHTML={{ __html: htmlContent }}
+        ></div>
 
         {/* Summary Generation and Download */}
         <div className="text-center mb-4">
@@ -403,8 +392,8 @@ const PostDetails = ({
             {similarPosts.map((similarPost) => (
               <HomeCard
                 key={similarPost._id}
-                imageUrl={similarPost.imageUrl!}
-                title={similarPost.postTitle!}
+                imageUrl={similarPost.imageUrl}
+                title={similarPost.postTitle}
                 description={similarPost.postDescription}
                 category={similarPost.postCategory}
                 content={similarPost.postContent}
@@ -419,7 +408,7 @@ const PostDetails = ({
           </div>
         ) : (
           <EmptyStates
-            title="No Similar post Found"
+            title="No Similar Posts Found"
             buttonLink="/dashboard"
             buttonText="Discover more posts"
           />
