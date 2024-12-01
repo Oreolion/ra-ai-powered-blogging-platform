@@ -39,6 +39,7 @@ const PostDetails = ({
   const [isGenerating, setIsGenerating] = useState(false);
   const [isSummaryReady, setIsSummaryReady] = useState(false);
   const [isDarkTheme, setIsDarkTheme] = useState(false);
+  const [htmlContent, setHtmlContent] = useState("");
   const summaryRef = useRef(null);
   const summarizePost = useAction(api.openai.summarizePostAction);
   const saveSummary = useMutation(api.posts.saveSummary);
@@ -49,8 +50,6 @@ const PostDetails = ({
   const postComments = useQuery(api.posts.getComments, { postId });
   const similarPosts = useQuery(api.posts.getPostByPostCategory, { postId });
 
-  // State for HTML content
-  const [htmlContent, setHtmlContent] = useState("");
 
   useEffect(() => {
     if (post && post.summary && !summary) {
@@ -60,6 +59,7 @@ const PostDetails = ({
     }
   }, [post, summary]);
 
+  // Parse and sanitize Markdown content
   useEffect(() => {
     if (post?.postContent) {
       const rawHtml = marked(post.postContent);
@@ -86,6 +86,15 @@ const PostDetails = ({
   };
 
   const handleSummarize = async () => {
+    if (!user) {
+      toast({
+        title: "Sign In Required",
+        description: "Please sign in to generate a summary.",
+        // variant: "warning",
+      });
+      return;
+    }
+
     if (summary) {
       toast({
         title: "Summary Already Exists",
@@ -120,11 +129,7 @@ const PostDetails = ({
           content: post.postContent,
         });
 
-        if (
-          !response ||
-          typeof response !== "string" ||
-          response.trim() === ""
-        ) {
+        if (!response || typeof response !== "string" || response.trim() === "") {
           throw new Error("Invalid summary response from OpenAI");
         }
 
@@ -155,6 +160,15 @@ const PostDetails = ({
   };
 
   const handleDownload = async () => {
+    if (!user) {
+      toast({
+        title: "Sign In Required",
+        description: "Please sign in to download the summary image.",
+        // variant: "warning",
+      });
+      return;
+    }
+
     if (summaryRef.current) {
       try {
         await new Promise((resolve) => setTimeout(resolve, 400));
@@ -261,7 +275,10 @@ const PostDetails = ({
       <article className={`${styles.post} ${styles.postdetails}`}>
         {/* Post Header */}
         <div className={styles.user__profile}>
-          <Link href={`/profile/${user?.id}`} className={styles.user__image}>
+          <Link
+            href={`/profile/${post?.authorId || ""}`}
+            className={styles.user__image}
+          >
             <Avatar className="w-12 h-12">
               <AvatarImage
                 src={post.authorImageUrl || "/placeholder-avatar.jpg"}
@@ -272,7 +289,10 @@ const PostDetails = ({
           </Link>
           <div className={styles.user__info}>
             <div className="flex items-center justify-between">
-              <Link href={`/profile/${user?.id}`} className={styles.username}>
+              <Link
+                href={`/profile/${post?.authorId || ""}`}
+                className={styles.username}
+              >
                 {post.author}
               </Link>
               <div className="flex items-center text-sm text-gray-500 ml-10 max-sm:ml-6">
@@ -295,7 +315,14 @@ const PostDetails = ({
           <p className={styles.desc}>{post?.postDescription}</p>
         </div>
         <div className={styles.postimage}>
-          <Image src={post?.imageUrl} alt="thumbnail" width={230} height={46} />
+          {post?.imageUrl && (
+            <Image
+              src={post.imageUrl}
+              alt="thumbnail"
+              width={230}
+              height={46}
+            />
+          )}
         </div>
         <div
           className={`${styles.p} prose prose-li:marker:text-green-500 prose-img:rounded-lg prose-headings:underline prose-a:text-blue-600 lg:prose-xl`}
@@ -352,34 +379,42 @@ const PostDetails = ({
             </div>
           </div>
           <div className={styles.right}>
-            <Saved post={post} audioStorageId={post?.audioStorageId} />
-            <Delete
-              postId={post?._id}
-              imageStorageId={post?.imageStorageId}
-              audioStorageId={post?.audioStorageId}
-            />
-            <CopyLink />
-            <Share onOpenModal={() => setIsShareModalOpen(true)} />
-            <ShareModal
-              isOpen={isShareModalOpen}
-              onClose={() => setIsShareModalOpen(false)}
-              postUrl={`${
-                typeof window !== "undefined" ? window.location.origin : ""
-              }/post/${postId}`}
-              postTitle={post?.postTitle}
-            />
-            <div
-              onClick={handleToggleCommentBox}
-              className={`${styles.icon} mt-[-4px]`}
-            >
-              <Comment />
-              <span className="ml-2">{postComments?.length}</span>
-            </div>
-            <Like likes={post?.likes} postId={post._id} />
+            {user ? (
+              <>
+                <Saved post={post} audioStorageId={post?.audioStorageId} />
+                <Delete
+                  postId={post?._id}
+                  imageStorageId={post?.imageStorageId}
+                  audioStorageId={post?.audioStorageId}
+                />
+                <CopyLink />
+                <Share onOpenModal={() => setIsShareModalOpen(true)} />
+                <ShareModal
+                  isOpen={isShareModalOpen}
+                  onClose={() => setIsShareModalOpen(false)}
+                  postUrl={`${
+                    typeof window !== "undefined" ? window.location.origin : ""
+                  }/post/${postId}`}
+                  postTitle={post?.postTitle}
+                />
+                <div
+                  onClick={handleToggleCommentBox}
+                  className={`${styles.icon} mt-[-4px]`}
+                >
+                  <Comment />
+                  <span className="ml-2">{postComments?.length}</span>
+                </div>
+                <Like likes={post?.likes} postId={post._id} />
+              </>
+            ) : (
+              <p className="text-gray-500">
+                Sign in to interact with this post.
+              </p>
+            )}
           </div>
         </div>
 
-        {toggleComment && <PostComments postId={postId} />}
+        {toggleComment && user && <PostComments postId={postId} />}
       </article>
 
       {/* Similar Posts */}

@@ -10,7 +10,7 @@ export const getAllUsers = query({
 });
 
 export const getUserById = query({
-  args: { clerkId: v.string() },
+  args: { clerkId: v.optional(v.string()) },
   handler: async (ctx, args) => {
     const user = await ctx.db
       .query("users")
@@ -18,7 +18,8 @@ export const getUserById = query({
       .unique();
 
     if (!user) {
-      throw new ConvexError("User not found");
+    //   throw new ConvexError("User not found");
+    return null; 
     }
 
     return user;
