@@ -116,12 +116,12 @@ const PostDetails = ({
     try {
       let summaryText = "";
 
-      if (post.postContent.length < 1000) {
+      if (post.postContent.length < 800) {
         summaryText = post.postContent;
         toast({
           title: "Summary Set to Original Content",
           description:
-            "Post content is less than 1,000 characters. Using original content as summary.",
+            "Post content is less than 800 characters. Using original content as summary.",
         });
       } else {
         const response = await summarizePost({

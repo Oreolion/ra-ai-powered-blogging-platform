@@ -60,7 +60,7 @@ const DashboardNav = ({
       <nav className={showNav ? styles.dashboard__nav : styles.collapseblock}>
         {!showNav && (
           <div className={styles.collapse__svg}>
-            <ul>
+            <ul className="flex flex-col gap-8">
               {navbarLinks.map((item) => {
                 return (
                   <li key={item.label}>
