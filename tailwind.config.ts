@@ -20,6 +20,7 @@ const config = {
     extend: {
       screens: {
         "sm": "480px",
+        "msm": "375px",
         "ssm": "325px",
       },
       keyframes: {

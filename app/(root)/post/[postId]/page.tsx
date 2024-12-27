@@ -224,7 +224,7 @@ const PostDetails = ({
   const SummaryTemplate = () => (
     <div
       ref={summaryRef}
-      className={`mx-auto p-8 rounded-lg shadow-lg mb-6 ${
+      className={`mx-auto p-8 rounded-lg shadow-lg mb-6 msm:mx-[.5rem] ${
         isDarkTheme ? "bg-black text-gray-200" : "bg-gray-50 text-gray-800"
       }`}
     >
@@ -235,7 +235,7 @@ const PostDetails = ({
             isDarkTheme ? "border-gray-700 text-gray-200" : "border-gray-200"
           }`}
         >
-          <h1 className="font-mono text-5xl font-bold mb-4 max-ssm:text-3xl">
+          <h1 className="font-mono text-5xl font-bold mb-4 sm:text-[2.5rem] ssm:text-[2rem]">
             {post?.postTitle}
           </h1>
           <div className="flex items-center gap-4">
