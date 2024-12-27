@@ -100,7 +100,15 @@ const HomeCard = ({
         </div>
         <div className={styles.postheader}>
           <h2 className={styles.h2}> {title} </h2>
-          <p className={styles.desc}> {description} </p>
+          <p className={styles.desc}> 
+          {more ? description : description.substring(0, 100)}
+            {description.length > 100 && (
+              <span className='text-xs font-bold text-orange-400 hover:text-orange-300' onClick={handleViews}>
+                ...
+              </span>
+            )}
+            {/* {description}  */}
+            </p>
         </div>
         <div className={styles.contentbox}>
           <p className={styles.p}>

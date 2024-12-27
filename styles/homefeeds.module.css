@@ -500,7 +500,7 @@
   }
 }
 
-@media (max-width: 380px) {
+@media (max-width: 370px) {
   .dashboard__feeds {
     min-width: 20rem;
     width: 21rem;
