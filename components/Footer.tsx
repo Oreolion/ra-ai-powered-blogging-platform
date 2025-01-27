@@ -40,7 +40,7 @@ const Footer = () => {
           </ul>
         </div>
       </div>
-      <p className={styles.p1}>Term of Service | Security | the RA APP 2024</p>
+      <p className={styles.p1}>Term of Service | Security | the RA APP 2025</p>
     </footer>
   );
 };
