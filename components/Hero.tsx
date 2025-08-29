@@ -4,9 +4,6 @@ import Link from "next/link";
 import React from "react";
 import styles from "../styles/hero.module.css";
 import { TypeAnimation } from "react-type-animation";
-
-
-// ... existing imports ...
 import { useEffect, useState } from "react";
 
 const Hero = () => {
@@ -64,7 +61,7 @@ const Hero = () => {
         </div>
         <div className={styles.right__herosection}>
           <div
-            className={`${styles.imgbox} ${isAnimating ? styles.animate : ""}`}
+            className={`${styles.imgbox} ${isAnimating ? styles.animate : ""}` } data-testid="hero-imgbox"
           >
             <Image
               className={styles.img}
