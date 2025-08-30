@@ -24,9 +24,9 @@ const ProfilePage = ({
 
   return (
     <section className="mt-[6rem] flex flex-col ml-[9rem] max-md:ml-[0]">
-      <h1 className="text-24 font-bold text-gray-200 mb-4 max-md:text-center">
+      {/* <h1 className="text-24 font-bold text-gray-200 mb-4 max-md:text-center">
         Your Profile
-      </h1>
+      </h1> */}
       <div className="mt-6 flex flex-col gap-6 max-md:items-center max-sm:ml-[-2rem] md:flex-row">
         <ProfileCard
           postData={postsData}
@@ -36,10 +36,10 @@ const ProfilePage = ({
       </div>
       <section className="mt-4 ml-[-3rem] flex flex-col gap-5">
         <h1 className="text-[1.6rem] font-bold text-gray-200">
-          All Your Posts
+          All Posts
         </h1>
         {postsData && postsData.posts.length > 0 ? (
-          <div className="gap-8">
+          <div className="flex flex-col gap-8">
             {postsData?.posts
               ?.slice(0, 4)
               .map((post: any) => (

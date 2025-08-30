@@ -1,73 +1,74 @@
-import { useEffect, useState } from "react";
-import LoaderSpinner from "./LoaderSpinner";
-import styles from "@/styles/comments.module.css";
-import { useUser } from "@clerk/nextjs";
-import { useToast } from "./ui/use-toast";
-import { PostCommentsArrayType, PostCommentType } from "@/types";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
+"use client"
+
+import { useEffect, useState } from "react"
+import LoaderSpinner from "./LoaderSpinner"
+import { useUser } from "@clerk/nextjs"
+import { useToast } from "./ui/use-toast"
+import type { PostCommentsArrayType } from "@/types"
+import Image from "next/image"
+import { useRouter } from "next/navigation"
 // import { useTimeAgo } from "../custom-hooks/useTimeAgo";
-import { useMutation, useQuery } from "convex/react";
-import { api } from "@/convex/_generated/api";
-import { MdModeEdit, MdOutlineDelete } from "react-icons/md";
-import { Id } from "@/convex/_generated/dataModel";
+import { useMutation, useQuery } from "convex/react"
+import { api } from "@/convex/_generated/api"
+import { MdModeEdit, MdOutlineDelete } from "react-icons/md"
+import type { Id } from "@/convex/_generated/dataModel"
 
 export const PostComments = ({ postId }: { postId: string }) => {
-  const [comment, setComment] = useState("");
-  const [comments, setComments] = useState<PostCommentsArrayType>([]);
-  const [toggleComment, setToggleComment] = useState<boolean>(true);
-  const [editingCommentId, setEditingCommentId] = useState<string | null>(null);
+  const [comment, setComment] = useState("")
+  const [comments, setComments] = useState<PostCommentsArrayType>([])
+  const [toggleComment, setToggleComment] = useState<boolean>(true)
+  const [editingCommentId, setEditingCommentId] = useState<string | null>(null)
 
-  const [more, setMore] = useState(false);
-  const [isEdit, setIsEdit] = useState(false);
-  const [editComment, setEditComment] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const { user } = useUser();
-  const router = useRouter();
-  const { toast } = useToast();
-  const addComment = useMutation(api.posts.createComment);
-  const deleteComment = useMutation(api.posts.deleteComment);
-  const editCommentMutation = useMutation(api.posts.editComment);
-  const postComments = useQuery(api.posts.getComments, { postId });
-  const userId = useQuery(api.users.getUserById, { clerkId: user?.id });
+  const [more, setMore] = useState(false)
+  const [isEdit, setIsEdit] = useState(false)
+  const [editComment, setEditComment] = useState("")
+  const [isLoading, setIsLoading] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const { user } = useUser()
+  const router = useRouter()
+  const { toast } = useToast()
+  const addComment = useMutation(api.posts.createComment)
+  const deleteComment = useMutation(api.posts.deleteComment)
+  const editCommentMutation = useMutation(api.posts.editComment)
+  const postComments = useQuery(api.posts.getComments, { postId })
+  const userId = useQuery(api.users.getUserById, { clerkId: user?.id })
 
   useEffect(() => {
-    setComments(postComments);
-  }, [postComments]);
+    setComments(postComments)
+  }, [postComments])
 
   const createComment = async () => {
     try {
-      setLoading(true);
+      setLoading(true)
       if (comment === "" && user) {
         toast({
           title: "The Input field is required",
           variant: "destructive",
-        });
-        return;
+        })
+        return
       }
       if (user) {
         await addComment({
           postId,
           content: comment,
-        });
+        })
 
         toast({
           title: "You added a comment",
-        });
-        setComment("");
+        })
+        setComment("")
       } else {
-        router.push("/sign-in");
+        router.push("/sign-in")
       }
     } catch (error) {
       toast({
         title: "Error Adding Comment",
         variant: "destructive",
-      });
+      })
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
   const removeComment = async (commentId: string) => {
     try {
@@ -75,101 +76,111 @@ export const PostComments = ({ postId }: { postId: string }) => {
       if (user) {
         await deleteComment({
           _id: commentId,
-        });
+        })
       }
       toast({
         title: "Comment has been removed",
-      });
+      })
     } catch (error) {
       toast({
         title: "Error occurred while removing comment",
         variant: "destructive",
-      });
+      })
     }
-  };
+  }
 
   const handleEdit = async ({
     _id,
     newContent,
   }: {
-    _id: Id<"comments">;
-    newContent: string;
+    _id: Id<"comments">
+    newContent: string
   }) => {
-    setIsLoading(true);
+    setIsLoading(true)
     try {
       if (user && userId) {
         await editCommentMutation({
           _id,
           newContent,
           userId: userId?._id,
-        });
-        setEditComment("");
-        setIsEdit(false);
+        })
+        setEditComment("")
+        setIsEdit(false)
         toast({
           title: "Comment edited successfully",
-        });
+        })
       }
     } catch (error) {
-      console.error("Error occurred while editing comment:", error);
+      console.error("Error occurred while editing comment:", error)
       toast({
         title: "Error occurred while editing comment",
         variant: "destructive",
-      });
+      })
     } finally {
-      setIsLoading(false);
+      setIsLoading(false)
     }
-  };
+  }
   return (
     <>
       {toggleComment && (
-        <div className={styles.comment__box}>
+        <div className="bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-xl p-6 mt-6">
           {comments && comments.length > 0 ? (
-            <ul className={styles.commentlist}>
+            <ul className="space-y-4">
               {comments.map((comment) => (
-                <li className={styles.comment__item} key={comment.userId}>
-                  <div className={styles.user__profile}>
+                <li className="bg-slate-900/50 border border-slate-700 rounded-lg p-4" key={comment.userId}>
+                  <div className="flex items-center gap-3 mb-3">
                     {comment.commentUserImage ? (
                       <Image
-                        src={comment.commentUserImage}
+                        src={comment.commentUserImage || "/placeholder.svg"}
                         alt="userpicture"
-                        width={30}
-                        height={30}
+                        width={32}
+                        height={32}
+                        className="rounded-full"
                       />
                     ) : (
-                      <span className={styles.span}>
+                      <div className="w-8 h-8 bg-slate-700 rounded-full flex items-center justify-center">
                         <svg
+                          className="w-4 h-4 fill-current text-slate-400"
                           xmlns="http://www.w3.org/2000/svg"
                           viewBox="0 0 448 512"
                         >
                           <path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z" />
                         </svg>
-                      </span>
+                      </div>
                     )}
-                    <p className={styles.username}>{comment.username}</p>
+                    <p className="font-medium text-slate-200">{comment.username}</p>
                   </div>
-                  <p className="text-base text-[#444749;] min-h-22 p-2 bg-slate-300">
-                    {more ? comment.content : comment.content.substring(0, 100)}
-                    {comment.content.length > 100 && (
-                      <button type="button" onClick={() => setMore(!more)}>
-                        {more ? "...less" : "...more"}
-                      </button>
-                    )}
-                  </p>
+
+                  <div className="bg-slate-800/70 border border-slate-600 rounded-lg p-3 mb-3">
+                    <p className="text-slate-200 leading-relaxed">
+                      {more ? comment.content : comment.content.substring(0, 100)}
+                      {comment.content.length > 100 && (
+                        <button
+                          type="button"
+                          onClick={() => setMore(!more)}
+                          className="ml-2 text-orange-400 hover:text-orange-300 font-medium transition-colors"
+                        >
+                          {more ? "...less" : "...more"}
+                        </button>
+                      )}
+                    </p>
+                  </div>
+
                   {user && userId?._id === comment.userId && (
-                    <div className="flex gap-[1rem] max-md:gap-2">
+                    <div className="flex gap-3">
                       <MdModeEdit
-                        size={25}
+                        size={20}
                         onClick={() => {
-                          setIsEdit(true);
-                          setEditComment(comment.content);
-                          setEditingCommentId(comment._id);
+                          setIsEdit(true)
+                          setEditComment(comment.content)
+                          setEditingCommentId(comment._id)
                         }}
-                        className="opacity-50 hover:opacity-100 cursor-pointer"
+                        className="text-slate-400 hover:text-orange-400 cursor-pointer transition-colors"
                       />
                       <MdOutlineDelete
-                        size={25}
+                        size={20}
                         onClick={() => removeComment(comment._id)}
-                        className="opacity-50 hover:opacity-70 cursor-pointer hover:fill-[red]"
+                        className="text-slate-400 hover:text-red-400 cursor-pointer transition-colors"
                       />
                     </div>
                   )}
@@ -177,75 +188,77 @@ export const PostComments = ({ postId }: { postId: string }) => {
               ))}
             </ul>
           ) : (
-            "Be the First to Comment"
+            <div className="text-center py-8 text-slate-400">Be the First to Comment</div>
           )}
 
           {!isEdit ? (
-            <div className={styles.comment__inputbox}>
-              <div className={styles.user}>
-                <div className={styles.user__profile}>
-                  <div className={styles.user__image}>
-                    {userId?.imageUrl ? (
-                      <Image
-                        src={userId?.imageUrl}
-                        alt="userpicture"
-                        width={30}
-                        height={30}
-                      />
-                    ) : (
-                      <span className={styles.span}>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 448 512"
-                        >
-                          <path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z" />
-                        </svg>
-                      </span>
-                    )}
-                  </div>
+            <div className="mt-6 space-y-4">
+              <div className="flex items-start gap-3">
+                <div className="flex-shrink-0">
+                  {userId?.imageUrl ? (
+                    <Image
+                      src={userId?.imageUrl || "/placeholder.svg"}
+                      alt="userpicture"
+                      width={32}
+                      height={32}
+                      className="rounded-full"
+                    />
+                  ) : (
+                    <div className="w-8 h-8 bg-slate-700 rounded-full flex items-center justify-center">
+                      <svg
+                        className="w-4 h-4 fill-current text-slate-400"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 448 512"
+                      >
+                        <path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z" />
+                      </svg>
+                    </div>
+                  )}
                 </div>
-              </div>
-              <div className={styles.textbox}>
-                <label>
+
+                <div className="flex-1">
                   <textarea
-                    className={styles.textarea}
+                    className="w-full bg-slate-800/70 border border-slate-600 rounded-lg p-3 text-slate-200 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent resize-none transition-all duration-200"
                     placeholder="What are your thoughts?"
                     value={comment}
                     onChange={(e) => setComment(e.target.value)}
-                  ></textarea>
-                </label>
+                    rows={3}
+                  />
+                </div>
               </div>
-              <div className={styles.btnbox}>
+
+              <div className="flex justify-end gap-3">
                 <button
-                  className={styles.button}
+                  className="px-4 py-2 text-slate-400 hover:text-slate-200 transition-colors"
                   type="button"
                   onClick={() => setToggleComment(!toggleComment)}
                 >
-                  cancel
+                  Cancel
                 </button>
                 <button
-                  className={styles.button}
+                  className="px-6 py-2 bg-orange-500 hover:bg-orange-600 text-white rounded-lg font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                   type="button"
                   onClick={createComment}
+                  disabled={loading}
                 >
-                  comment
+                  {loading ? <LoaderSpinner /> : "Comment"}
                 </button>
               </div>
             </div>
           ) : (
-            <div className={styles.comment__inputbox}>
+            <div className="mt-6 space-y-4">
               <textarea
                 rows={3}
                 value={editComment}
                 placeholder="What are your thoughts?"
                 onChange={(e) => setEditComment(e.target.value)}
-                className={styles.textarea}
-              ></textarea>
-              <div className={styles.btnbox}>
+                className="w-full bg-slate-800/70 border border-slate-600 rounded-lg p-3 text-slate-200 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent resize-none transition-all duration-200"
+              />
+              <div className="flex justify-end gap-3">
                 <button
                   type="button"
                   onClick={() => setIsEdit(false)}
-                  className={styles.button}
+                  className="px-4 py-2 text-slate-400 hover:text-slate-200 transition-colors"
                 >
                   Cancel
                 </button>
@@ -256,16 +269,13 @@ export const PostComments = ({ postId }: { postId: string }) => {
                       handleEdit({
                         _id: editingCommentId,
                         newContent: editComment,
-                      });
+                      })
                     }
                   }}
-                  className={styles.button}
+                  className="px-6 py-2 bg-orange-500 hover:bg-orange-600 text-white rounded-lg font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  disabled={isLoading}
                 >
-                  {!isLoading ? (
-                    <p className="text-primaryBackground">Update</p>
-                  ) : (
-                    <LoaderSpinner />
-                  )}
+                  {!isLoading ? "Update" : <LoaderSpinner />}
                 </button>
               </div>
             </div>
@@ -273,5 +283,5 @@ export const PostComments = ({ postId }: { postId: string }) => {
         </div>
       )}
     </>
-  );
-};
+  )
+}
