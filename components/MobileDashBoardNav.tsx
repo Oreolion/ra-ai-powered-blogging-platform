@@ -64,7 +64,7 @@ const MobileDashBoardNav = () => {
       {toggle && (
         <>
           <nav
-            className="fixed top-0 left-0 h-full w-64 bg-slate-900/95 backdrop-blur-sm border-r border-slate-700 z-50 md:hidden"
+            className="fixed top-0 left-0 h-full w-60 bg-slate-900/95 backdrop-blur-sm border-r border-slate-700 z-50 md:hidden"
             ref={myRef}
           >
             <div className="p-4 border-b border-slate-700">
@@ -190,8 +190,8 @@ const MobileDashBoardNav = () => {
                 width={90}
               />
             </Link>
-            <div className="flex flex-col gap-6 justify-between">
-              <div className="flex justify-between gap-8 mt-4 items-center">
+            <div className="flex flex-col justify-between">
+              <div className="flex justify-between gap-4 mt-4 items-center pl-12">
                 <div className="flex items-center gap-4">
                   {!toggle ? (
                     <svg

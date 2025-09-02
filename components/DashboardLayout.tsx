@@ -16,7 +16,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
       <main
         className={`flex-grow transition-all duration-300 ease-in-out ${
           showNav
-            ? "md:ml-[16rem]"
+            ? "md:ml-[15rem]"
             : "md:ml-24"
         } max-md:ml-0`}
       >
