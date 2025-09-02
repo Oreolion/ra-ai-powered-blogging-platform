@@ -9,17 +9,14 @@ import { navbarLinks } from "@/constants";
 import SVGIcon from "@/components/SVGIcon";
 import slugify from "slugify";
 import Image from "next/image";
-
 const MobileDashBoardNav = () => {
   const [toggle, setToggle] = useState<boolean>(false);
   const [dropDown, setDropDown] = useState<boolean>(false);
   const [dropDownList, setDropDownList] = useState(true);
-
   const { signOut } = useClerk();
   const { user } = useUser();
   const pathname = usePathname();
   const myRef = useRef(null);
-
   const router = useRouter();
   function toggleMenu() {
     setToggle(!toggle);
@@ -27,16 +24,13 @@ const MobileDashBoardNav = () => {
   function toggleDropDownList() {
     setDropDownList(!dropDownList);
   }
-
   useEffect(() => {
     const handleScroll = () => {
       // @ts-ignore
       myRef?.current?.classList.remove("active");
       setToggle(false);
     };
-
     window.addEventListener("scroll", handleScroll);
-
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
@@ -55,22 +49,18 @@ const MobileDashBoardNav = () => {
     "Self Development",
     "Others",
   ];
-
   const createSlug = (category: string) => {
     return slugify(category, { lower: true, strict: true });
   };
-
   const isLinkActive = (href: string) => {
     return pathname === href || pathname.startsWith(href);
   };
-
   const toggleDropDown = () => {
     setDropDown(!dropDown);
   };
-
   return (
     <>
-      {/*  mobile dashboard navbar  */}
+      {/* mobile dashboard navbar */}
       {toggle && (
         <>
           <nav
@@ -87,7 +77,6 @@ const MobileDashBoardNav = () => {
                 />
               </Link>
             </div>
-
             <div className="p-4 space-y-6 overflow-y-auto h-full pb-20">
               <div>
                 <h5 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">
@@ -112,7 +101,6 @@ const MobileDashBoardNav = () => {
                   })}
                 </div>
               </div>
-
               <div>
                 <h5 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">
                   Personal
@@ -131,7 +119,6 @@ const MobileDashBoardNav = () => {
                     </svg>
                     <span>My Profile</span>
                   </Link>
-
                   <div className="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-300 hover:text-red-400 hover:bg-slate-800 transition-colors cursor-pointer">
                     <svg
                       className="w-5 h-5 fill-current"
@@ -150,14 +137,15 @@ const MobileDashBoardNav = () => {
                   </div>
                 </div>
               </div>
-
               <div>
                 <div className="flex items-center justify-between mb-3">
                   <h5 className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
                     Trending Tags
                   </h5>
                   <svg
-                    className={`w-4 h-4 fill-current text-slate-400 cursor-pointer transition-transform ${dropDownList ? "rotate-180" : ""}`}
+                    className={`w-4 h-4 fill-current text-slate-400 cursor-pointer transition-transform ${
+                      dropDownList ? "rotate-180" : ""
+                    }`}
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 512 512"
                     onClick={toggleDropDownList}
@@ -165,7 +153,6 @@ const MobileDashBoardNav = () => {
                     <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z" />
                   </svg>
                 </div>
-
                 {dropDownList && (
                   <div className="space-y-1">
                     {postCategories.map((category) => {
@@ -191,9 +178,8 @@ const MobileDashBoardNav = () => {
           </nav>
         </>
       )}
-
       <main className="md:fixed md:top-0 md:left-0 md:right-0">
-        {/*  header  */}
+        {/* header */}
         <header className="fixed top-0 left-0 right-0 z-40 bg-slate-900/95 backdrop-blur-sm border-b border-slate-700 p-4 md:px-10">
           <div className="flex items-center justify-between">
             <Link href="/dashboard" className="block md:ml-12">
@@ -204,57 +190,56 @@ const MobileDashBoardNav = () => {
                 width={90}
               />
             </Link>
-
-            <div className="flex items-center">
-              <div className="flex items-center gap-2">
-                {!toggle ? (
+            <div className="flex flex-col gap-6 justify-between">
+              <div className="flex justify-between gap-8 mt-4 items-center">
+                <div className="flex items-center gap-4">
+                  {!toggle ? (
+                    <svg
+                      onClick={toggleMenu}
+                      className="w-6 h-6 fill-current text-slate-400 hover:text-white cursor-pointer transition-colors md:hidden"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 448 512"
+                    >
+                      <path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z" />
+                    </svg>
+                  ) : (
+                    <svg
+                      className="w-6 h-6 fill-current text-slate-400 hover:text-white cursor-pointer transition-colors md:hidden"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 384 512"
+                      onClick={toggleMenu}
+                    >
+                      <path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z" />
+                    </svg>
+                  )}
+                </div>
+                <div className="flex items-center gap-16 justify-between">
                   <svg
-                    onClick={toggleMenu}
-                    className="w-6 h-6 fill-current text-slate-400 hover:text-white cursor-pointer transition-colors md:hidden"
+                    className="w-6 h-6 fill-current text-slate-400 hover:text-white cursor-pointer transition-colors "
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 448 512"
+                    onClick={toggleDropDown}
                   >
-                    <path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z" />
+                    <title>Notifications</title>
+                    <path d="M224 0c-17.7 0-32 14.3-32 32V51.2C119 66 64 130.6 64 208v18.8c0 47-17.3 92.4-48.5 127.6l-7.4 8.3c-8.4 9.4-10.4 22.9-5.3 34.4S19.4 416 32 416H416c12.6 0 24-7.4 29.2-18.9s3.1-25-5.3-34.4l-7.4-8.3C401.3 319.2 384 273.9 384 226.8V208c0-77.4-55-142-128-156.8V32c0-17.7-14.3-32-32-32zm45.3 493.3c12-12 18.7-28.3 18.7-45.3H224 160c0 17 6.7 33.3 18.7 45.3s28.3 18.7 45.3 18.7s33.3-6.7 45.3-18.7z" />
                   </svg>
-                ) : (
-                  <svg
-                    className="w-6 h-6 fill-current text-slate-400 hover:text-white cursor-pointer transition-colors md:hidden"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 384 512"
-                    onClick={toggleMenu}
-                  >
-                    <path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z" />
-                  </svg>
-                )}
-
-              </div>
-                <svg
-                  className="w-8 h-8 fill-current text-slate-400 hover:text-white cursor-pointer transition-colors md:mr-8"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 448 512"
-                  onClick={toggleDropDown}
-                >
-                  <title>Notifications</title>
-                  <path d="M224 0c-17.7 0-32 14.3-32 32V51.2C119 66 64 130.6 64 208v18.8c0 47-17.3 92.4-48.5 127.6l-7.4 8.3c-8.4 9.4-10.4 22.9-5.3 34.4S19.4 416 32 416H416c12.6 0 24-7.4 29.2-18.9s3.1-25-5.3-34.4l-7.4-8.3C401.3 319.2 384 273.9 384 226.8V208c0-77.4-55-142-128-156.8V32c0-17.7-14.3-32-32-32zm45.3 493.3c12-12 18.7-28.3 18.7-45.3H224 160c0 17 6.7 33.3 18.7 45.3s28.3 18.7 45.3 18.7s33.3-6.7 45.3-18.7z" />
-                </svg>
-
-              <div className="w-10 h-10 items-center md:mt-8 md:w-16 md:h-16">
-                <UserButton />
-              </div>
-            </div>
-
-            {dropDown && (
-              <div className="absolute top-full right-4 mt-2 w-64 bg-slate-800 border border-slate-700 rounded-lg p-4 shadow-lg">
-                <div className="text-slate-300">
-                  You currently have no Notification.
+                  <div className="w-10 h-10 items-center mt-4 justify-center md:w-16 md:h-16">
+                    <UserButton />
+                  </div>
                 </div>
               </div>
-            )}
+              {dropDown && (
+                <div className="absolute top-full right-4 mt-2 w-64 bg-slate-800 border border-slate-700 rounded-lg p-4 shadow-lg">
+                  <div className="text-slate-300">
+                    You currently have no Notification.
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         </header>
       </main>
     </>
   );
 };
-
 export default MobileDashBoardNav;

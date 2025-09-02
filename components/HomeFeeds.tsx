@@ -3,11 +3,12 @@ import { useEffect, useState } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
-import Loader from "./Loader"
+// import Loader from "./Loader"
 import HomeCard from "./HomeCard"
 import EmptyStates from "@/components/EmptyStates"
 import dynamic from "next/dynamic"
 import { Plus } from "lucide-react"
+import SkeletonLoader from "./SkeletonLoader";
 
 const SearchBar = dynamic(() => import("@/components/SearchBar"), { ssr: false })
 
@@ -67,7 +68,7 @@ const HomeFeeds = () => {
 
         <div className="space-y-8">
           {isLoading ? (
-            <Loader />
+            <SkeletonLoader />
           ) : displayPosts && displayPosts.length > 0 ? (
             displayPosts.map(
               ({
