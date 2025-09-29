@@ -255,7 +255,7 @@ const PostDetails = ({
   )
 
   return (
-    <section className="ml-[7rem] mt-[9rem] max-md:ml-[0rem]">
+    <section className="ml-[3rem] mt-[9rem] max-md:ml-[0rem]">
       <article className={`${styles.post} ${styles.postdetails}`}>
         {/* Post Header */}
         <div className={styles.user__profile}>
