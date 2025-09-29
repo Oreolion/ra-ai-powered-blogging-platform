@@ -1,37 +1,68 @@
 "use client"
 import { useEffect, useState } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
-import { useQuery } from "convex/react";
-import { api } from "@/convex/_generated/api";
-// import Loader from "./Loader"
+import { useQuery } from "convex/react"
+import { api } from "@/convex/_generated/api"
 import HomeCard from "./HomeCard"
 import EmptyStates from "@/components/EmptyStates"
 import dynamic from "next/dynamic"
 import { Plus } from "lucide-react"
-import SkeletonLoader from "./SkeletonLoader";
+import Pagination from "./Pagination"
+import SkeletonLoader from "./SkeletonLoader"
 
 const SearchBar = dynamic(() => import("@/components/SearchBar"), { ssr: false })
 
 const HomeFeeds = () => {
   const [isLoading, setIsLoading] = useState(true)
+  const [currentPage, setCurrentPage] = useState(1)
+  const [postsPerPage] = useState(10)
+
   const router = useRouter()
   const searchParams = useSearchParams()
   const search = searchParams.get("search") || ""
 
-  const posts = useQuery(api.posts.getAllPosts)
-  const searchData = useQuery(api.posts.getPostBySearch, { search })
+  const postsData = useQuery(api.posts.getAllPostsPaginated, {
+    page: currentPage,
+    limit: postsPerPage,
+  })
+  const searchData = useQuery(api.posts.getPostBySearchPaginated, {
+    search,
+    page: currentPage,
+    limit: postsPerPage,
+  })
 
-  useEffect(() => {
-    if (posts !== undefined && searchData !== undefined) {
+useEffect(() => {
+    // Set loading to true whenever the page or search changes
+    setIsLoading(true)
+    if (postsData !== undefined && searchData !== undefined) {
       setIsLoading(false)
     }
-  }, [posts, searchData])
+  }, [postsData, searchData, currentPage, search])
+
+  useEffect(() => {
+    setCurrentPage(1)
+  }, [search])
 
   const handleTogglePostInput = () => {
     router.push("/create-post")
   }
 
-  const displayPosts = search ? searchData : posts
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page)
+    window.scrollTo({ top: 0, behavior: "smooth" })
+  }
+
+  const currentData = search ? searchData : postsData
+  const displayPosts = currentData?.posts || []
+  const paginationInfo = currentData
+    ? {
+        currentPage: currentData.currentPage,
+        totalPages: currentData.totalPages,
+        hasNextPage: currentData.hasNextPage,
+        hasPrevPage: currentData.hasPrevPage,
+        totalPosts: currentData.totalPosts,
+      }
+    : null
 
   return (
     <>
@@ -41,7 +72,12 @@ const HomeFeeds = () => {
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 p-6 bg-slate-800/30 backdrop-blur-sm rounded-2xl border border-slate-700/50 shadow-xl">
             <div className="space-y-2">
               <h1 className="text-3xl font-bold text-white tracking-wide">FEEDS</h1>
-              <p className="text-slate-300 text-lg max-w-md">Explore different contents you will love</p>
+              <p className="text-slate-300 text-lg max-w-md">
+                Explore different contents you will love
+                {/* {paginationInfo && (
+                  <span className="block text-sm text-slate-400 mt-1">{paginationInfo.totalPosts} posts total</span>
+                )} */}
+              </p>
             </div>
             <button
               onClick={handleTogglePostInput}
@@ -105,9 +141,19 @@ const HomeFeeds = () => {
             <EmptyStates title="No results found" />
           )}
         </div>
+
+        {paginationInfo && paginationInfo.totalPages > 1 && (
+          <Pagination
+            currentPage={paginationInfo.currentPage}
+            totalPages={paginationInfo.totalPages}
+            onPageChange={handlePageChange}
+            hasNextPage={paginationInfo.hasNextPage}
+            hasPrevPage={paginationInfo.hasPrevPage}
+          />
+        )}
       </div>
     </>
   )
 }
 
-export default HomeFeeds;
+export default HomeFeeds

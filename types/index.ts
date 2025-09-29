@@ -98,6 +98,7 @@ export interface PostCardProps {
   authorId: string;
   imageStorageId: string;
   audioStorageId: string | null;
+  shouldNavigate?: boolean
 }
 
 export interface ProfilePostProps {

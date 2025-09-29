@@ -13,11 +13,13 @@ const openai = new OpenAI({
 });
 
 const getStartOfDay = () => {
-    const now = new Date();
-    return new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()))
-      .toISOString()
-      .split('T')[0];
-  };
+  const now = new Date();
+  return new Date(
+    Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate())
+  )
+    .toISOString()
+    .split("T")[0];
+};
 
 export const generatePostAction = action({
   args: { prompt: v.string() },
@@ -116,8 +118,12 @@ export const generateThumbnailAction = action({
         n: 1,
         response_format: "url",
       });
+      if (!response.data || !response.data[0]?.url) {
+        throw new Error("Error generating thumbnail: No image URL returned");
+      }
 
       const url = response.data[0].url;
+      
       if (!url) throw new Error("Error generating thumbnail");
 
       const imageResponse = await fetch(url);
@@ -154,7 +160,6 @@ export const summarizePostAction = action({
       {
         userId: userId,
         day: currentDay,
-
       }
     );
 

@@ -317,7 +317,7 @@ const DashboardNav = ({
               </div>
             </div>
             {/* Toggle button inside expanded nav */}
-            <div className="absolute top-4 right-4">
+            <div className="absolute top-4 right-4 z-50">
               <button
                 type="button"
                 onClick={handleShowNavbar}
@@ -325,11 +325,11 @@ const DashboardNav = ({
                 title="Collapse Navigation"
               >
                 <svg
-                  className="w-4 h-4 fill-current"
+                  className="w-6 h-6 fill-current"
                   xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 320 512"
+                  viewBox="0 0 448 512"
                 >
-                  <path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z" />
+                  <path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z" />
                 </svg>
               </button>
             </div>

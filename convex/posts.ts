@@ -169,6 +169,65 @@ export const getAllPosts = query({
   },
 });
 
+export const getAllPostsPaginated = query({
+  args: {
+    page: v.number(),
+    limit: v.optional(v.number()),
+  },
+  handler: async (ctx, { page, limit = 10 }) => {
+    const offset = (page - 1) * limit
+
+    const posts = await ctx.db.query("posts").order("desc").collect()
+
+    const totalPosts = posts.length
+    const paginatedPosts = posts.slice(offset, offset + limit)
+
+    return {
+      posts: paginatedPosts,
+      totalPosts,
+      currentPage: page,
+      totalPages: Math.ceil(totalPosts / limit),
+      hasNextPage: page < Math.ceil(totalPosts / limit),
+      hasPrevPage: page > 1,
+    }
+  },
+})
+
+
+export const getPostBySearchPaginated = query({
+  args: {
+    search: v.string(),
+    page: v.number(),
+    limit: v.optional(v.number()),
+  },
+  handler: async (ctx, { search, page, limit = 10 }) => {
+    const offset = (page - 1) * limit
+
+    const allPosts = await ctx.db.query("posts").order("desc").collect()
+
+    const filteredPosts = allPosts.filter(
+      (post) =>
+        post.postTitle.toLowerCase().includes(search.toLowerCase()) ||
+        post.postDescription.toLowerCase().includes(search.toLowerCase()) ||
+        post.postCategory.toLowerCase().includes(search.toLowerCase()) ||
+        post.author.toLowerCase().includes(search.toLowerCase()),
+    )
+
+    const totalPosts = filteredPosts.length
+    const paginatedPosts = filteredPosts.slice(offset, offset + limit)
+
+    return {
+      posts: paginatedPosts,
+      totalPosts,
+      currentPage: page,
+      totalPages: Math.ceil(totalPosts / limit),
+      hasNextPage: page < Math.ceil(totalPosts / limit),
+      hasPrevPage: page > 1,
+    }
+  },
+})
+
+
 // this query will get the post by the postId.
 export const getPostById = query({
   args: {
