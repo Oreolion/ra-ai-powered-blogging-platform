@@ -33,7 +33,7 @@ const SimilarPostByCategory = ({
   if (!filteredPosts) return <LoaderSpinner />;
 
   return (
-    <section className="flex flex-col gap-5 ml-[9rem] mt-[9rem] max-md:ml-[0]">
+    <section className="flex flex-col gap-5 ml-[4rem] mt-[9rem] max-md:ml-[0]">
       <h1 className="text-[1.8rem] font-bold text-gray-200 max-sm:text-[1.3rem]">Posts in {originalCategory}</h1>
       {filteredPosts && filteredPosts.length > 0 ? (
         <div className="">

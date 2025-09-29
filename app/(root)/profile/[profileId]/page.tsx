@@ -23,7 +23,7 @@ const ProfilePage = ({
   if (!user || !postsData) return <LoaderSpinner />;
 
   return (
-    <section className="mt-[6rem] flex flex-col ml-[9rem] max-md:ml-[0]">
+    <section className="mt-[6rem] flex flex-col ml-[4rem] max-md:ml-[0]">
       {/* <h1 className="text-24 font-bold text-gray-200 mb-4 max-md:text-center">
         Your Profile
       </h1> */}
