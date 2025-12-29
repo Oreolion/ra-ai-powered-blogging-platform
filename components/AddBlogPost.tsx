@@ -26,7 +26,7 @@ import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
-import { Loader } from "lucide-react";
+import { Loader, X } from "lucide-react"; // Added X icon for removing tags
 import { Id } from "@/convex/_generated/dataModel";
 import { useToast } from "@/components/ui/use-toast";
 import { useMutation } from "convex/react";
@@ -50,7 +50,10 @@ export default function AddBlogPost() {
   const [imageStorageId, setImageStorageId] = useState<Id<"_storage"> | null>(
     null
   );
-  const [postCategory, setPostCategory] = useState<string | null>(null);
+  
+  // CHANGED: Managing categories as an array in state for the UI
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+
   const [postContent, setPostContent] = useState("");
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const { toast } = useToast();
@@ -66,11 +69,27 @@ export default function AddBlogPost() {
     },
   });
 
+  // Helper: Add category to list
+  const handleCategoryChange = (value: string) => {
+    if (!selectedCategories.includes(value)) {
+      setSelectedCategories((prev) => [...prev, value]);
+    }
+  };
+
+  // Helper: Remove category from list
+  const removeCategory = (categoryToRemove: string) => {
+    setSelectedCategories((prev) =>
+      prev.filter((category) => category !== categoryToRemove)
+    );
+  };
+
   // 2. Define a submit handler.
   async function onSubmit(data: z.infer<typeof formSchema>) {
     try {
       setIsSubmitting(true);
-      if (!postContent || !imageUrl || !postCategory) {
+      
+      // Validation: Check if array has items
+      if (!postContent || !imageUrl || selectedCategories.length === 0) {
         toast({
           title: "Please Create Post",
           variant: "destructive",
@@ -83,7 +102,8 @@ export default function AddBlogPost() {
         postTitle: data.postTitle,
         postDescription: data.postDescription,
         postContent,
-        postCategory,
+        // CHANGED: Convert array to string (e.g. "Tech, AI") to match DB string schema
+        postCategory: selectedCategories.join(", "), 
         imageUrl,
         imagePrompt,
         views: 0,
@@ -120,6 +140,7 @@ export default function AddBlogPost() {
     "Self Development",
     "Others",
   ];
+
   return (
     <section className={styles.bloginput__box}>
       <h1 className="text-3xl font-bold text-gray-200 max-sm:text-2xl">
@@ -152,11 +173,29 @@ export default function AddBlogPost() {
                 </FormItem>
               )}
             />
+            
             <div className="flex flex-col gap-2.5">
               <Label className="text-16 font-bold text-gray-200">
                 Select Post Category
               </Label>
-              <Select onValueChange={(value) => setPostCategory(value)}>
+              
+              {/* Display Selected Categories */}
+              {selectedCategories.length > 0 && (
+                <div className="flex flex-wrap gap-2 mb-2">
+                    {selectedCategories.map((category) => (
+                        <div key={category} data-testid={`category-chip-${category}`} className="flex items-center gap-2 bg-black-1 border border-orange-1/50 px-3 py-1 rounded-full text-xs text-gray-1">
+                            {category}
+                            <X 
+                                className="w-3 h-3 cursor-pointer hover:text-orange-1" 
+                                onClick={() => removeCategory(category)}
+                            />
+                        </div>
+                    ))}
+                </div>
+              )}
+
+              {/* Select Dropdown acting as an 'Adder' */}
+              <Select onValueChange={(value) => handleCategoryChange(value)}>
                 <SelectTrigger
                   className={cn(
                     "text-16 w-full border-none bg-black-1 text-gray-1 focus-visible:ring-offset-orange-1"
@@ -182,6 +221,7 @@ export default function AddBlogPost() {
                 </SelectContent>
               </Select>
             </div>
+
             <FormField
               control={form.control}
               name="postDescription"
