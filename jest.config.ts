@@ -19,6 +19,9 @@ const config: Config = {
     "^react-dom/client$": "<rootDir>/node_modules/react-dom/client",
     "^next/image$": "<rootDir>/__mocks__/next-image.js",
     "^@/components/(.*)$": "<rootDir>/components/$1",
+    '^@/(.*)$': '<rootDir>/src/$1',
+    // 1. Fix for Convex: Look in root folder, NOT src
+    '^@/convex/(.*)$': '<rootDir>/convex/$1',
   },
 };
 

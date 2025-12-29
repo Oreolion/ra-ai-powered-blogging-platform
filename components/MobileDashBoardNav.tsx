@@ -1,5 +1,4 @@
 "use client";
-// import Image from "next/image";
 import Link from "next/link";
 import { SignedIn, UserButton, useUser, useClerk } from "@clerk/nextjs";
 import { useEffect, useRef, useState } from "react";
@@ -9,6 +8,7 @@ import { navbarLinks } from "@/constants";
 import SVGIcon from "@/components/SVGIcon";
 import slugify from "slugify";
 import Image from "next/image";
+
 const MobileDashBoardNav = () => {
   const [toggle, setToggle] = useState<boolean>(false);
   const [dropDown, setDropDown] = useState<boolean>(false);
@@ -16,14 +16,17 @@ const MobileDashBoardNav = () => {
   const { signOut } = useClerk();
   const { user } = useUser();
   const pathname = usePathname();
-  const myRef = useRef(null);
+  const myRef = useRef<HTMLElement>(null); // Fixed type for TS
   const router = useRouter();
+
   function toggleMenu() {
     setToggle(!toggle);
   }
+
   function toggleDropDownList() {
     setDropDownList(!dropDownList);
   }
+
   useEffect(() => {
     const handleScroll = () => {
       // @ts-ignore
@@ -35,120 +38,101 @@ const MobileDashBoardNav = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
   const postCategories: postCategory[] = [
-    "Technology",
-    "Metaphysics & Esoterics",
-    "Science",
-    "World News",
-    "Africa",
-    "Programming",
-    "Politics",
-    "Machine Learning",
-    "Artificial Intelligence",
-    "Economics & Finance",
-    "Self Development",
-    "Others",
+    "Technology", "Metaphysics & Esoterics", "Science", "World News", "Africa",
+    "Programming", "Politics", "Machine Learning", "Artificial Intelligence",
+    "Economics & Finance", "Self Development", "Others",
   ];
+
   const createSlug = (category: string) => {
     return slugify(category, { lower: true, strict: true });
   };
+
   const isLinkActive = (href: string) => {
     return pathname === href || pathname.startsWith(href);
   };
+
   const toggleDropDown = () => {
     setDropDown(!dropDown);
   };
+
   return (
     <>
-      {/* mobile dashboard navbar */}
+      {/* Mobile Drawer Navigation */}
       {toggle && (
-        <>
-          <nav
-            className="fixed top-0 left-0 h-full w-60 bg-slate-900/95 backdrop-blur-sm border-r border-slate-700 z-50 md:hidden"
-            ref={myRef}
-          >
-            <div className="p-4 border-b border-slate-700">
-              <Link href="/dashboard" className="block">
-                <Image
-                  src="/images/logo.webp"
-                  alt="logo"
-                  height={10}
-                  width={100}
-                />
-              </Link>
-            </div>
-            <div className="p-4 space-y-6 overflow-y-auto h-full pb-20">
-              <div>
-                <h5 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">
-                  Overview
-                </h5>
-                <div className="space-y-1">
-                  {navbarLinks.map((item) => {
-                    return (
-                      <Link
-                        key={item.label}
-                        href={item.route}
-                        className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-colors ${
-                          isLinkActive(`${item.route}`)
-                            ? "bg-orange-500/20 text-orange-400 border border-orange-500/30"
-                            : "text-slate-300 hover:text-white hover:bg-slate-800"
-                        }`}
-                      >
-                        <SVGIcon svgString={item.svg} />
-                        <span>{item.label}</span>
-                      </Link>
-                    );
-                  })}
-                </div>
+        <nav
+          className="fixed top-0 left-0 h-full w-64 bg-slate-900/95 backdrop-blur-sm border-r border-slate-700 z-50 md:hidden transition-transform duration-300"
+          ref={myRef}
+        >
+          <div className="p-4 border-b border-slate-700 flex justify-between items-center">
+            <Link href="/dashboard" className="block">
+              <Image
+                src="/images/logo.webp"
+                alt="logo"
+                height={10}
+                width={100}
+              />
+            </Link>
+            {/* Close button inside drawer */}
+            <svg
+              className="w-6 h-6 fill-current text-slate-400 hover:text-white cursor-pointer"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 384 512"
+              onClick={toggleMenu}
+            >
+              <path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z" />
+            </svg>
+          </div>
+          
+          <div className="p-4 space-y-6 overflow-y-auto h-[calc(100%-60px)] pb-20">
+            {/* ... (Existing Drawer Links Code remains unchanged) ... */}
+            <div>
+              <h5 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">Overview</h5>
+              <div className="space-y-1">
+                {navbarLinks.map((item) => (
+                  <Link
+                    key={item.label}
+                    href={item.route}
+                    className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-colors ${
+                      isLinkActive(`${item.route}`)
+                        ? "bg-orange-500/20 text-orange-400 border border-orange-500/30"
+                        : "text-slate-300 hover:text-white hover:bg-slate-800"
+                    }`}
+                  >
+                    <SVGIcon svgString={item.svg} />
+                    <span>{item.label}</span>
+                  </Link>
+                ))}
               </div>
-              <div>
-                <h5 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">
-                  Personal
-                </h5>
-                <div className="space-y-1">
+            </div>
+            
+             {/* ... (Rest of your sidebar links logic) ... */}
+            <div>
+               <h5 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">Personal</h5>
+               <div className="space-y-1">
                   <Link
                     className="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800 transition-colors"
                     href={`/profile/${user?.id}`}
                   >
-                    <svg
-                      className="w-5 h-5 fill-current"
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 448 512"
-                    >
-                      <path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z" />
-                    </svg>
+                    <svg className="w-5 h-5 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/></svg>
                     <span>My Profile</span>
                   </Link>
                   <div className="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-300 hover:text-red-400 hover:bg-slate-800 transition-colors cursor-pointer">
-                    <svg
-                      className="w-5 h-5 fill-current"
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 512 512"
-                    >
-                      <path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z" />
-                    </svg>
+                    <svg className="w-5 h-5 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"/></svg>
                     <SignedIn>
-                      <span
-                        onClick={() => signOut(() => router.push("/sign-in"))}
-                      >
-                        Log Out
-                      </span>
+                      <span onClick={() => signOut(() => router.push("/sign-in"))}>Log Out</span>
                     </SignedIn>
                   </div>
-                </div>
-              </div>
-              <div>
+               </div>
+            </div>
+
+            <div>
                 <div className="flex items-center justify-between mb-3">
-                  <h5 className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
-                    Trending Tags
-                  </h5>
+                  <h5 className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Trending Tags</h5>
                   <svg
-                    className={`w-4 h-4 fill-current text-slate-400 cursor-pointer transition-transform ${
-                      dropDownList ? "rotate-180" : ""
-                    }`}
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 512 512"
-                    onClick={toggleDropDownList}
+                    className={`w-4 h-4 fill-current text-slate-400 cursor-pointer transition-transform ${dropDownList ? "rotate-180" : ""}`}
+                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" onClick={toggleDropDownList}
                   >
                     <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z" />
                   </svg>
@@ -162,9 +146,7 @@ const MobileDashBoardNav = () => {
                           key={category}
                           href={`/filter-posts/${slug}`}
                           className={`block px-3 py-2 rounded-lg text-sm transition-colors ${
-                            isLinkActive(`/filter-posts/${slug}`)
-                              ? "bg-orange-500/20 text-orange-400 border border-orange-500/30"
-                              : "text-slate-300 hover:text-white hover:bg-slate-800"
+                            isLinkActive(`/filter-posts/${slug}`) ? "bg-orange-500/20 text-orange-400 border border-orange-500/30" : "text-slate-300 hover:text-white hover:bg-slate-800"
                           }`}
                         >
                           {category}
@@ -173,74 +155,80 @@ const MobileDashBoardNav = () => {
                     })}
                   </div>
                 )}
-              </div>
             </div>
-          </nav>
-        </>
+          </div>
+        </nav>
       )}
+
       <main className="md:fixed md:top-0 md:left-0 md:right-0">
-        {/* header */}
-        <header className="fixed top-0 left-0 right-0 z-40 bg-slate-900/95 backdrop-blur-sm border-b border-slate-700 p-4 md:px-10">
-          <div className="flex items-center justify-between">
+        <header className="fixed top-0 left-0 right-0 z-40 bg-slate-900/95 backdrop-blur-sm border-b border-slate-700 h-22 px-4 md:px-10">
+          <div className="flex items-center justify-between h-full w-full">
+            
+            {/* 1. Left: Logo */}
             <Link href="/dashboard" className="block md:ml-12">
               <Image
                 src="/images/logo.webp"
                 alt="logo"
                 height={10}
                 width={90}
+                className="object-contain"
               />
             </Link>
-            <div className="flex flex-col justify-between">
-              <div className="flex justify-between gap-4 mt-4 items-center pl-12">
-                <div className="flex items-center gap-4">
-                  {!toggle ? (
-                    <svg
-                      onClick={toggleMenu}
-                      className="w-6 h-6 fill-current text-slate-400 hover:text-white cursor-pointer transition-colors md:hidden"
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 448 512"
-                    >
-                      <path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z" />
-                    </svg>
-                  ) : (
-                    <svg
-                      className="w-6 h-6 fill-current text-slate-400 hover:text-white cursor-pointer transition-colors md:hidden"
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 384 512"
-                      onClick={toggleMenu}
-                    >
-                      <path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z" />
-                    </svg>
-                  )}
-                </div>
-                <div className="flex items-center gap-16 justify-between">
-                  <svg
-                    className="w-6 h-6 fill-current text-slate-400 hover:text-white cursor-pointer transition-colors "
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 448 512"
-                    onClick={toggleDropDown}
-                  >
-                    <title>Notifications</title>
-                    <path d="M224 0c-17.7 0-32 14.3-32 32V51.2C119 66 64 130.6 64 208v18.8c0 47-17.3 92.4-48.5 127.6l-7.4 8.3c-8.4 9.4-10.4 22.9-5.3 34.4S19.4 416 32 416H416c12.6 0 24-7.4 29.2-18.9s3.1-25-5.3-34.4l-7.4-8.3C401.3 319.2 384 273.9 384 226.8V208c0-77.4-55-142-128-156.8V32c0-17.7-14.3-32-32-32zm45.3 493.3c12-12 18.7-28.3 18.7-45.3H224 160c0 17 6.7 33.3 18.7 45.3s28.3 18.7 45.3 18.7s33.3-6.7 45.3-18.7z" />
-                  </svg>
-                  <div className="w-10 h-10 items-center mt-4 justify-center md:w-16 md:h-16">
-                    <UserButton
-                      appearance={{
-                        elements: {
-                          avatarBox: "w-12 h-12",
-                        },
-                      }}
-                    />
-                  </div>
-                </div>
-              </div>
+
+            {/* 2. Right: Icons & Toggle */}
+            <div className="flex items-center gap-4 relative">
+              
+              {/* Notification Bell */}
+              <button 
+                className="relative p-1 text-slate-400 hover:text-white transition-colors"
+                onClick={toggleDropDown}
+              >
+                 <svg className="w-6 h-6 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><title>Notifications</title><path d="M224 0c-17.7 0-32 14.3-32 32V51.2C119 66 64 130.6 64 208v18.8c0 47-17.3 92.4-48.5 127.6l-7.4 8.3c-8.4 9.4-10.4 22.9-5.3 34.4S19.4 416 32 416H416c12.6 0 24-7.4 29.2-18.9s3.1-25-5.3-34.4l-7.4-8.3C401.3 319.2 384 273.9 384 226.8V208c0-77.4-55-142-128-156.8V32c0-17.7-14.3-32-32-32zm45.3 493.3c12-12 18.7-28.3 18.7-45.3H224 160c0 17 6.7 33.3 18.7 45.3s28.3 18.7 45.3 18.7s33.3-6.7 45.3-18.7z" /></svg>
+              </button>
+
+              {/* Notification Dropdown (Positioned relative to right container) */}
               {dropDown && (
-                <div className="absolute top-full right-4 mt-2 w-64 bg-slate-800 border border-slate-700 rounded-lg p-4 shadow-lg">
-                  <div className="text-slate-300">
-                    You currently have no Notification.
+                <div className="absolute top-12 right-0 w-64 bg-slate-800 border border-slate-700 rounded-lg p-4 shadow-xl z-50">
+                  <div className="text-slate-300 text-sm">
+                    You currently have no Notifications.
                   </div>
                 </div>
               )}
+
+              {/* User Avatar */}
+              <div className="flex items-center justify-center">
+                <UserButton
+                  appearance={{
+                    elements: {
+                      avatarBox: "w-8 h-8 md:w-10 md:h-10", // Adjusted size for mobile/desktop
+                    },
+                  }}
+                />
+              </div>
+
+              {/* Hamburger Toggle (Visible only on mobile) */}
+              <div className="md:hidden flex items-center">
+                {!toggle ? (
+                  <svg
+                    onClick={toggleMenu}
+                    className="w-6 h-6 fill-current text-slate-400 hover:text-white cursor-pointer transition-colors"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 448 512"
+                  >
+                    <path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z" />
+                  </svg>
+                ) : (
+                  <svg
+                    className="w-6 h-6 fill-current text-slate-400 hover:text-white cursor-pointer transition-colors"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 384 512"
+                    onClick={toggleMenu}
+                  >
+                    <path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z" />
+                  </svg>
+                )}
+              </div>
+
             </div>
           </div>
         </header>

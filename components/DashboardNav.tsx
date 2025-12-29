@@ -6,7 +6,7 @@ import { usePathname, useRouter } from "next/navigation";
 import type { postCategory } from "@/types";
 import Image from "next/image";
 import slugify from "slugify";
-import { LogOut, LogOutIcon } from "lucide-react";
+import {  LogOutIcon } from "lucide-react";
 const DashboardNav = ({
   onNavToggle,
 }: {
