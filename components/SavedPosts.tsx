@@ -7,6 +7,7 @@ import HomeCard from "@/components/HomeCard"
 import SearchBar from "@/components/SearchBar"
 import Link from "next/link"
 import { Button } from "./ui/button"
+import type { Id } from "@/convex/_generated/dataModel"
 
 export default function SavedPost() {
   const { user } = useUser()
@@ -88,7 +89,7 @@ export default function SavedPost() {
                           description={postDescription}
                           category={postCategory}
                           content={postContent}
-                          postId={postId}
+                          postId={postId as Id<"posts">}
                           views={views}
                           likes={likes}
                           author={author}

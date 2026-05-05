@@ -3,7 +3,7 @@ import { Share2 } from "lucide-react";
 
 
 interface ShareProps {
-  onOpenModal: () => void;
+  onOpenModal?: () => void;
 }
 
 export const Share: React.FC<ShareProps> = ({ onOpenModal }) => {

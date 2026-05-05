@@ -5,15 +5,16 @@ import React from "react";
 import { MdOutlineDeleteOutline } from "react-icons/md";
 import { useToast } from "../ui/use-toast";
 import { useRouter } from "next/navigation";
+import type { Id } from "@/convex/_generated/dataModel";
 
 const Delete = ({
   postId,
   imageStorageId,
   audioStorageId,
 }: {
-  postId: string;
-  audioStorageId: string | null;
-  imageStorageId: string;
+  postId: Id<"posts">;
+  audioStorageId?: Id<"_storage"> | null;
+  imageStorageId?: Id<"_storage"> | null;
 }) => {
   const { user } = useUser();
   const deletePost = useMutation(api.posts.deletePost);
@@ -22,12 +23,11 @@ const Delete = ({
 
   const handleDelete = async () => {
     try {
-      // Add the mutation to delete the Post from the database
       if (user) {
         await deletePost({
           postId,
-          imageStorageId,
-          audioStorageId,
+          imageStorageId: imageStorageId!,
+          audioStorageId: audioStorageId ?? null,
         });
 
         toast({

@@ -10,7 +10,7 @@ import { PostComments } from "./PostComments";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import Delete from "./post-actions/Delete";
-import { Share } from "./post-actions/CopyLink";
+import { Share } from "./post-actions/Share";
 import Saved from "./post-actions/Saved";
 
 const PostCard = ({
@@ -33,10 +33,8 @@ const PostCard = ({
   const router = useRouter();
   const { user } = useUser();
   const postComments = useQuery(api.posts.getComments, {
-    // @ts-ignore
     postId,
   });
-  const post = useQuery(api.posts.getAllPosts);
 
   const handleToggleCommentBox = () => {
     setToggleComment(!toggleComment);
@@ -124,7 +122,6 @@ const PostCard = ({
             </div>
           </div>
           <div className={styles.right}>
-            <Saved post={post} audioStorageId={audioStorageId}></Saved>
             <Delete
               postId={postId}
               imageStorageId={imageStorageId}

@@ -211,3 +211,150 @@ Summary:
     }
   },
 });
+
+export const suggestTitlesAction = action({
+  args: { content: v.string() },
+  handler: async (ctx, { content }) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) throw new Error("Unauthenticated");
+    const userId = identity.subject;
+    const currentDay = getStartOfDay();
+
+    const userCallCount = await ctx.runQuery(
+      api.userCallsCount.getUserCallCount,
+      { userId, day: currentDay }
+    );
+    if (userCallCount >= 6) {
+      throw new RateLimitError("You have exceeded the maximum number of calls to this function.");
+    }
+
+    try {
+      const TEMPLATE = `You are an expert copywriter. Based on the following blog post content, suggest 5 catchy, click-worthy titles. Each title should be on a new line starting with a number. No extra text, just the titles.
+
+Blog Content:
+{content}
+
+Titles:`;
+
+      const model = new ChatOpenAI({
+        apiKey: process.env.OPENAI_API_KEY,
+        model: "gpt-4",
+        temperature: 0.7,
+        maxTokens: 150,
+      });
+
+      const parser = new StringOutputParser();
+      const promptTemplate = PromptTemplate.fromTemplate(TEMPLATE);
+      const chain = promptTemplate.pipe(model).pipe(parser);
+      const response = await chain.invoke({ content });
+
+      await ctx.runMutation(api.userCallsCount.incrementUserCallCount, {
+        userId,
+        day: currentDay,
+      });
+
+      return response;
+    } catch (e) {
+      console.error("Error suggesting titles:", e);
+      throw new Error("Failed to suggest titles");
+    }
+  },
+});
+
+export const rewriteToneAction = action({
+  args: { text: v.string(), tone: v.string() },
+  handler: async (ctx, { text, tone }) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) throw new Error("Unauthenticated");
+    const userId = identity.subject;
+    const currentDay = getStartOfDay();
+
+    const userCallCount = await ctx.runQuery(
+      api.userCallsCount.getUserCallCount,
+      { userId, day: currentDay }
+    );
+    if (userCallCount >= 6) {
+      throw new RateLimitError("You have exceeded the maximum number of calls to this function.");
+    }
+
+    try {
+      const TEMPLATE = `Rewrite the following text in a {tone} tone. Keep the same meaning and key points. Return only the rewritten text.
+
+Text:
+{text}
+
+Rewritten:`;
+
+      const model = new ChatOpenAI({
+        apiKey: process.env.OPENAI_API_KEY,
+        model: "gpt-4",
+        temperature: 0.5,
+        maxTokens: 500,
+      });
+
+      const parser = new StringOutputParser();
+      const promptTemplate = PromptTemplate.fromTemplate(TEMPLATE);
+      const chain = promptTemplate.pipe(model).pipe(parser);
+      const response = await chain.invoke({ text, tone });
+
+      await ctx.runMutation(api.userCallsCount.incrementUserCallCount, {
+        userId,
+        day: currentDay,
+      });
+
+      return response;
+    } catch (e) {
+      console.error("Error rewriting tone:", e);
+      throw new Error("Failed to rewrite tone");
+    }
+  },
+});
+
+export const expandContentAction = action({
+  args: { text: v.string() },
+  handler: async (ctx, { text }) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) throw new Error("Unauthenticated");
+    const userId = identity.subject;
+    const currentDay = getStartOfDay();
+
+    const userCallCount = await ctx.runQuery(
+      api.userCallsCount.getUserCallCount,
+      { userId, day: currentDay }
+    );
+    if (userCallCount >= 6) {
+      throw new RateLimitError("You have exceeded the maximum number of calls to this function.");
+    }
+
+    try {
+      const TEMPLATE = `Expand the following text with more detail, examples, and depth. Keep the same writing style. Return only the expanded text.
+
+Text:
+{text}
+
+Expanded:`;
+
+      const model = new ChatOpenAI({
+        apiKey: process.env.OPENAI_API_KEY,
+        model: "gpt-4",
+        temperature: 0.4,
+        maxTokens: 800,
+      });
+
+      const parser = new StringOutputParser();
+      const promptTemplate = PromptTemplate.fromTemplate(TEMPLATE);
+      const chain = promptTemplate.pipe(model).pipe(parser);
+      const response = await chain.invoke({ text });
+
+      await ctx.runMutation(api.userCallsCount.incrementUserCallCount, {
+        userId,
+        day: currentDay,
+      });
+
+      return response;
+    } catch (e) {
+      console.error("Error expanding content:", e);
+      throw new Error("Failed to expand content");
+    }
+  },
+});

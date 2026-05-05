@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { ConvexError, v } from "convex/values";
 
 import { mutation, query } from "./_generated/server";
@@ -37,22 +36,20 @@ export const createPost = mutation({
     }
 
     return await ctx.db.insert("posts", {
-      audioStorageId: args.audioStorageId,
+      audioStorageId: args.audioStorageId ?? null,
       user: user[0]._id,
       postTitle: args.postTitle,
       postDescription: args.postDescription,
-      audioUrl: args.audioUrl,
       imageUrl: args.imageUrl,
-      imageStorageId: args.imageStorageId,
+      imageStorageId: args.imageStorageId ?? undefined,
       author: user[0].name,
       authorId: user[0].clerkId,
       postContent: args.postContent,
-      imagePrompt: args.imagePrompt,
+      imagePrompt: args.imagePrompt ?? "",
       postCategory: args.postCategory,
       views: args.views,
       likes: args.likes,
       authorImageUrl: user[0].imageUrl,
-      audioDuration: args.audioDuration,
     });
   },
 });
@@ -109,7 +106,21 @@ export const editComment = mutation({
     }
 
     // Check if the user is allowed to edit this comment
-    if (existingComment._id !== _id) {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      throw new Error("Not authenticated");
+    }
+
+    const user = await ctx.db
+      .query("users")
+      .filter((q) => q.eq(q.field("email"), identity.email))
+      .first();
+
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    if (existingComment.userId !== user._id) {
       throw new Error("User not authorized to edit this comment");
     }
 
@@ -127,9 +138,13 @@ export const editComment = mutation({
 export const getComments = query({
   args: { postId: v.optional(v.id("posts")) },
   handler: async (ctx, args) => {
+    const { postId } = args;
+    if (!postId) {
+      return [];
+    }
     return await ctx.db
       .query("comments")
-      .withIndex("by_post", (q) => q.eq("postId", args.postId))
+      .withIndex("by_post", (q) => q.eq("postId", postId))
       .order("desc")
       .collect();
   },
@@ -141,6 +156,9 @@ export const deleteComment = mutation({
     _id: v.optional(v.id("comments")),
   },
   handler: async (ctx, args) => {
+    if (!args._id) {
+      throw new ConvexError("Comment id required");
+    }
     const comment = await ctx.db.get(args._id);
 
     if (!comment) {
@@ -297,7 +315,7 @@ export const getPostBySearch = query({
     return await ctx.db
       .query("posts")
       .withSearchIndex("search_body", (q) =>
-        q.search("postDescription" || "postTitle", args.search)
+        q.search("postDescription", args.search)
       )
       .take(10);
   },
@@ -335,7 +353,7 @@ export const updatePostLikes = mutation({
     if (!post) {
       throw new ConvexError("Post not found");
     }
-    const newLikes = args.increment ? post.likes + 1 : post.likes - 1;
+    const newLikes = args.increment ? (post.likes ?? 0) + 1 : (post.likes ?? 0) - 1;
     return await ctx.db.patch(args.postId, {
       likes: newLikes,
     });
@@ -347,7 +365,17 @@ export const updatePostViews = mutation({
   args: {
     postId: v.id("posts"),
   },
-  handler: async (ctx, args) => {},
+  handler: async (ctx, args) => {
+    const post = await ctx.db.get(args.postId);
+
+    if (!post) {
+      throw new ConvexError("Post not found");
+    }
+
+    return await ctx.db.patch(args.postId, {
+      views: post.views + 1,
+    });
+  },
 });
 
 // this mutation will delete the post.
@@ -369,7 +397,7 @@ export const deletePost = mutation({
       try {
         await ctx.storage.delete(args.imageStorageId);
       } catch (error) {
-        console.error(`Error deleting image storage: ${error.message}`);
+        console.error(`Error deleting image storage: ${error instanceof Error ? error.message : String(error)}`);
       }
     }
 
@@ -377,7 +405,7 @@ export const deletePost = mutation({
       try {
         await ctx.storage.delete(args.audioStorageId);
       } catch (error) {
-        console.error(`Error deleting audio storage: ${error.message}`);
+        console.error(`Error deleting audio storage: ${error instanceof Error ? error.message : String(error)}`);
       }
     }
 
@@ -417,11 +445,16 @@ export const createSavedPost = mutation({
       throw new ConvexError("User not found");
     }
 
+    const [firstUser] = user;
+    if (!firstUser) {
+      throw new ConvexError("User not found");
+    }
+
     return await ctx.db.insert("savedPosts", {
       audioStorageId: args.audioStorageId,
       imageStorageId: args.imageStorageId,
-      imagePrompt: args.imagePrompt,
-      user: user[0]._id,
+      imagePrompt: args.imagePrompt ?? "",
+      user: firstUser._id,
       postTitle: args.postTitle,
       postId: args.postId,
       imageUrl: args.imageUrl,
@@ -430,9 +463,9 @@ export const createSavedPost = mutation({
       postCategory: args.postCategory,
       views: args.views,
       likes: args.likes,
-      author: user[0].name,
-      authorId: user[0].clerkId,
-      authorImageUrl: user[0].imageUrl,
+      author: firstUser.name,
+      authorId: firstUser.clerkId,
+      authorImageUrl: firstUser.imageUrl,
       savedAt: Date.now(),
     });
   },
@@ -481,8 +514,12 @@ export const deleteSavedPost = mutation({
       throw new ConvexError("Post not found");
     }
 
-    await ctx.storage.delete(args.imageStorageId);
-    await ctx.storage.delete(args.audioStorageId);
+    if (args.imageStorageId) {
+      await ctx.storage.delete(args.imageStorageId);
+    }
+    if (args.audioStorageId) {
+      await ctx.storage.delete(args.audioStorageId);
+    }
     return await ctx.db.delete(args.postId);
   },
 });

@@ -9,9 +9,10 @@ import { useUser } from "@clerk/nextjs"
 import Like from "./post-actions/Like"
 import { useMutation, useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
-import { CalendarIcon, Eye, MessageCircle, User } from "lucide-react"
+import { CalendarIcon, Clock, Eye, MessageCircle, User } from "lucide-react"
 import { Badge } from "./ui/badge"
 import { Button } from "./ui/button"
+import { calculateReadingTime, formatReadingTime } from "@/lib/readingTime"
 
 const HomeCard = ({
   imageUrl,
@@ -57,6 +58,8 @@ const HomeCard = ({
     })
   }
 
+  const readingTime = formatReadingTime(calculateReadingTime(content || ""))
+
   return (
     <article className="group bg-slate-800/30 backdrop-blur-sm border border-slate-700/50 rounded-2xl p-6 hover:bg-slate-800/50 transition-all duration-300 hover:border-slate-600/50 hover:shadow-xl hover:shadow-slate-900/20 cursor-pointer">
       <div className="flex items-start justify-between mb-6">
@@ -83,11 +86,17 @@ const HomeCard = ({
             >
               {author}
             </Link>
-            <div className="flex items-center gap-2 mt-1">
-              <CalendarIcon className="h-4 w-4 text-slate-400" />
-              <time dateTime={new Date(_creationTime).toISOString()} className="text-sm text-slate-400">
-                {formatDate(_creationTime)}
-              </time>
+            <div className="flex items-center gap-3 mt-1">
+              <span className="flex items-center gap-1">
+                <Clock className="h-3.5 w-3.5 text-slate-400" />
+                <span className="text-sm text-slate-400">{readingTime}</span>
+              </span>
+              <span className="flex items-center gap-1">
+                <CalendarIcon className="h-3.5 w-3.5 text-slate-400" />
+                <time dateTime={new Date(_creationTime).toISOString()} className="text-sm text-slate-400">
+                  {formatDate(_creationTime)}
+                </time>
+              </span>
             </div>
           </div>
         </div>

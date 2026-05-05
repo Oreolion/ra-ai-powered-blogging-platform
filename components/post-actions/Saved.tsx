@@ -8,13 +8,14 @@ import { useToast } from "../ui/use-toast";
 import { useMutation, useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { PostProps } from "@/types";
+import type { Id } from "@/convex/_generated/dataModel";
 
 const Saved = ({
   post,
   audioStorageId,
 }: {
   post: PostProps;
-  audioStorageId: string;
+  audioStorageId?: Id<"_storage"> | null;
 }) => {
   const [isSaved, setIsSaved] = useState(false);
   const [saveCount, setSaveCount] = useState(0);
@@ -52,7 +53,7 @@ const Saved = ({
         await deleteSavedPostMutation({
           postId: post._id,
           imageStorageId: post.imageStorageId,
-          audioStorageId: post.audioStorageId!,
+          audioStorageId: post.audioStorageId,
         });
         setIsSaved(false);
         setSaveCount((prev) => prev - 1);
@@ -64,20 +65,17 @@ const Saved = ({
           postContent: post.postContent,
           postCategory: post.postCategory,
           postId: post._id,
-          audioUrl: post.audioUrl,
           imageUrl: post.imageUrl,
           views: post.views,
-          likes: post.likes,
+          likes: post.likes ?? 0,
           imagePrompt: post.imagePrompt,
-          audioStorageId: audioStorageId!,
-          audioDuration: post?.audioDuration,
+          audioStorageId: post.audioStorageId,
           imageStorageId: post.imageStorageId,
         });
         setIsSaved(true);
         setSaveCount((prev) => prev + 1);
         toast({ title: "Post Added to Bookmarks" });
       }
-      //   await savedPosts.refetch();
     } catch (error) {
       toast({
         title: "Error occurred while Saving Post",

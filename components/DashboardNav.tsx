@@ -6,7 +6,8 @@ import { usePathname, useRouter } from "next/navigation";
 import type { postCategory } from "@/types";
 import Image from "next/image";
 import slugify from "slugify";
-import {  LogOutIcon } from "lucide-react";
+import { LogOutIcon } from "lucide-react";
+import ThemeToggle from "./ThemeToggle";
 const DashboardNav = ({
   onNavToggle,
 }: {
@@ -150,7 +151,8 @@ const DashboardNav = ({
               </div>
             </div>
             {/* Toggle button when collapsed */}
-            <div className="p-3 border-t border-slate-700 flex justify-center mb-20">
+            <div className="p-3 border-t border-slate-700 flex justify-center items-center gap-2 mb-20">
+              <ThemeToggle />
               <button
                 type="button"
                 onClick={handleShowNavbar}
@@ -317,7 +319,8 @@ const DashboardNav = ({
               </div>
             </div>
             {/* Toggle button inside expanded nav */}
-            <div className="absolute top-4 right-4 z-50">
+            <div className="absolute top-4 right-4 z-50 flex items-center gap-2">
+              <ThemeToggle />
               <button
                 type="button"
                 onClick={handleShowNavbar}

@@ -7,36 +7,36 @@ import { Id } from "../convex/_generated/dataModel";
 export interface PostProps {
   _id: Id<"posts">;
   _creationTime: number;
-  audioStorageId: Id<"_storage"> | null;
+  audioStorageId?: Id<"_storage"> | null;
   user: Id<"users">;
   postTitle: string;
   postDescription: string;
   postContent: string;
   postCategory: string;
-  audioUrl: string | null;
-  imageUrl: string | null;
-  summary: string | null;
-  imageStorageId: Id<"_storage"> | null;
+  audioUrl?: string;
+  imageUrl: string;
+  summary?: string | null;
+  imageStorageId?: Id<"_storage"> | null;
   author: string;
   authorId: string;
   authorImageUrl: string;
-  imagePrompt: string | null;
-  audioDuration: number;
+  imagePrompt?: string;
+  audioDuration?: number;
   views: number;
-  //   viewedBy: string[];
-  likes: number;
+  likes?: number;
 }
 
 export interface PostCommentType {
   content: string;
-  newContent: string;
-  _id: string;
+  newContent?: string;
+  _id: Id<"comments">;
   _creationTime: number;
-  editedAt: number;
-  postId: string;
+  editedAt?: number;
+  createdAt?: number;
+  postId: Id<"posts">;
   userId: string;
-  username: string;
-  commentUserImage: string;
+  username?: string;
+  commentUserImage?: string;
 }
 
 export type PostCommentsArrayType = PostCommentType[];
@@ -61,11 +61,12 @@ export type postCategory =
   | "Others";
 
 export interface GeneratePostProps {
-  postCategory: postCategory;
+  postCategory?: postCategory;
   postContent: string;
   setPostContent: Dispatch<SetStateAction<string>>;
-  prompt: string;
-  setPrompt: Dispatch<SetStateAction<string>>;
+  prompt?: string;
+  setPrompt?: Dispatch<SetStateAction<string>>;
+  setAudio?: Dispatch<SetStateAction<string>>;
 }
 
 export interface EmptyStateProps {
@@ -95,10 +96,10 @@ export interface PostCardProps {
   authorImageUrl?: string;
   description: string;
   postId: Id<"posts">;
-  authorId: string;
-  imageStorageId: string;
-  audioStorageId: string | null;
-  shouldNavigate?: boolean
+  authorId?: string;
+  imageStorageId?: Id<"_storage"> | null;
+  audioStorageId?: Id<"_storage"> | null;
+  shouldNavigate?: boolean;
 }
 
 export interface ProfilePostProps {

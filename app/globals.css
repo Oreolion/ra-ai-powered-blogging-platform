@@ -6,9 +6,31 @@
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   --orange: #e67e22;
+  --orange-light: #d35400;
   --black: #333;
   --light-color: #777;
   --box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+
+  /* Theme-aware CSS variables */
+  --bg-body: #f5f5f5;
+  --bg-card: #ffffff;
+  --bg-input: #f0f0f0;
+  --text-primary: #1a1a1a;
+  --text-secondary: #555555;
+  --text-muted: #888888;
+  --border-color: #e0e0e0;
+  --nav-bg: rgba(255, 255, 255, 0.9);
+}
+
+.dark {
+  --bg-body: #333;
+  --bg-card: #1e1e1e;
+  --bg-input: #0f0f0f;
+  --text-primary: #f5f5f5;
+  --text-secondary: #d1d1d1;
+  --text-muted: #a1a1a1;
+  --border-color: #444;
+  --nav-bg: rgba(30, 30, 30, 0.9);
 }
 
 *,
@@ -30,7 +52,9 @@ html {
 }
 
 body {
-  background: #333;
+  background: var(--bg-body);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 ul {
@@ -82,9 +106,10 @@ button {
     -webkit-backdrop-filter: blur(4px);
   }
   .glassmorphism-black {
-    background: rgba(18, 18, 18, 0.64);
+    background: var(--nav-bg);
     backdrop-filter: blur(37px);
     -webkit-backdrop-filter: blur(37px);
+    transition: background-color 0.3s ease;
   }
   
   /* ======= clerk overrides ======== */
@@ -135,15 +160,16 @@ button {
 
   .input-class {
     font-size: 16px;
-    background-color: #0f0f0f;
+    background-color: var(--bg-input);
     border-radius: 6px;
-    color: #d1d1d1;
-    border: none;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
   }
   
   .input-class::placeholder {
     font-size: 16px;
-    color: #a1a1a1;
+    color: var(--text-muted);
   }
 
  

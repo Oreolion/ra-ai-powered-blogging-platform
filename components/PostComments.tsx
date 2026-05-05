@@ -7,17 +7,16 @@ import { useToast } from "./ui/use-toast"
 import type { PostCommentsArrayType } from "@/types"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
-// import { useTimeAgo } from "../custom-hooks/useTimeAgo";
 import { useMutation, useQuery } from "convex/react"
 import { api } from "@/convex/_generated/api"
 import { MdModeEdit, MdOutlineDelete } from "react-icons/md"
 import type { Id } from "@/convex/_generated/dataModel"
 
-export const PostComments = ({ postId }: { postId: string }) => {
+export const PostComments = ({ postId }: { postId: Id<"posts"> }) => {
   const [comment, setComment] = useState("")
   const [comments, setComments] = useState<PostCommentsArrayType>([])
   const [toggleComment, setToggleComment] = useState<boolean>(true)
-  const [editingCommentId, setEditingCommentId] = useState<string | null>(null)
+  const [editingCommentId, setEditingCommentId] = useState<Id<"comments"> | null>(null)
 
   const [more, setMore] = useState(false)
   const [isEdit, setIsEdit] = useState(false)
@@ -34,7 +33,7 @@ export const PostComments = ({ postId }: { postId: string }) => {
   const userId = useQuery(api.users.getUserById, { clerkId: user?.id })
 
   useEffect(() => {
-    setComments(postComments)
+    setComments(postComments ?? [])
   }, [postComments])
 
   const createComment = async () => {
@@ -70,9 +69,8 @@ export const PostComments = ({ postId }: { postId: string }) => {
     }
   }
 
-  const removeComment = async (commentId: string) => {
+  const removeComment = async (commentId: Id<"comments">) => {
     try {
-      // Add the mutation to delete the comment from the database
       if (user) {
         await deleteComment({
           _id: commentId,
@@ -102,7 +100,7 @@ export const PostComments = ({ postId }: { postId: string }) => {
         await editCommentMutation({
           _id,
           newContent,
-          userId: userId?._id,
+          userId: userId._id,
         })
         setEditComment("")
         setIsEdit(false)

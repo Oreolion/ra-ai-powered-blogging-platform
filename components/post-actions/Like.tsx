@@ -8,8 +8,9 @@ import { useToast } from "../ui/use-toast"
 import { api } from "@/convex/_generated/api"
 import { useMutation } from "convex/react"
 import { useRouter } from "next/navigation"
+import type { Id } from "@/convex/_generated/dataModel"
 
-const Like = ({ likes, postId }: { likes: number; postId: string }) => {
+const Like = ({ likes, postId }: { likes: number; postId: Id<"posts"> }) => {
   const [isLiked, setIsLiked] = useState(false)
   const [likeBounce, setLikeBounce] = useState(false)
   const [likeCount, setLikeCount] = useState(likes)

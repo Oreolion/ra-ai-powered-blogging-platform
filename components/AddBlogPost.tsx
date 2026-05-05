@@ -3,6 +3,7 @@ import styles from "@/styles/addblogpost.module.css";
 import { zodResolver } from "@hookform/resolvers/zod";
 import GeneratePost from "@/components/GeneratePost";
 import GenerateThumbnail from "@/components/GenerateThumbnail";
+import AICreatorTools from "@/components/AICreatorTools";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import {
@@ -247,7 +248,6 @@ export default function AddBlogPost() {
             <GeneratePost
               //   postDescription={postDescription}
               setAudio={setAudioUrl}
-              postCategory={postCategories}
               postContent={postContent}
               setPostContent={setPostContent}
             ></GeneratePost>

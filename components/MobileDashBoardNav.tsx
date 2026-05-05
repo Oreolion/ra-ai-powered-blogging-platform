@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { SignedIn, UserButton, useUser, useClerk } from "@clerk/nextjs";
+import ThemeToggle from "./ThemeToggle";
 import { useEffect, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import type { postCategory } from "@/types";
@@ -194,6 +195,8 @@ const MobileDashBoardNav = () => {
                   </div>
                 </div>
               )}
+
+              <ThemeToggle />
 
               {/* User Avatar */}
               <div className="flex items-center justify-center">

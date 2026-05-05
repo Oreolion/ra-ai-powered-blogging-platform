@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     typescript: {
+      // TODO: Fix all TypeScript errors incrementally during feature development
       ignoreBuildErrors: true,
     },
     images: {

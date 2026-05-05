@@ -6,6 +6,7 @@ import { useUser } from "@clerk/nextjs";
 import { useMutation, useQuery } from "convex/react";
 import { useRouter } from "next/navigation";
 import { api } from "@/convex/_generated/api";
+import type { Id } from "@/convex/_generated/dataModel";
 
 // --- MOCKS ---
 
@@ -118,7 +119,7 @@ describe("PostComments Component", () => {
   });
 
   it("renders comments list correctly", () => {
-    render(<PostComments postId={mockPostId} />);
+    render(<PostComments postId={mockPostId as Id<"posts">} />);
 
     // Check header/input area
     expect(screen.getByPlaceholderText("What are your thoughts?")).toBeInTheDocument();
@@ -131,7 +132,7 @@ describe("PostComments Component", () => {
 
   it("handles 'Read More / Read Less' toggle for long comments", async () => {
     const user = userEvent.setup();
-    render(<PostComments postId={mockPostId} />);
+    render(<PostComments postId={mockPostId as Id<"posts">} />);
 
     // Initial state: Should show substring (check for part of the text)
     // The component slices at 100 chars.
@@ -153,7 +154,7 @@ describe("PostComments Component", () => {
 
   it("allows user to create a comment", async () => {
     const user = userEvent.setup();
-    render(<PostComments postId={mockPostId} />);
+    render(<PostComments postId={mockPostId as Id<"posts">} />);
 
     const input = screen.getByPlaceholderText("What are your thoughts?");
     const submitBtn = screen.getByText("Comment");
@@ -176,7 +177,7 @@ describe("PostComments Component", () => {
 
   it("shows error toast if creating empty comment", async () => {
     const user = userEvent.setup();
-    render(<PostComments postId={mockPostId} />);
+    render(<PostComments postId={mockPostId as Id<"posts">} />);
 
     const submitBtn = screen.getByText("Comment");
 
@@ -192,7 +193,7 @@ describe("PostComments Component", () => {
     (useUser as jest.Mock).mockReturnValue({ user: null, isSignedIn: false });
     
     const user = userEvent.setup();
-    render(<PostComments postId={mockPostId} />);
+    render(<PostComments postId={mockPostId as Id<"posts">} />);
 
     const input = screen.getByPlaceholderText("What are your thoughts?");
     await user.type(input, "I am not logged in");
@@ -204,7 +205,7 @@ describe("PostComments Component", () => {
 
   it("allows author to delete their own comment", async () => {
     const user = userEvent.setup();
-    render(<PostComments postId={mockPostId} />);
+    render(<PostComments postId={mockPostId as Id<"posts">} />);
 
     // Find delete icon (MdOutlineDelete)
     // Since react-icons render SVGs, typically we look for them via a test-id or their structure.
@@ -243,7 +244,7 @@ describe("PostComments Component", () => {
 
   it("allows author to edit their own comment", async () => {
     const user = userEvent.setup();
-    render(<PostComments postId={mockPostId} />);
+    render(<PostComments postId={mockPostId as Id<"posts">} />);
 
     const commentItems = screen.getAllByRole("listitem");
     const myComment = commentItems[0]; 
@@ -272,7 +273,7 @@ describe("PostComments Component", () => {
   });
 
   it("does not show edit/delete options for comments by other users", () => {
-    render(<PostComments postId={mockPostId} />);
+    render(<PostComments postId={mockPostId as Id<"posts">} />);
 
     // "Other User" comment (index 1)
     const commentItems = screen.getAllByRole("listitem");
@@ -295,7 +296,7 @@ describe("PostComments Component", () => {
         return null;
     });
 
-    render(<PostComments postId={mockPostId} />);
+    render(<PostComments postId={mockPostId as Id<"posts">} />);
     expect(screen.getByText("Be the First to Comment")).toBeInTheDocument();
   });
 });
