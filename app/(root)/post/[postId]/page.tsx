@@ -8,7 +8,7 @@ import { useRef, useState, useEffect } from "react";
 import type { Id } from "@/convex/_generated/dataModel";
 import { useUser } from "@clerk/nextjs";
 import styles from "@/styles/homefeeds.module.css";
-import Like from "@/components/post-actions/Like";
+import Claps from "@/components/post-actions/Claps";
 import HomeCard from "@/components/HomeCard";
 import { PostComments } from "@/components/PostComments";
 import Delete from "@/components/post-actions/Delete";
@@ -29,7 +29,7 @@ import { marked } from "marked";
 import ReadingProgressBar from "@/components/ReadingProgressBar";
 import TableOfContents from "@/components/TableOfContents";
 import { calculateReadingTime, formatReadingTime } from "@/lib/readingTime";
-import { Clock } from "lucide-react";
+import { Clock, BookOpen } from "lucide-react";
 import CodeBlock from "@/components/CodeBlock";
 
 const PostDetails = ({
@@ -47,6 +47,7 @@ const PostDetails = ({
   const summaryRef = useRef<HTMLDivElement>(null);
   const summarizePost = useAction(api.openai.summarizePostAction);
   const saveSummary = useMutation(api.posts.saveSummary);
+  const addToReadingList = useMutation(api.posts.addToReadingList);
   const { toast } = useToast();
   const { user } = useUser();
 
@@ -441,7 +442,7 @@ const PostDetails = ({
               <>
                 {/* Interaction Group */}
                 <div className="flex items-center gap-1 ">
-                  <Like likes={post?.likes ?? 0} postId={post._id} />
+                  <Claps postId={post._id} />
                 </div>
 
                 <div
@@ -459,6 +460,28 @@ const PostDetails = ({
 
                 {/* Tools Group */}
                 <div className="flex items-center gap-3">
+                  <Claps postId={post._id} />
+
+                  <button
+                    onClick={async () => {
+                      try {
+                        const result = await addToReadingList({ postId });
+                        toast({
+                          title: result.action === "added" ? "Added to Reading List" : "Removed from Reading List",
+                        });
+                      } catch (error: any) {
+                        toast({
+                          title: error.message || "Sign in required",
+                          variant: "destructive",
+                        });
+                      }
+                    }}
+                    className="flex items-center gap-1.5 text-slate-400 hover:text-blue-400 transition-colors"
+                    title="Read Later"
+                  >
+                    <BookOpen className="w-5 h-5" />
+                  </button>
+
                   <Saved post={post} audioStorageId={post.audioStorageId} />
 
                   <CopyLink />

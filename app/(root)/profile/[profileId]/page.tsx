@@ -32,6 +32,7 @@ const ProfilePage = ({
           postData={postsData}
           imageUrl={user?.imageUrl}
           userFirstName={user?.name}
+          profileClerkId={params.profileId}
         />
       </div>
       <section className="mt-4 ml-[-3rem] flex flex-col gap-5">

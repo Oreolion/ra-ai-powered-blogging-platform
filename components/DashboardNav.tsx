@@ -112,6 +112,23 @@ const DashboardNav = ({
                     <path d="M0 48V487.7C0 501.1 10.9 512 24.3 512c5 0 9.9-1.5 14-4.4L192 400 345.7 507.6c4.1 2.9 9 4.4 14 4.4c13.4 0 24.3-10.9 24.3-24.3V48c0-26.5-21.5-48-48-48H48C21.5 0 0 21.5 0 48z" />
                   </svg>
                 </Link>
+                <Link
+                  href="/reading-list"
+                  className={`w-10 h-10 flex items-center justify-center rounded-lg transition-colors ${
+                    isLinkActive("/reading-list")
+                      ? "bg-orange-500/20 text-orange-400"
+                      : "text-slate-400 hover:text-white hover:bg-slate-800"
+                  }`}
+                  title="Reading List"
+                >
+                  <svg
+                    className="w-5 h-5 fill-current"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 576 512"
+                  >
+                    <path d="M249.6 471.5c10.8 3.8 22.4-4.1 22.4-15.5l0-377.4c0-4.2-1.6-8.4-5-11C247.4 52 202.4 32 144 32C93.5 32 46.3 45.3 18.1 56.1C6.8 60.5 0 71.7 0 83.8L0 454.1c0 11.9 12.8 20.2 24.1 16.5C55.6 460.1 105.5 448 144 448c33.9 0 79 14 105.6 23.5zm76.8 0C353 461.6 398.1 448 432 448c38.5 0 88.4 12.1 119.9 22.6c11.3 3.7 24.1-4.6 24.1-16.5l0-370.3c0-12.1-6.8-23.3-18.1-27.6C529.7 45.3 482.5 32 432 32c-58.4 0-103.4 20-123 35.6c-3.3 2.6-5 6.8-5 11L304 456c0 11.4 11.7 19.3 22.4 15.5z" />
+                  </svg>
+                </Link>
               </div>
               {/* Divider */}
               <div className="w-8 h-px bg-slate-700 mx-auto mb-6"></div>
@@ -241,6 +258,24 @@ const DashboardNav = ({
                       <path d="M0 48V487.7C0 501.1 10.9 512 24.3 512c5 0 9.9-1.5 14-4.4L192 400 345.7 507.6c4.1 2.9 9 4.4 14 4.4c13.4 0 24.3-10.9 24.3-24.3V48c0-26.5-21.5-48-48-48H48C21.5 0 0 21.5 0 48z" />
                     </svg>
                     <span>Bookmarks</span>
+                  </Link>
+                  <Link
+                    href="/reading-list"
+                    className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-colors ${
+                      isLinkActive("/reading-list")
+                        ? "bg-orange-500/20 text-orange-400 border border-orange-500/30"
+                        : "text-slate-300 hover:text-white hover:bg-slate-800"
+                    }`}
+                  >
+                    <svg
+                      className="w-5 h-5 fill-current"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 576 512"
+                    >
+                      <title>Reading List</title>
+                      <path d="M249.6 471.5c10.8 3.8 22.4-4.1 22.4-15.5l0-377.4c0-4.2-1.6-8.4-5-11C247.4 52 202.4 32 144 32C93.5 32 46.3 45.3 18.1 56.1C6.8 60.5 0 71.7 0 83.8L0 454.1c0 11.9 12.8 20.2 24.1 16.5C55.6 460.1 105.5 448 144 448c33.9 0 79 14 105.6 23.5zm76.8 0C353 461.6 398.1 448 432 448c38.5 0 88.4 12.1 119.9 22.6c11.3 3.7 24.1-4.6 24.1-16.5l0-370.3c0-12.1-6.8-23.3-18.1-27.6C529.7 45.3 482.5 32 432 32c-58.4 0-103.4 20-123 35.6c-3.3 2.6-5 6.8-5 11L304 456c0 11.4 11.7 19.3 22.4 15.5z" />
+                    </svg>
+                    <span>Reading List</span>
                   </Link>
                 </div>
               </div>

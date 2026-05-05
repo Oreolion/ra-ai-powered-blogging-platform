@@ -541,3 +541,337 @@ export const saveSummary = mutation({
     return updatedPost;
   },
 });
+
+
+// ======================= FOLLOW SYSTEM =======================
+
+export const followUser = mutation({
+  args: {
+    followingId: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) throw new ConvexError("Not authenticated");
+
+    const followerId = identity.subject;
+    if (followerId === args.followingId) {
+      throw new ConvexError("You cannot follow yourself");
+    }
+
+    const existing = await ctx.db
+      .query("followers")
+      .withIndex("by_both", (q) =>
+        q.eq("followerId", followerId).eq("followingId", args.followingId)
+      )
+      .unique();
+
+    if (existing) {
+      await ctx.db.delete(existing._id);
+      return { action: "unfollowed" };
+    }
+
+    await ctx.db.insert("followers", {
+      followerId,
+      followingId: args.followingId,
+      createdAt: Date.now(),
+    });
+    return { action: "followed" };
+  },
+});
+
+export const isFollowing = query({
+  args: {
+    followingId: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) return false;
+
+    const followerId = identity.subject;
+    const existing = await ctx.db
+      .query("followers")
+      .withIndex("by_both", (q) =>
+        q.eq("followerId", followerId).eq("followingId", args.followingId)
+      )
+      .unique();
+
+    return !!existing;
+  },
+});
+
+export const getFollowerCount = query({
+  args: {
+    userId: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const followers = await ctx.db
+      .query("followers")
+      .withIndex("by_following", (q) => q.eq("followingId", args.userId))
+      .collect();
+    return followers.length;
+  },
+});
+
+export const getFollowingCount = query({
+  args: {
+    userId: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const following = await ctx.db
+      .query("followers")
+      .withIndex("by_follower", (q) => q.eq("followerId", args.userId))
+      .collect();
+    return following.length;
+  },
+});
+
+export const getPostsByFollowing = query({
+  handler: async (ctx) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) return [];
+
+    const follows = await ctx.db
+      .query("followers")
+      .withIndex("by_follower", (q) => q.eq("followerId", identity.subject))
+      .collect();
+
+    const followingIds = follows.map((f) => f.followingId);
+    if (followingIds.length === 0) return [];
+
+    const posts = await ctx.db.query("posts").order("desc").collect();
+    return posts.filter((post) => followingIds.includes(post.authorId));
+  },
+});
+
+// ======================= READING LIST =======================
+
+export const addToReadingList = mutation({
+  args: {
+    postId: v.id("posts"),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) throw new ConvexError("Not authenticated");
+
+    const user = await ctx.db
+      .query("users")
+      .filter((q) => q.eq(q.field("email"), identity.email))
+      .first();
+
+    if (!user) throw new ConvexError("User not found");
+
+    const existing = await ctx.db
+      .query("readingList")
+      .withIndex("by_user_and_post", (q) =>
+        q.eq("userId", user._id).eq("postId", args.postId)
+      )
+      .unique();
+
+    if (existing) {
+      await ctx.db.delete(existing._id);
+      return { action: "removed" };
+    }
+
+    await ctx.db.insert("readingList", {
+      userId: user._id,
+      postId: args.postId,
+      isRead: false,
+      addedAt: Date.now(),
+    });
+    return { action: "added" };
+  },
+});
+
+export const getReadingList = query({
+  handler: async (ctx) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) return [];
+
+    const user = await ctx.db
+      .query("users")
+      .filter((q) => q.eq(q.field("email"), identity.email))
+      .first();
+
+    if (!user) return [];
+
+    const items = await ctx.db
+      .query("readingList")
+      .withIndex("by_user", (q) => q.eq("userId", user._id))
+      .order("desc")
+      .collect();
+
+    const posts = await Promise.all(
+      items.map(async (item) => {
+        const post = await ctx.db.get(item.postId);
+        return { ...post, readingListId: item._id, isRead: item.isRead };
+      })
+    );
+
+    return posts.filter((p) => p !== null);
+  },
+});
+
+export const markAsRead = mutation({
+  args: {
+    readingListId: v.id("readingList"),
+  },
+  handler: async (ctx, args) => {
+    const item = await ctx.db.get(args.readingListId);
+    if (!item) throw new ConvexError("Item not found");
+
+    await ctx.db.patch(args.readingListId, {
+      isRead: !item.isRead,
+    });
+    return { isRead: !item.isRead };
+  },
+});
+
+// ======================= COMMENT REACTIONS =======================
+
+export const toggleCommentReaction = mutation({
+  args: {
+    commentId: v.id("comments"),
+    emoji: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) throw new ConvexError("Not authenticated");
+
+    const userId = identity.subject;
+    const existing = await ctx.db
+      .query("commentReactions")
+      .withIndex("by_user_and_comment", (q) =>
+        q.eq("userId", userId).eq("commentId", args.commentId)
+      )
+      .unique();
+
+    if (existing) {
+      if (existing.emoji === args.emoji) {
+        await ctx.db.delete(existing._id);
+        return { action: "removed" };
+      }
+      await ctx.db.patch(existing._id, { emoji: args.emoji });
+      return { action: "updated" };
+    }
+
+    await ctx.db.insert("commentReactions", {
+      commentId: args.commentId,
+      userId,
+      emoji: args.emoji,
+      createdAt: Date.now(),
+    });
+    return { action: "added" };
+  },
+});
+
+export const getCommentReactions = query({
+  args: {
+    commentId: v.id("comments"),
+  },
+  handler: async (ctx, args) => {
+    const reactions = await ctx.db
+      .query("commentReactions")
+      .withIndex("by_comment", (q) => q.eq("commentId", args.commentId))
+      .collect();
+
+    const grouped: Record<string, number> = {};
+    reactions.forEach((r) => {
+      grouped[r.emoji] = (grouped[r.emoji] || 0) + 1;
+    });
+
+    return { reactions, grouped, total: reactions.length };
+  },
+});
+
+export const getUserCommentReaction = query({
+  args: {
+    commentId: v.id("comments"),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) return null;
+
+    const reaction = await ctx.db
+      .query("commentReactions")
+      .withIndex("by_user_and_comment", (q) =>
+        q.eq("userId", identity.subject).eq("commentId", args.commentId)
+      )
+      .unique();
+
+    return reaction?.emoji || null;
+  },
+});
+
+// ======================= POST CLAPS (Medium-style) =======================
+
+export const clapPost = mutation({
+  args: {
+    postId: v.id("posts"),
+    count: v.number(),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) throw new ConvexError("Not authenticated");
+
+    const userId = identity.subject;
+    const clampedCount = Math.max(1, Math.min(args.count, 50));
+
+    const existing = await ctx.db
+      .query("claps")
+      .withIndex("by_user_and_post", (q) =>
+        q.eq("userId", userId).eq("postId", args.postId)
+      )
+      .unique();
+
+    if (existing) {
+      await ctx.db.patch(existing._id, {
+        count: existing.count + clampedCount,
+      });
+      return { totalClaps: existing.count + clampedCount };
+    }
+
+    await ctx.db.insert("claps", {
+      postId: args.postId,
+      userId,
+      count: clampedCount,
+      createdAt: Date.now(),
+    });
+    return { totalClaps: clampedCount };
+  },
+});
+
+export const getPostClaps = query({
+  args: {
+    postId: v.id("posts"),
+  },
+  handler: async (ctx, args) => {
+    const claps = await ctx.db
+      .query("claps")
+      .withIndex("by_post", (q) => q.eq("postId", args.postId))
+      .collect();
+
+    const totalClaps = claps.reduce((sum, c) => sum + c.count, 0);
+    const clapperCount = claps.length;
+
+    return { totalClaps, clapperCount };
+  },
+});
+
+export const getUserClap = query({
+  args: {
+    postId: v.id("posts"),
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) return 0;
+
+    const clap = await ctx.db
+      .query("claps")
+      .withIndex("by_user_and_post", (q) =>
+        q.eq("userId", identity.subject).eq("postId", args.postId)
+      )
+      .unique();
+
+    return clap?.count || 0;
+  },
+});

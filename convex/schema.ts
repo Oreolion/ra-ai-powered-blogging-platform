@@ -74,4 +74,44 @@ export default defineSchema({
     likes: v.number(),
     savedAt: v.number(),
   }),
+
+  // Follow system
+  followers: defineTable({
+    followerId: v.string(),
+    followingId: v.string(),
+    createdAt: v.number(),
+  })
+    .index("by_follower", ["followerId"])
+    .index("by_following", ["followingId"])
+    .index("by_both", ["followerId", "followingId"]),
+
+  // Reading list (Read Later)
+  readingList: defineTable({
+    userId: v.id("users"),
+    postId: v.id("posts"),
+    isRead: v.boolean(),
+    addedAt: v.number(),
+  })
+    .index("by_user", ["userId"])
+    .index("by_user_and_post", ["userId", "postId"]),
+
+  // Comment reactions
+  commentReactions: defineTable({
+    commentId: v.id("comments"),
+    userId: v.string(),
+    emoji: v.string(),
+    createdAt: v.number(),
+  })
+    .index("by_comment", ["commentId"])
+    .index("by_user_and_comment", ["userId", "commentId"]),
+
+  // Post claps (Medium-style multi-like)
+  claps: defineTable({
+    postId: v.id("posts"),
+    userId: v.string(),
+    count: v.number(),
+    createdAt: v.number(),
+  })
+    .index("by_post", ["postId"])
+    .index("by_user_and_post", ["userId", "postId"]),
 });

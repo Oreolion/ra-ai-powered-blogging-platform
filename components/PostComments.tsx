@@ -11,6 +11,7 @@ import { useMutation, useQuery } from "convex/react"
 import { api } from "@/convex/_generated/api"
 import { MdModeEdit, MdOutlineDelete } from "react-icons/md"
 import type { Id } from "@/convex/_generated/dataModel"
+import CommentReactions, { CommentReactionPicker } from "./CommentReactions"
 
 export const PostComments = ({ postId }: { postId: Id<"posts"> }) => {
   const [comment, setComment] = useState("")
@@ -125,7 +126,7 @@ export const PostComments = ({ postId }: { postId: Id<"posts"> }) => {
           {comments && comments.length > 0 ? (
             <ul className="space-y-4">
               {comments.map((comment) => (
-                <li className="bg-slate-900/50 border border-slate-700 rounded-lg p-4" key={comment.userId}>
+                <li className="bg-slate-900/50 border border-slate-700 rounded-lg p-4" key={comment._id}>
                   <div className="flex items-center gap-3 mb-3">
                     {comment.commentUserImage ? (
                       <Image
@@ -164,24 +165,28 @@ export const PostComments = ({ postId }: { postId: Id<"posts"> }) => {
                     </p>
                   </div>
 
-                  {user && userId?._id === comment.userId && (
-                    <div className="flex gap-3">
-                      <MdModeEdit
-                        size={20}
-                        onClick={() => {
-                          setIsEdit(true)
-                          setEditComment(comment.content)
-                          setEditingCommentId(comment._id)
-                        }}
-                        className="text-slate-400 hover:text-orange-400 cursor-pointer transition-colors"
-                      />
-                      <MdOutlineDelete
-                        size={20}
-                        onClick={() => removeComment(comment._id)}
-                        className="text-slate-400 hover:text-red-400 cursor-pointer transition-colors"
-                      />
-                    </div>
-                  )}
+                  <div className="flex items-center justify-between">
+                    <CommentReactionPicker commentId={comment._id} />
+                    {user && userId?._id === comment.userId && (
+                      <div className="flex gap-3">
+                        <MdModeEdit
+                          size={20}
+                          onClick={() => {
+                            setIsEdit(true)
+                            setEditComment(comment.content)
+                            setEditingCommentId(comment._id)
+                          }}
+                          className="text-slate-400 hover:text-orange-400 cursor-pointer transition-colors"
+                        />
+                        <MdOutlineDelete
+                          size={20}
+                          onClick={() => removeComment(comment._id)}
+                          className="text-slate-400 hover:text-red-400 cursor-pointer transition-colors"
+                        />
+                      </div>
+                    )}
+                  </div>
+                  <CommentReactions commentId={comment._id} />
                 </li>
               ))}
             </ul>

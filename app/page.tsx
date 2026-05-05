@@ -1,21 +1,19 @@
-import About from "@/components/About";
-import Footer from "@/components/Footer";
-import ForthSection from "@/components/ForthSection";
-import Hero from "@/components/Hero";
+import HeroV2 from "@/components/HeroV2";
+import StatsSection from "@/components/StatsSection";
+import FeaturesShowcase from "@/components/FeaturesShowcase";
+import CTASection from "@/components/CTASection";
+import FooterV2 from "@/components/FooterV2";
 import Navbar from "@/components/Navbar";
-import ThirdSection from "@/components/ThirdSection";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <section>
-        <Navbar></Navbar>
-        <Hero></Hero>
-        <About></About>
-        <ThirdSection></ThirdSection>
-        <ForthSection></ForthSection>
-        <Footer></Footer>
-      </section>
+    <main className="min-h-screen bg-[#333]">
+      <Navbar />
+      <HeroV2 />
+      <StatsSection />
+      <FeaturesShowcase />
+      <CTASection />
+      <FooterV2 />
     </main>
   );
 }
